@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   globals: {
-    jest: true
+    jest: true,
   },
   extends: ["plugin:prettier/recommended"],
 };
