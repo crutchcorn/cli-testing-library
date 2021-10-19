@@ -13,8 +13,8 @@ test("should report a missing plopfile when not copied", async (t) => {
 });
 
 test("should show help information on help flag", async (t) => {
-  const { stdoutStr } = await render(["--help"]);
-  t.regex(stdoutStr, /Usage:/);
+  const { findByText, stdoutStr } = await render(["--help"]);
+  t.truthy(await findByText('Usage:'))
   t.snapshot(stdoutStr);
 });
 

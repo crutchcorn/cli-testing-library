@@ -3,73 +3,86 @@ const { resolve } = require("path");
 // v2
 const stripFinalNewline = require("strip-final-newline");
 const {_runObservers} = require('./_mutation-observer');
+const {getQueriesForElement} = require("./_get-queries-for-instance");
 
-module.exports = {
-  /**
-   * @param {Array} args
-   * @param {Object} opts
-   * @returns {execa.ExecaChildProcess | *}
-   */
-  async render(args = [], opts = {}) {
-    const { cwd = __dirname } = opts;
+/**
+ * @typedef {Object} TestInstance
+ * @param {() => void} cleanup
+ * @param {string[]} stdoutArr
+ * @param {string} stdoutStr
+ * @param {Stream} stdin
+ * @param {Stream} stdout
+ * @param {Stream} stderr
+ */
 
-    const exec = childProcess.spawn(
-      resolve(__dirname, "../node_modules/.bin/nyc"),
+/**
+ * @param {Array} args
+ * @param {Object} opts
+ * @returns {TestInstance}
+ */
+async function render(args = [], opts = {}) {
+  const { cwd = __dirname } = opts;
+
+  const exec = childProcess.spawn(
+      resolve(__dirname, "../../node_modules/.bin/nyc"),
       // TODO: Make generic & non-plop specific
       [
         "--silent",
         "node",
-        resolve(__dirname, "../instrumented/bin/plop.js"),
+        resolve(__dirname, "../../instrumented/bin/plop.js"),
         ...args,
       ],
       {
         cwd,
         shell: true,
       }
-    );
+  );
 
-    let _readyPromiseInternals = null;
+  let _readyPromiseInternals = null;
 
-    const execOutputAPI = {
-      _isReady: new Promise(
+  const execOutputAPI = {
+    _isReady: new Promise(
         (resolve, reject) => (_readyPromiseInternals = { resolve, reject })
-      ),
-      // Clear buffer of stdout to do more accurate `t.regex` checks
-      cleanup() {
-        this.stdoutArr = [];
-      },
-      // An array of strings gathered from stdout when unable to do
-      // `await stdout` because of inquirer interactive prompts
-      stdoutArr: [],
-      get stdoutStr() {
-        return this.stdoutArr.join("\n");
-      },
-    };
+    ),
+    // Clear buffer of stdout to do more accurate `t.regex` checks
+    cleanup() {
+      this.stdoutArr = [];
+    },
+    // An array of strings gathered from stdout when unable to do
+    // `await stdout` because of inquirer interactive prompts
+    stdoutArr: [],
+    get stdoutStr() {
+      return this.stdoutArr.join("\n");
+    },
+  };
 
-    exec.stdout.on("data", (result) => {
-      const resStr = stripFinalNewline(result).toString();
-      execOutputAPI.stdoutArr.push(resStr);
-      _runObservers();
-      if (_readyPromiseInternals) _readyPromiseInternals.resolve();
-    });
+  exec.stdout.on("data", (result) => {
+    const resStr = stripFinalNewline(result).toString();
+    execOutputAPI.stdoutArr.push(resStr);
+    _runObservers();
+    if (_readyPromiseInternals) _readyPromiseInternals.resolve();
+  });
 
-    exec.stdout.on("error", (result) => {
-      if (_readyPromiseInternals) _readyPromiseInternals.reject(result);
-    });
+  exec.stdout.on("error", (result) => {
+    if (_readyPromiseInternals) _readyPromiseInternals.reject(result);
+  });
 
-    exec.stderr.on("data", (result) => {
-      if (_readyPromiseInternals)
-        _readyPromiseInternals.reject(new Error(result));
-    });
+  exec.stderr.on("data", (result) => {
+    if (_readyPromiseInternals)
+      _readyPromiseInternals.reject(new Error(result));
+  });
 
-    await execOutputAPI._isReady;
+  await execOutputAPI._isReady;
 
-    Object.assign(execOutputAPI, {
-      stdin: exec.stdin,
-      stdout: exec.stdout,
-      stderr: exec.stderr,
-    });
+  Object.assign(execOutputAPI, {
+    stdin: exec.stdin,
+    stdout: exec.stdout,
+    stderr: exec.stderr,
+  }, getQueriesForElement(execOutputAPI));
 
-    return execOutputAPI;
-  }
+  return execOutputAPI;
+}
+
+module.exports = {
+  render
 };
