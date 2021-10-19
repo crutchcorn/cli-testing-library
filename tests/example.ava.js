@@ -1,6 +1,5 @@
 const test = require("ava");
-const { render } = require("./_test-utils");
-const { waitFor } = require("./_wait-for");
+const { render, waitFor } = require("./test-utils/_index");
 const { resolve } = require("path");
 
 test("Should fail", async (t) => {
@@ -10,6 +9,7 @@ test("Should fail", async (t) => {
   let outputStr;
   outputStr = await waitFor(() => getByText("Please choose a generator"));
 
+  t.truthy
   t.regex(outputStr, /Please choose a generator/);
 
   cleanup();

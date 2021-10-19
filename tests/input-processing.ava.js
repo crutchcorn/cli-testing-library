@@ -1,5 +1,5 @@
 const test = require("ava");
-const { render } = require("./_test-utils");
+const { render } = require("./test-utils/_index");
 
 test("should report a missing plopfile when not copied", async (t) => {
   await t.throwsAsync(
