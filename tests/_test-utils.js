@@ -1,5 +1,8 @@
-const execa = require("execa");
+const childProcess = require("child_process");
 const { resolve } = require("path");
+const Stream = require("stream");
+// v2
+const stripFinalNewline = require("strip-final-newline");
 
 // Used for `MutationObserver`. Unsure if it's really needed, but it's worth mentioning that these are not tied to
 // specific CLI instances of `render`. This means that if there are e2e CLI tests that run in parallel, they will
@@ -33,7 +36,7 @@ module.exports = {
   async render(args = [], opts = {}) {
     const { cwd = __dirname } = opts;
 
-    const exec = execa(
+    const exec = childProcess.spawn(
       "npx",
       // TODO: Make generic & non-plop specific
       [
@@ -45,13 +48,16 @@ module.exports = {
       ],
       {
         cwd,
+        shell: true,
       }
     );
 
     let _readyPromiseInternals = null;
-    const isReady = new Promise((resolve, reject) => (_readyPromiseInternals = {resolve, reject}));
 
     const additionalExecProps = {
+      _isReady: new Promise(
+        (resolve, reject) => (_readyPromiseInternals = { resolve, reject })
+      ),
       // Clear buffer of stdout to do more accurate `t.regex` checks
       cleanup() {
         this.stdoutArr = [];
@@ -61,37 +67,34 @@ module.exports = {
       stdoutArr: [],
       _runObservers() {
         [..._observers.values()].forEach((cb) => cb());
-      }
+      },
     };
 
     exec.stdout.on("data", (result) => {
-      const resStr = result.toString();
+      const resStr = stripFinalNewline(result).toString();
       additionalExecProps.stdoutArr.push(resStr);
       additionalExecProps._runObservers();
-      // if (isReady.pending) {
-        console.log("IS READY IS READY NOW");
-        _readyPromiseInternals.resolve(resStr);
-      // }
+      if (_readyPromiseInternals) _readyPromiseInternals.resolve();
     });
 
     exec.stdout.on("error", (result) => {
-      const resStr = result.toString();
-      if (isReady.pending) _readyPromiseInternals.reject(resStr);
+      if (_readyPromiseInternals) _readyPromiseInternals.reject(result);
     });
 
-    exec.stderr.on('data', result => {
-      if (isReady.pending) _readyPromiseInternals.reject(result.toString());
-    })
+    exec.stderr.on("data", (result) => {
+      if (_readyPromiseInternals)
+        _readyPromiseInternals.reject(new Error(result));
+    });
 
-    Object.assign(exec, additionalExecProps);
+    await additionalExecProps._isReady;
 
-    console.log("BEFORE AWAIT")
+    Object.assign(additionalExecProps, {
+      stdin: exec.stdin,
+      stdout: exec.stdout,
+      stderr: exec.stderr,
+    });
 
-    await isReady;
-
-    console.log("AFTER AWAIT")
-
-    return exec;
+    return additionalExecProps;
   },
   MutationObserver,
   DOWN: "\x1B\x5B\x42",
