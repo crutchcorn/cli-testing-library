@@ -52,7 +52,7 @@ module.exports = {
 
     let _readyPromiseInternals = null;
 
-    const additionalExecProps = {
+    const execOutputAPI = {
       _isReady: new Promise(
         (resolve, reject) => (_readyPromiseInternals = { resolve, reject })
       ),
@@ -63,15 +63,28 @@ module.exports = {
       // An array of strings gathered from stdout when unable to do
       // `await stdout` because of inquirer interactive prompts
       stdoutArr: [],
+      get stdoutStr() {
+        return this.stdoutArr.join("\n");
+      },
       _runObservers() {
         [..._observers.values()].forEach((cb) => cb());
+      },
+      getByText(text) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            // Replacing "execOutputAPI" with "this" doesn't work
+            const str = execOutputAPI.stdoutStr;
+            if (new RegExp(text).exec(str)) resolve(str);
+            else resolve(null);
+          }, 0);
+        });
       },
     };
 
     exec.stdout.on("data", (result) => {
       const resStr = stripFinalNewline(result).toString();
-      additionalExecProps.stdoutArr.push(resStr);
-      additionalExecProps._runObservers();
+      execOutputAPI.stdoutArr.push(resStr);
+      execOutputAPI._runObservers();
       if (_readyPromiseInternals) _readyPromiseInternals.resolve();
     });
 
@@ -84,15 +97,15 @@ module.exports = {
         _readyPromiseInternals.reject(new Error(result));
     });
 
-    await additionalExecProps._isReady;
+    await execOutputAPI._isReady;
 
-    Object.assign(additionalExecProps, {
+    Object.assign(execOutputAPI, {
       stdin: exec.stdin,
       stdout: exec.stdout,
       stderr: exec.stderr,
     });
 
-    return additionalExecProps;
+    return execOutputAPI;
   },
   MutationObserver,
   DOWN: "\x1B\x5B\x42",

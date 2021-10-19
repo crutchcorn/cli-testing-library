@@ -12,18 +12,18 @@ test("should report a missing plopfile when not copied", async (t) => {
   );
 });
 
-test.skip("should show help information on help flag", async (t) => {
-  const { stdoutArr } = await render(["--help"]);
-  t.regex(stdoutArr.join("\n"), /Usage:/);
-  t.snapshot(stdoutArr.join("\n"));
+test("should show help information on help flag", async (t) => {
+  const { stdoutStr } = await render(["--help"]);
+  t.regex(stdoutStr, /Usage:/);
+  t.snapshot(stdoutStr);
 });
 
-test.skip("should show version on version flag", async (t) => {
-  const { stdoutArr } = await render(["--version"]);
-  t.regex(stdoutArr.join("\n"), /^[\w\.-]+$/);
+test("should show version on version flag", async (t) => {
+  const { stdoutStr } = await render(["--version"]);
+  t.regex(stdoutStr, /^[\w\.-]+$/);
 });
 
 test("should show version on v flag", async (t) => {
-  const props = await render(["-v"]);
-  t.regex(props.stdoutArr.join("\n"), /^[\w\.-]+$/);
+  const { stdoutStr } = await render(["-v"]);
+  t.regex(stdoutStr, /^[\w\.-]+$/);
 });
