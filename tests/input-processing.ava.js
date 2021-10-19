@@ -19,11 +19,11 @@ test("should show help information on help flag", async (t) => {
 });
 
 test("should show version on version flag", async (t) => {
-  const { stdoutStr } = await render(["--version"]);
-  t.regex(stdoutStr, /^[\w\.-]+$/);
+  const { findByText } = await render(["--version"]);
+  t.truthy(await findByText(/^[\w\.-]+$/));
 });
 
 test("should show version on v flag", async (t) => {
-  const { stdoutStr } = await render(["-v"]);
-  t.regex(stdoutStr, /^[\w\.-]+$/);
+  const { findByText } = await render(["-v"]);
+  t.truthy(await findByText(/^[\w\.-]+$/));
 });
