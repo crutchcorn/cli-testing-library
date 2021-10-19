@@ -1,5 +1,5 @@
 const test = require("ava");
-const { render, UP, DOWN, ENTER } = require("./_test-utils");
+const { render } = require("./_test-utils");
 const { waitFor } = require("./_wait-for");
 const { resolve } = require("path");
 

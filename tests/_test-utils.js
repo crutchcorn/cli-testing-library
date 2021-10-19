@@ -2,35 +2,8 @@ const childProcess = require("child_process");
 const { resolve } = require("path");
 // v2
 const stripFinalNewline = require("strip-final-newline");
-
-// Used for `MutationObserver`. Unsure if it's really needed, but it's worth mentioning that these are not tied to
-// specific CLI instances of `render`. This means that if there are e2e CLI tests that run in parallel, they will
-// execute far more frequently than needed.
-const _observers = new Map();
-
-// Not perfect as a way to make "MutationObserver" unique IDs, but it should work
-let mutId = 0;
-
-class MutationObserver {
-  constructor(cb) {
-    this._id = ++mutId;
-    this._cb = cb;
-  }
-
-  observe() {
-    _observers.set(this._id, this._cb);
-  }
-
-  disconnect() {
-    _observers.delete(this._id);
-  }
-}
-
-const EVENTS_MAP = {
-  down: "\x1B\x5B\x42",
-  up: "\x1B\x5B\x41",
-  enter: "\x0D",
-};
+const {_runObservers} = require('./_mutation-observer');
+const {getFireEventProxy} = require("./_get_queries_for_instance");
 
 module.exports = {
   /**
@@ -72,9 +45,6 @@ module.exports = {
       get stdoutStr() {
         return this.stdoutArr.join("\n");
       },
-      _runObservers() {
-        [..._observers.values()].forEach((cb) => cb());
-      },
       getByText(text) {
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -84,27 +54,13 @@ module.exports = {
             else resolve(null);
           }, 0);
         });
-      },
-      /**
-       * TODO: Replace this with "instance" DI of some kind.
-       * This should be a global "import"-level API, similar to
-       * `getByText`. We should pass in `instances` (via render)
-       */
-      fireEvent: Object.entries(EVENTS_MAP).reduce(
-        (prev, [eventName, keyCode]) => {
-          prev[eventName] = () => {
-            exec.stdin.write(keyCode);
-          };
-          return prev;
-        },
-        {}
-      ),
+      }
     };
 
     exec.stdout.on("data", (result) => {
       const resStr = stripFinalNewline(result).toString();
       execOutputAPI.stdoutArr.push(resStr);
-      execOutputAPI._runObservers();
+      _runObservers();
       if (_readyPromiseInternals) _readyPromiseInternals.resolve();
     });
 
@@ -119,13 +75,24 @@ module.exports = {
 
     await execOutputAPI._isReady;
 
+    /**
+     * Because we're passing execOutputAPI to Object.assign,
+     * `stdin` and `stdout` (and others) will be mutated onto the
+     * existing variable memory address
+     *
+     * Then, later, when we pass that object to `getProxy`, it
+     * will be able to access these instances
+     *
+     * The one thing to be careful of as a result:
+     * the proxy can call other proxy methods/props as a result - potentially
+     * causing infinite loops
+     */
     Object.assign(execOutputAPI, {
       stdin: exec.stdin,
       stdout: exec.stdout,
       stderr: exec.stderr,
-    });
+    }, getFireEventProxy(execOutputAPI));
 
     return execOutputAPI;
-  },
-  MutationObserver,
+  }
 };

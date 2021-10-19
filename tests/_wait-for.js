@@ -1,7 +1,7 @@
 // Migrated from: https://github.com/testing-library/dom-testing-library/blob/main/src/wait-for.js
 // TODO: Migrate back to use `config.js` file
 const { jestFakeTimersAreEnabled } = require("./_helpers");
-const { MutationObserver } = require("./_test-utils");
+const { MutationObserver } = require("./_mutation-observer");
 // import {getConfig, runWithExpensiveErrorDiagnosticsDisabled} from './config'
 
 // This is so the stack trace the developer sees is one that's
