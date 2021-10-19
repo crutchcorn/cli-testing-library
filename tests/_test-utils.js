@@ -26,6 +26,12 @@ class MutationObserver {
   }
 }
 
+const EVENTS_MAP = {
+  down: "\x1B\x5B\x42",
+  up: "\x1B\x5B\x41",
+  enter: "\x0D",
+};
+
 module.exports = {
   /**
    * @param {Array} args
@@ -79,6 +85,20 @@ module.exports = {
           }, 0);
         });
       },
+      /**
+       * TODO: Replace this with "instance" DI of some kind.
+       * This should be a global "import"-level API, similar to
+       * `getByText`. We should pass in `instances` (via render)
+       */
+      fireEvent: Object.entries(EVENTS_MAP).reduce(
+        (prev, [eventName, keyCode]) => {
+          prev[eventName] = () => {
+            exec.stdin.write(keyCode);
+          };
+          return prev;
+        },
+        {}
+      ),
     };
 
     exec.stdout.on("data", (result) => {
@@ -108,7 +128,4 @@ module.exports = {
     return execOutputAPI;
   },
   MutationObserver,
-  DOWN: "\x1B\x5B\x42",
-  UP: "\x1B\x5B\x41",
-  ENTER: "\x0D",
 };
