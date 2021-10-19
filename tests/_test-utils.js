@@ -1,6 +1,5 @@
 const childProcess = require("child_process");
 const { resolve } = require("path");
-const Stream = require("stream");
 // v2
 const stripFinalNewline = require("strip-final-newline");
 
@@ -37,10 +36,9 @@ module.exports = {
     const { cwd = __dirname } = opts;
 
     const exec = childProcess.spawn(
-      "npx",
+      resolve(__dirname, "../node_modules/.bin/nyc"),
       // TODO: Make generic & non-plop specific
       [
-        "nyc",
         "--silent",
         "node",
         resolve(__dirname, "../instrumented/bin/plop.js"),
@@ -100,8 +98,4 @@ module.exports = {
   DOWN: "\x1B\x5B\x42",
   UP: "\x1B\x5B\x41",
   ENTER: "\x0D",
-  syncWait: (time = 200) =>
-    new Promise((resolve) => {
-      setTimeout(resolve, time);
-    }),
 };

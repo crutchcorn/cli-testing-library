@@ -173,7 +173,7 @@ function waitForWrapper(callback, options) {
     )*/
 }
 
-module.exports = { waitFor: () => {} };
+module.exports = { waitFor: waitForWrapper };
 
 /*
 eslint
