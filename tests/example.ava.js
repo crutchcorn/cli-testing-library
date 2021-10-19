@@ -2,7 +2,7 @@ const test = require("ava");
 const { render, waitFor, fireEvent } = require("./test-utils/_index");
 const { resolve } = require("path");
 
-test("Should fail", async (t) => {
+test("Is able to make terminal input and view in-progress stdout", async (t) => {
   const { cleanup, getByText } = await render([""], {
     cwd: resolve(__dirname, "../example"),
   });
