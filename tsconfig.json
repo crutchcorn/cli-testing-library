@@ -1,0 +1,9 @@
+{
+  "extends": "./node_modules/kcd-scripts/shared-tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "allowJs": true,
+    "downlevelIteration": true
+  },
+  "include": ["./src", "./types"]
+}

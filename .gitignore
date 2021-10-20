@@ -1,10 +1,13 @@
-node_modules/
-*.sublime-*
-example/folder/
-example/change-me.txt
-.idea
-.vscode
-.DS_STORE
-.nyc_output
+node_modules
 coverage
-instrumented/
+dist
+.DS_Store
+.idea/
+
+# these cause more harm than good
+# when working with contributors
+package-lock.json
+yarn.lock
+# Temporary for dev
+old/
+reference/
