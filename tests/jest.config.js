@@ -11,5 +11,5 @@ module.exports = {
     '/__tests__/',
     '/__node_tests__/',
   ],
-  testMatch: ['**/__node_tests__/**.js'],
+  testMatch: ['**/__tests__/**.js'],
 }

@@ -4,25 +4,18 @@
  * that I am not confident we are using it here properly. Plz no yell for the name
  * but suggestions for alternatives welcome in GH issues 😭🙏💯
  */
-import {RenderOptions, TestInstance} from "../types/test-utils";
 import childProcess from "child_process";
-import { resolve as resolvePath } from "path";
 import stripFinalNewline from "strip-final-newline";
+import {RenderOptions, TestInstance} from "../types/pure";
 import {_runObservers} from './mutation-observer';
 import {getQueriesForElement} from "./get-queries-for-instance";
 
-async function render(args: string[] = [], opts: Partial<RenderOptions> = {}): Promise<TestInstance> {
+async function render(command: string, args: string[] = [], opts: Partial<RenderOptions> = {}): Promise<TestInstance> {
   const { cwd = __dirname } = opts;
 
   const exec = childProcess.spawn(
-      resolvePath(__dirname, "../../node_modules/.bin/nyc"),
-      // TODO: Make generic & non-plop specific
-      [
-        "--silent",
-        "node",
-        resolvePath(__dirname, "../../instrumented/bin/plop.js"),
-        ...args,
-      ],
+      command,
+      args,
       {
         cwd,
         shell: true,
