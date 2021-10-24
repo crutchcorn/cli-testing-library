@@ -39,8 +39,8 @@ function waitFor(
 
     const usingJestFakeTimers = jestFakeTimersAreEnabled();
     if (usingJestFakeTimers) {
-      const { unstable_advanceTimersWrapper: advanceTimersWrapper } = (cb) =>
-        cb(); // getConfig()
+      const advanceTimersWrapper = (cb) => cb(); // getConfig()
+      // const { unstable_advanceTimersWrapper: advanceTimersWrapper } = getConfig()
       checkCallback();
       // this is a dangerous rule to disable because it could lead to an
       // infinite loop. However, eslint isn't smart enough to know that we're

@@ -19,7 +19,7 @@ type Opts = GetTextParams[2]
 
 function getByText(instance: Instance, text: Text, opts: Opts = {}) {
   const {
-    exact = true,
+    exact = false,
     collapseWhitespace,
     trim,
     normalizer,
@@ -45,9 +45,14 @@ function getByText(instance: Instance, text: Text, opts: Opts = {}) {
 function findByText(instance: Instance, text: Text, opts: Opts) {
   return waitFor(
     () =>
-      new Promise((resolve) => {
+      new Promise((resolve, reject) => {
         setTimeout(() => {
-          resolve(getByText(instance, text, opts));
+          const got = getByText(instance, text, opts);
+          if (!got) {
+            reject(`Could not find a query with the text ${text}`);
+            return;
+          }
+          resolve(got);
         }, 0);
       })
   );

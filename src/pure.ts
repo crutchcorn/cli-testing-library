@@ -6,6 +6,7 @@
  */
 import childProcess from "child_process";
 import stripFinalNewline from "strip-final-newline";
+import stripAnsi from 'strip-ansi';
 import {RenderOptions, TestInstance} from "../types/pure";
 import {_runObservers} from './mutation-observer';
 import {getQueriesForElement} from "./get-queries-for-instance";
@@ -30,7 +31,7 @@ async function render(command: string, args: string[] = [], opts: Partial<Render
     ),
     // Clear buffer of stdout to do more accurate `t.regex` checks
     cleanup() {
-      this.stdoutArr = [];
+      execOutputAPI.stdoutArr = [];
     },
     // An array of strings gathered from stdout when unable to do
     // `await stdout` because of inquirer interactive prompts
@@ -41,7 +42,8 @@ async function render(command: string, args: string[] = [], opts: Partial<Render
   };
 
   exec.stdout.on("data", (result: string | Buffer) => {
-    const resStr = stripFinalNewline(result as string).toString();
+    // TODO: Move `strip-ansi` to `normalizer` within `queries-text` instead
+    const resStr = stripAnsi(stripFinalNewline(result as string).toString());
     execOutputAPI.stdoutArr.push(resStr);
     _runObservers();
     if (_readyPromiseInternals) _readyPromiseInternals.resolve();
