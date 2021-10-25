@@ -4,36 +4,27 @@
  *
  *  TODO: Add queryByText
  */
-import * as QueryTypes from '../../types/queries';
-import { waitFor } from "../wait-for";
-import {
-  fuzzyMatches,
-  matches,
-  makeNormalizer,
-} from "./all-utils";
+import * as QueryTypes from '../../types/queries'
+import {waitFor} from '../wait-for'
+import {fuzzyMatches, matches, makeNormalizer} from './all-utils'
 
-type GetTextParams = Parameters<typeof QueryTypes.getByText>;
+type GetTextParams = Parameters<typeof QueryTypes.getByText>
 type Instance = GetTextParams[0]
 type Text = GetTextParams[1]
 type Opts = GetTextParams[2]
 
 function getByText(instance: Instance, text: Text, opts: Opts = {}) {
-  const {
-    exact = false,
-    collapseWhitespace,
-    trim,
-    normalizer,
-  } = opts;
-  const matcher = exact ? matches : fuzzyMatches;
+  const {exact = false, collapseWhitespace, trim, normalizer} = opts
+  const matcher = exact ? matches : fuzzyMatches
   const matchNormalizer = makeNormalizer({
     collapseWhitespace,
     trim,
     normalizer,
     // Why TypeScript, why?
-  } as unknown as true);
-  const str = instance.stdoutStr;
-  if (matcher(str, instance, text, matchNormalizer)) return instance;
-  else return null;
+  } as unknown as true)
+  const str = instance.stdoutStr
+  if (matcher(str, instance, text, matchNormalizer)) return instance
+  else return null
 }
 
 /**
@@ -47,18 +38,15 @@ function findByText(instance: Instance, text: Text, opts: Opts) {
     () =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
-          const got = getByText(instance, text, opts);
+          const got = getByText(instance, text, opts)
           if (!got) {
-            reject(`Could not find a query with the text ${text}`);
-            return;
+            reject(`Could not find a query with the text ${text}`)
+            return
           }
-          resolve(got);
-        }, 0);
-      })
-  );
+          resolve(got)
+        }, 0)
+      }),
+  )
 }
 
-export {
-  getByText,
-  findByText,
-};
+export {getByText, findByText}

@@ -1,7 +1,7 @@
 import {Matcher} from './matches'
 import {SelectorMatcherOptions} from './query-helpers'
 import {waitForOptions} from './wait-for'
-import {TestInstance} from "./pure";
+import {TestInstance} from './pure'
 
 export type QueryByText<T extends TestInstance = TestInstance> = (
   instance: TestInstance,

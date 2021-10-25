@@ -1,7 +1,7 @@
-import {Readable, Writable} from "node:stream";
+import {Readable, Writable} from 'node:stream'
 
 export interface RenderOptions {
-  cwd: string;
+  cwd: string
 }
 
 /**
@@ -9,11 +9,11 @@ export interface RenderOptions {
  *    then move `std*` into `container` type/prop on RenderResults
  */
 export interface TestInstance {
-  cleanup(): void;
+  cleanup(): void
   // Possibly switch to `stdout.on('data'` prop in the future
-  stdoutArr: string[];
-  stdin: Writable;
-  stdout: Readable;
-  stderr: Readable;
-  stdoutStr: string;
+  stdoutArr: string[]
+  stdin: Writable
+  stdout: Readable
+  stderr: Readable
+  stdoutStr: string
 }

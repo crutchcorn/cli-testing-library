@@ -1,1 +1,1 @@
-export * from '../matches';
+export * from '../matches'

@@ -1,4 +1,4 @@
-import {TestInstance} from "./pure";
+import {TestInstance} from './pure'
 
 export interface waitForOptions {
   container?: TestInstance

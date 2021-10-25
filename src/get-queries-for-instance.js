@@ -1,4 +1,4 @@
-import * as defaultQueries from "./queries";
+import * as defaultQueries from './queries'
 
 /**
  * @typedef {{[key: string]: Function}} FuncMap
@@ -13,13 +13,13 @@ import * as defaultQueries from "./queries";
 function getQueriesForElement(
   instance,
   queries = defaultQueries,
-  initialValue = {}
+  initialValue = {},
 ) {
   return Object.keys(queries).reduce((helpers, key) => {
-    const fn = queries[key];
-    helpers[key] = fn.bind(null, instance);
-    return helpers;
-  }, initialValue);
+    const fn = queries[key]
+    helpers[key] = fn.bind(null, instance)
+    return helpers
+  }, initialValue)
 }
 
-export { getQueriesForElement };
+export {getQueriesForElement}
