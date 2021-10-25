@@ -31,7 +31,7 @@ function waitFor(
   }
 
   return new Promise(async (resolve, reject) => {
-    let lastError, observer
+    let lastError, intervalId, observer
     let finished = false
     let promiseStatus = 'idle'
 
@@ -84,6 +84,7 @@ function waitFor(
         })
       }
     } else {
+      intervalId = setInterval(checkRealTimersCallback, interval)
       observer = new MutationObserver(checkRealTimersCallback)
       observer.observe()
       checkCallback()
@@ -94,6 +95,7 @@ function waitFor(
       clearTimeout(overallTimeoutTimer)
 
       if (!usingJestFakeTimers) {
+        clearInterval(intervalId)
         observer.disconnect()
       }
 
