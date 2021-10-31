@@ -1,7 +1,7 @@
 {
   "name": "cli-testing-library",
   "version": "0.0.0-semantically-released",
-  "description": "",
+  "description": "Simple and complete CLI testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
   "module": "dist/cli-testing-library.esm.js",
@@ -75,10 +75,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/testing-library/dom-testing-library"
+    "url": "https://github.com/crutchcorn/cli-testing-library"
   },
   "bugs": {
-    "url": "https://github.com/testing-library/dom-testing-library/issues"
+    "url": "https://github.com/crutchcorn/cli-testing-library/issues"
   },
-  "homepage": "https://github.com/testing-library/dom-testing-library#readme"
+  "homepage": "https://github.com/crutchcorn/cli-testing-library#readme"
 }
