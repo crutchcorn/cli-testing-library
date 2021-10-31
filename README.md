@@ -6,7 +6,7 @@
     height="80"
     width="80"
     alt="koala"
-    src="https://raw.githubusercontent.com/crutchcorn/cli-testing-library/main/other/koala.png"
+    src="./other/koala.png"
   />
 </a>
 
@@ -17,25 +17,20 @@ practices.</p>
 
 <hr />
 
+[![Build Status](https://img.shields.io/github/workflow/status/crutchcorn/cli-testing-library/validate/main.svg?style=flat-square)](https://github.com/crutchcorn/cli-testing-library/actions/workflows/validate.yml?query=branch%3Amain)
+[![version](https://img.shields.io/npm/v/cli-testing-library?style=flat-square)](https://www.npmjs.com/package/cli-testing-library)
+[![downloads](https://img.shields.io/npm/dw/cli-testing-library?style=flat-square)](https://www.npmjs.com/package/cli-testing-library)
+[![MIT License](https://img.shields.io/npm/l/cli-testing-library?style=flat-square)](./LICENSE)
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-blue.svg?style=flat-square)](#contributors)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](makeapullrequest.com)
+[![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](./CODE_OF_CONDUCT.md)
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-
-<!-- prettier-ignore-start -->
-[![Build Status][build-badge]][build]
-[![Code Coverage][coverage-badge]][coverage]
-[![version][version-badge]][package]
-[![downloads][downloads-badge]][npmtrends]
-[![MIT License][license-badge]][license]
-[![All Contributors][all-contributors-badge]](#contributors)
-[![PRs Welcome][prs-badge]][prs]
-[![Code of Conduct][coc-badge]][coc]
-[![Discord][discord-badge]][discord]
-
-[![Watch on GitHub][github-watch-badge]][github-watch]
-[![Star on GitHub][github-star-badge]][github-star]
-[![Tweet][twitter-badge]][twitter]
+[![Watch on GitHub](https://img.shields.io/github/watchers/crutchcorn/cli-testing-library.svg?style=social)](https://github.com/crutchcorn/cli-testing-library/watchers)
+[![Star on GitHub](https://img.shields.io/github/stars/crutchcorn/cli-testing-library.svg?style=social)](https://github.com/crutchcorn/cli-testing-library/stargazers)
 <!-- prettier-ignore-end -->
 
 ## Table of Contents
