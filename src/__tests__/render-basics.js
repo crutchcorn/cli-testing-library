@@ -18,21 +18,24 @@ test('Should handle argument passing', async () => {
 })
 
 test('Is able to make terminal input and view in-progress stdout', async () => {
-  const {cleanup, findByText} = await render('node', [
+  const props = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
+
+  const {cleanup, findByText} = props;
 
   const instance = await findByText('First option')
 
   expect(instance).toBeTruthy()
 
-  expect(await findByText('❯ One')).toBeTruthy()
+  // Windows uses ">", Linux/MacOS use "❯"
+  expect(await findByText(/[❯>] One/)).toBeTruthy()
 
   cleanup()
 
   fireEvent.down(instance)
 
-  expect(await findByText('❯ Two')).toBeTruthy()
+  expect(await findByText(/[❯>] Two/)).toBeTruthy()
 
   cleanup()
 
