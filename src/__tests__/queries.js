@@ -1,5 +1,6 @@
 const {resolve} = require('path')
 const {render} = require('../pure')
+const {waitFor} = require("../wait-for");
 
 test('findByText should find text', async () => {
   const {findByText} = await render('node', [
@@ -43,7 +44,7 @@ test('getByText should find text', async () => {
     '--version',
   ])
 
-  expect(getByText('--version')).toBeTruthy();
+  expect(await waitFor(() => getByText('--version'))).toBeTruthy();
 })
 
 test('getByText should throw errors', async () => {
@@ -52,5 +53,5 @@ test('getByText should throw errors', async () => {
     '--version',
   ])
 
-  expect(() => getByText('--nothing')).toThrow('Unable to find an stdout line with the text:');
+  await expect(() => waitFor(() => getByText('--nothing'))).rejects.toThrow('Unable to find an stdout line with the text:');
 })
