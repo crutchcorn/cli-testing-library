@@ -8,12 +8,12 @@ export type QueryByText<T extends TestInstance = TestInstance> = (
   id: Matcher,
   options?: SelectorMatcherOptions,
 ) => T | null
-
-export type AllByText<T extends TestInstance = TestInstance> = (
-  instance: TestInstance,
-  id: Matcher,
-  options?: SelectorMatcherOptions,
-) => T[]
+//
+// export type AllByText<T extends TestInstance = TestInstance> = (
+//   instance: TestInstance,
+//   id: Matcher,
+//   options?: SelectorMatcherOptions,
+// ) => T[]
 
 export type FindAllByText<T extends TestInstance = TestInstance> = (
   instance: TestInstance,

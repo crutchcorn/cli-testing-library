@@ -1,10 +1,11 @@
 import {MatcherOptions} from './matches'
 import {waitForOptions} from './wait-for'
+import {TestInstance} from "./pure";
 
 export type WithSuggest = {suggest?: boolean}
 
 export type GetErrorFunction<Arguments extends any[] = [string]> = (
-  c: Element | null,
+  c: TestInstance | null,
   ...args: Arguments
 ) => string
 
@@ -17,25 +18,25 @@ export interface SelectorMatcherOptions extends MatcherOptions {
  * query methods have a common call signature. Only the return type differs.
  */
 export type QueryMethod<Arguments extends any[], Return> = (
-  container: HTMLElement,
+  container: TestInstance,
   ...args: Arguments
 ) => Return
 export type QueryBy<Arguments extends any[]> = QueryMethod<
   Arguments,
-  HTMLElement | null
+  TestInstance | null
 >
 export type GetAllBy<Arguments extends any[]> = QueryMethod<
   Arguments,
-  HTMLElement[]
+  TestInstance[]
 >
 export type FindAllBy<Arguments extends any[]> = QueryMethod<
   [Arguments[0], Arguments[1]?, waitForOptions?],
-  Promise<HTMLElement[]>
+  Promise<TestInstance[]>
 >
-export type GetBy<Arguments extends any[]> = QueryMethod<Arguments, HTMLElement>
+export type GetBy<Arguments extends any[]> = QueryMethod<Arguments, TestInstance>
 export type FindBy<Arguments extends any[]> = QueryMethod<
   [Arguments[0], Arguments[1]?, waitForOptions?],
-  Promise<HTMLElement>
+  Promise<TestInstance>
 >
 
 export type BuiltQueryMethods<Arguments extends any[]> = [

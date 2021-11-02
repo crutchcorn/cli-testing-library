@@ -2,6 +2,7 @@
 // TODO: Migrate back to use `config.js` file
 import {jestFakeTimersAreEnabled} from './helpers'
 import {MutationObserver} from './mutation-observer'
+import {getConfig} from "./config";
 // import {getConfig, runWithExpensiveErrorDiagnosticsDisabled} from './config'
 
 // This is so the stack trace the developer sees is one that's
@@ -13,8 +14,8 @@ function copyStackTrace(target, source) {
 function waitFor(
   callback,
   {
-    timeout = 1000, // getConfig().asyncUtilTimeout,
-    showOriginalStackTrace = false, // getConfig().showOriginalStackTrace,
+    timeout = getConfig().asyncUtilTimeout,
+    showOriginalStackTrace = getConfig().showOriginalStackTrace,
     stackTraceError,
     interval = 50,
     onTimeout = error => {
@@ -39,8 +40,7 @@ function waitFor(
 
     const usingJestFakeTimers = jestFakeTimersAreEnabled()
     if (usingJestFakeTimers) {
-      const advanceTimersWrapper = cb => cb() // getConfig()
-      // const { unstable_advanceTimersWrapper: advanceTimersWrapper } = getConfig()
+      const { unstable_advanceTimersWrapper: advanceTimersWrapper } = getConfig()
       checkCallback()
       // this is a dangerous rule to disable because it could lead to an
       // infinite loop. However, eslint isn't smart enough to know that we're
