@@ -1,4 +1,5 @@
 import {Config, ConfigFn} from '../types/config'
+import {TestInstance} from "../types/pure";
 // import {prettyDOM} from './pretty-dom'
 
 type Callback<T> = () => T
@@ -31,7 +32,7 @@ let config: InternalConfig = {
   throwSuggestions: false,
 
   // called when getBy* queries fail. (message, container) => Error
-  getInstanceError(message, testInstance) {
+  getInstanceError(message, testInstance: TestInstance | undefined) {
     const error = new Error(
       [
         message,
