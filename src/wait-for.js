@@ -1,9 +1,8 @@
 // Migrated from: https://github.com/testing-library/dom-testing-library/blob/main/src/wait-for.js
 // TODO: Migrate back to use `config.js` file
-import {jestFakeTimersAreEnabled} from './helpers'
+import {getCurrentInstance, jestFakeTimersAreEnabled} from './helpers'
 import {MutationObserver} from './mutation-observer'
 import {getConfig} from "./config";
-// import {getConfig, runWithExpensiveErrorDiagnosticsDisabled} from './config'
 
 // This is so the stack trace the developer sees is one that's
 // closer to their code (because async stack traces are hard to follow).
@@ -14,15 +13,16 @@ function copyStackTrace(target, source) {
 function waitFor(
   callback,
   {
+    instance = getCurrentInstance(),
     timeout = getConfig().asyncUtilTimeout,
     showOriginalStackTrace = getConfig().showOriginalStackTrace,
     stackTraceError,
     interval = 50,
     onTimeout = error => {
-      /*error.message = getConfig().getElementError(
+      error.message = getConfig().getInstanceError(
                 error.message,
-                container,
-            ).message*/
+                instance,
+            ).message
       return error
     },
   },
@@ -169,10 +169,9 @@ function waitForWrapper(callback, options) {
   // create the error here so its stack trace is as close to the
   // calling code as possible
   const stackTraceError = new Error('STACK_TRACE_MESSAGE')
-  return waitFor(callback, {stackTraceError, ...options})
-  /*getConfig().asyncWrapper(() =>
+  return getConfig().asyncWrapper(() =>
         waitFor(callback, {stackTraceError, ...options}),
-    )*/
+    )
 }
 
 export {waitForWrapper as waitFor}

@@ -9,6 +9,7 @@ import stripFinalNewline from 'strip-final-newline'
 import {RenderOptions, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
+import {setCurrentInstance} from "./helpers";
 
 async function render(
   command: string,
@@ -70,6 +71,8 @@ async function render(
   })
 
   await execOutputAPI._isReady
+
+  setCurrentInstance(execOutputAPI);
 
   return Object.assign(
     execOutputAPI,

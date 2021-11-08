@@ -1,5 +1,5 @@
 import {waitFor} from '../'
-// import {configure, getConfig} from '../config'
+import {configure, getConfig} from '../config'
 // import {render} from '../pure'
 
 function deferred() {
@@ -102,15 +102,12 @@ test('provides an improved stack trace if the thrown error is a TestingLibraryEl
   expect(result.stack).not.toBe(originalStackTrace)
 })
 
-// test('throws nice error if provided callback is not a function', () => {
-//   const {queryByTestId} = renderIntoDocument(`
-//     <div data-testid="div"></div>
-//   `)
-//   const someElement = queryByTestId('div')
-//   expect(() => waitFor(someElement)).toThrow(
-//     'Received `callback` arg must be a function',
-//   )
-// })
+test('throws nice error if provided callback is not a function', () => {
+  const someElement = 'Hello'
+  expect(() => waitFor(someElement)).toThrow(
+    'Received `callback` arg must be a function',
+  )
+})
 
 // test('timeout logs a pretty DOM', async () => {
 //   renderIntoDocument(`<div id="pretty">how pretty</div>`)
@@ -137,24 +134,23 @@ test('provides an improved stack trace if the thrown error is a TestingLibraryEl
 // `)
 // })
 
-// test('should delegate to config.getElementError', async () => {
-//   const originalConfig = getConfig()
-//   const elementError = new Error('Custom element error')
-//   const getElementError = jest.fn().mockImplementation(() => elementError)
-//   configure({getElementError})
-//
-//   renderIntoDocument(`<div id="pretty">how pretty</div>`)
-//   const error = await waitFor(
-//     () => {
-//       throw new Error('always throws')
-//     },
-//     {timeout: 1},
-//   ).catch(e => e)
-//
-//   expect(getElementError).toBeCalledTimes(1)
-//   expect(error.message).toMatchInlineSnapshot(`Custom element error`)
-//   configure(originalConfig)
-// })
+test('should delegate to config.getInstanceError', async () => {
+  const originalConfig = getConfig()
+  const elementError = new Error('Custom instance error')
+  const getInstanceError = jest.fn().mockImplementation(() => elementError)
+  configure({getInstanceError})
+
+  const error = await waitFor(
+    () => {
+      throw new Error('always throws')
+    },
+    {timeout: 1},
+  ).catch(e => e)
+
+  expect(getInstanceError).toBeCalledTimes(1)
+  expect(error.message).toMatchInlineSnapshot(`Custom instance error`)
+  configure(originalConfig)
+})
 
 test('when a promise is returned, it does not call the callback again until that promise rejects', async () => {
   const sleep = t => new Promise(r => setTimeout(r, t))
@@ -178,22 +174,16 @@ test('when a promise is returned, it does not call the callback again until that
   await waitForPromise
 })
 
-// test('when a promise is returned, if that is not resolved within the timeout, then waitFor is rejected', async () => {
-//   const sleep = t => new Promise(r => setTimeout(r, t))
-//   const {promise} = deferred()
-//   const waitForError = waitFor(() => promise, {timeout: 1}).catch(e => e)
-//   await sleep(5)
-//
-//   expect((await waitForError).message).toMatchInlineSnapshot(`
-// Timed out in waitFor.
-//
-// Ignored nodes: comments, <script />, <style />
-// <html>
-//   <head />
-//   <body />
-// </html>
-// `)
-// })
+test('when a promise is returned, if that is not resolved within the timeout, then waitFor is rejected', async () => {
+  const sleep = t => new Promise(r => setTimeout(r, t))
+  const {promise} = deferred()
+  const waitForError = waitFor(() => promise, {timeout: 1}).catch(e => e)
+  await sleep(5)
+
+  expect((await waitForError).message).toMatchInlineSnapshot(
+    `Timed out in waitFor.`,
+  )
+})
 
 test('if you switch from fake timers to real timers during the wait period you get an error', async () => {
   jest.useFakeTimers()

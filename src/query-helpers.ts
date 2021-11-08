@@ -12,15 +12,15 @@ import {waitFor} from './wait-for'
 import {TestInstance} from "../types/pure";
 import {getConfig} from "./config";
 
-function getElementError(message: string | null, instance: TestInstance) {
-  return getConfig().getElementError(message, instance)
+function getInstanceError(message: string | null, instance: TestInstance) {
+  return getConfig().getInstanceError(message, instance)
 }
 
 function getSuggestionError(
   suggestion: {toString(): string},
   container: TestInstance,
 ) {
-  return getConfig().getElementError(
+  return getConfig().getInstanceError(
     `A better query is available, try this:
 ${suggestion.toString()}
 `,
@@ -31,15 +31,15 @@ ${suggestion.toString()}
 // this accepts a query function and returns a function which throws an error
 // if an empty list of elements is returned
 function makeGetQuery<Arguments extends unknown[]>(
-  queryBy: (container: TestInstance, ...args: Arguments) => TestInstance | null,
+  queryBy: (instance: TestInstance, ...args: Arguments) => TestInstance | null,
   getMissingError: GetErrorFunction<Arguments>,
 ) {
-  return (container: TestInstance, ...args: Arguments) => {
-    const el = queryBy(container, ...args)
+  return (instance: TestInstance, ...args: Arguments) => {
+    const el = queryBy(instance, ...args)
     if (!el) {
-      throw getConfig().getElementError(
-        getMissingError(container, ...args),
-        container,
+      throw getConfig().getInstanceError(
+        getMissingError(instance, ...args),
+        instance,
       )
     }
 
@@ -134,7 +134,7 @@ function buildQueries(
 }
 
 export {
-  getElementError,
+  getInstanceError,
   wrapSingleQueryWithSuggestion,
   makeFindQuery,
   buildQueries,

@@ -31,11 +31,11 @@ let config: InternalConfig = {
   throwSuggestions: false,
 
   // called when getBy* queries fail. (message, container) => Error
-  getElementError(message, testInstance) {
+  getInstanceError(message, testInstance) {
     const error = new Error(
       [
         message,
-        `\n${testInstance.stdoutStr}`,
+        testInstance ? `\n${testInstance.stdoutStr}` : '',
       ]
         .filter(Boolean)
         .join('\n\n'),

@@ -16,7 +16,7 @@ export interface Config {
   defaultHidden: boolean
   showOriginalStackTrace: boolean
   throwSuggestions: boolean
-  getElementError: (message: string | null, container: TestInstance) => Error
+  getInstanceError: (message: string | null, container: TestInstance) => Error
 }
 
 export interface ConfigFn {
