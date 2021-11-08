@@ -15,6 +15,8 @@ export interface MatcherOptions {
   /** Use normalizer with getDefaultNormalizer instead */
   trim?: boolean
   /** Use normalizer with getDefaultNormalizer instead */
+  stripAnsi?: boolean
+  /** Use normalizer with getDefaultNormalizer instead */
   collapseWhitespace?: boolean
   normalizer?: NormalizerFn
   /** suppress suggestions for a specific query */
@@ -31,6 +33,7 @@ export type Match = (
 export interface DefaultNormalizerOptions {
   trim?: boolean
   collapseWhitespace?: boolean
+  stripAnsi?: boolean
 }
 
 export function getDefaultNormalizer(

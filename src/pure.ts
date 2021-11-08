@@ -6,24 +6,9 @@
  */
 import childProcess from 'child_process'
 import stripFinalNewline from 'strip-final-newline'
-import stripAnsi from 'strip-ansi'
 import {RenderOptions, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
-
-class NotBoundToInstanceError extends Error {
-  constructor(prop: string) {
-    super(`
-          You've attempted to read '${prop}' from a destructured value.
-          Please do not destructure \`${prop}\` from \`render\`, instead do something like this:
-          
-          const client = render( /* ... */ );
-          expect(client.${prop}).toBe(["Hi"]);
-          
-          Because ${prop} relies on mutation to function, you'll be left with stale data if this is not done
-        `)
-  }
-}
 
 async function render(
   command: string,
@@ -40,6 +25,8 @@ async function render(
   let _readyPromiseInternals: null | {resolve: Function; reject: Function} =
     null
 
+  let _isReadyResolved = false;
+
   const execOutputAPI = {
     _isOutputAPI: true,
     _isReady: new Promise(
@@ -51,42 +38,35 @@ async function render(
     },
     // An array of strings gathered from stdout when unable to do
     // `await stdout` because of inquirer interactive prompts
-    _stdoutArr: [] as string[],
-    get stdoutArr(): string[] {
-      // TODO: This error throwing doesn't _actually_ work, because
-      //  when the value is initially destructured, `this`, _is_ defined
-      //  and later, when the user goes to run `console.log(stdoutArr`), it's no
-      //  longer referencing this getter - instead it's a new variable that's assigned
-      //  a non-getter string
-      if (!(this as unknown) || !this._isOutputAPI) {
-        throw new NotBoundToInstanceError('stdoutArr')
-      }
-      return this._stdoutArr
-    },
-    set stdoutArr(val: string[]) {},
+    stdoutArr: [] as Array<string | Buffer>,
     get stdoutStr(): string {
-      if (!(this as unknown) || !this._isOutputAPI) {
-        throw new NotBoundToInstanceError('stdoutStr')
-      }
       return this.stdoutArr.join('\n')
     },
     set stdoutStr(val: string) {},
   }
 
   exec.stdout.on('data', (result: string | Buffer) => {
-    // TODO: Move `strip-ansi` to `normalizer` within `queries-text` instead
-    const resStr = stripAnsi(stripFinalNewline(result as string).toString())
+    const resStr = stripFinalNewline(result as string);
     execOutputAPI.stdoutArr.push(resStr)
     _runObservers()
-    if (_readyPromiseInternals) _readyPromiseInternals.resolve()
+    if (_readyPromiseInternals && !_isReadyResolved) {
+      _readyPromiseInternals.resolve()
+      _isReadyResolved = true;
+    }
   })
 
   exec.stdout.on('error', result => {
-    if (_readyPromiseInternals) _readyPromiseInternals.reject(result)
+    if (_readyPromiseInternals && !_isReadyResolved) {
+      _readyPromiseInternals.reject(result)
+      _isReadyResolved = true;
+    }
   })
 
   exec.stderr.on('data', (result: string) => {
-    if (_readyPromiseInternals) _readyPromiseInternals.reject(new Error(result))
+    if (_readyPromiseInternals && !_isReadyResolved) {
+      _readyPromiseInternals.reject(new Error(result))
+      _isReadyResolved = true;
+    }
   })
 
   await execOutputAPI._isReady

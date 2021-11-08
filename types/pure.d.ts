@@ -10,8 +10,7 @@ export interface RenderOptions {
  */
 export interface TestInstance {
   cleanup(): void
-  // Possibly switch to `stdout.on('data'` prop in the future
-  stdoutArr: string[]
+  stdoutArr: Array<string, Buffer>
   stdin: Writable
   stdout: Readable
   stderr: Readable

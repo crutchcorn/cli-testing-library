@@ -1,3 +1,5 @@
+import stripAnsiFn from 'strip-ansi'
+
 function assertNotNullOrUndefined(matcher) {
   if (matcher === null || matcher === undefined) {
     throw new Error(
@@ -43,33 +45,38 @@ function matches(textToMatch, node, matcher, normalizer) {
   }
 }
 
-function getDefaultNormalizer({trim = true, collapseWhitespace = true} = {}) {
+function getDefaultNormalizer({trim = true, collapseWhitespace = true, stripAnsi = true} = {}) {
   return text => {
     let normalizedText = text
     normalizedText = trim ? normalizedText.trim() : normalizedText
     normalizedText = collapseWhitespace
       ? normalizedText.replace(/\s+/g, ' ')
       : normalizedText
+    normalizedText = stripAnsi ? stripAnsiFn(normalizedText) : normalizedText
     return normalizedText
   }
 }
 
 /**
+ * @param {Object} props
  * Constructs a normalizer to pass to functions in matches.js
- * @param {boolean|undefined} trim The user-specified value for `trim`, without
+ * @param {boolean|undefined} props.trim The user-specified value for `trim`, without
  * any defaulting having been applied
- * @param {boolean|undefined} collapseWhitespace The user-specified value for
+ * @param {boolean|undefined} props.stripAnsi The user-specified value for `stripAnsi`, without
+ * any defaulting having been applied
+ * @param {boolean|undefined} props.collapseWhitespace The user-specified value for
  * `collapseWhitespace`, without any defaulting having been applied
- * @param {Function|undefined} normalizer The user-specified normalizer
+ * @param {Function|undefined} props.normalizer The user-specified normalizer
  * @returns {Function} A normalizer
  */
 
-function makeNormalizer({trim, collapseWhitespace, normalizer}) {
+function makeNormalizer({trim, stripAnsi, collapseWhitespace, normalizer}) {
   if (normalizer) {
     // User has specified a custom normalizer
     if (
       typeof trim !== 'undefined' ||
-      typeof collapseWhitespace !== 'undefined'
+      typeof collapseWhitespace !== 'undefined' ||
+      typeof stripAnsi !== 'undefined'
     ) {
       // They've also specified a value for trim or collapseWhitespace
       throw new Error(
@@ -82,7 +89,7 @@ function makeNormalizer({trim, collapseWhitespace, normalizer}) {
     return normalizer
   } else {
     // No custom normalizer specified. Just use default.
-    return getDefaultNormalizer({trim, collapseWhitespace})
+    return getDefaultNormalizer({trim, collapseWhitespace, stripAnsi})
   }
 }
 

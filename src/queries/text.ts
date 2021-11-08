@@ -13,16 +13,17 @@ const queryByTextBase: QueryByText = (
         exact = false,
         collapseWhitespace,
         trim,
-        normalizer
+        normalizer,
+        stripAnsi
     } = {},
 ) => {
     const matcher = exact ? matches : fuzzyMatches
     const matchNormalizer = makeNormalizer({
+        stripAnsi,
         collapseWhitespace,
         trim,
-        normalizer,
-        // Why TypeScript, why?
-    } as unknown as true)
+        normalizer
+    })
     const str = instance.stdoutStr
     if (matcher(str, instance, text, matchNormalizer)) return instance
     else return null
