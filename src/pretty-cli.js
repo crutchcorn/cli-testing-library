@@ -45,6 +45,18 @@ function prettyCLI(instance, maxLength) {
     currSize += content.length;
   }
 
+  /*
+  * TODO: Given this final array, remove ANSI codes for "clear screen" (and similar)
+  *     @see https://github.com/sindresorhus/ansi-escapes
+  *  Also go ahead and close off any open ANSI escape sequences
+  *     @see https://github.com/chalk/ansi-styles
+  *
+  * If this is done, please go ahead and just yeet
+  * that code into a library, because at this point
+  * why not. We're already writing _this_ library to
+  * test a _different_ OSS project 🙃
+  */
+
   return finalArr;
 }
 
