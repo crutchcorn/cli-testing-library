@@ -21,16 +21,14 @@ test('findByText should throw errors', async () => {
 })
 
 test('queryByText should find text', async () => {
-  jest.setTimeout(15000)
   const props = await render('node', [
     resolve(__dirname, './execute-scripts/list-args.js'),
     '--version',
-  ], {debug: true})
+  ])
 
   const {queryByText} = props;
 
   expect(await queryByText('--version')).toBeTruthy()
-  jest.setTimeout(5000)
 })
 
 test('queryByText should not throw errors', async () => {
