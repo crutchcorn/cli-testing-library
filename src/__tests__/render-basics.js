@@ -43,3 +43,27 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
 
   expect(await findByText('First option: Two')).toBeTruthy()
 })
+
+
+test('fireEvent works when bound', async () => {
+  const {fireEvent: fireEventLocal, findByText, cleanup} = await render('node', [
+    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
+  ])
+
+  const instance = await findByText('First option')
+
+  expect(instance).toBeTruthy()
+
+  // Windows uses ">", Linux/MacOS use "❯"
+  expect(await findByText(/[❯>] One/)).toBeTruthy()
+
+  cleanup();
+
+  fireEventLocal.down(instance)
+
+  expect(await findByText(/[❯>] Two/)).toBeTruthy()
+
+  fireEvent.enter(instance)
+  fireEvent.enter(instance)
+  cleanup();
+})

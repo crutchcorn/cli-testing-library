@@ -9,6 +9,7 @@ import stripFinalNewline from 'strip-final-newline'
 import {RenderOptions, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
+import {getFireEventForElement} from './events'
 import {setCurrentInstance} from "./helpers";
 
 async function render(
@@ -86,6 +87,7 @@ async function render(
       stderr: exec.stderr,
     },
     getQueriesForElement(execOutputAPI),
+    getFireEventForElement(execOutputAPI as unknown as TestInstance)
   )
 }
 
