@@ -1,3 +1,5 @@
+import {fireEvent} from "./events";
+
 function jestFakeTimersAreEnabled() {
   /* istanbul ignore else */
   if (typeof jest !== 'undefined' && jest !== null) {
@@ -14,7 +16,16 @@ function jestFakeTimersAreEnabled() {
 
 const instance = {current: undefined};
 
+/**
+ * Should not rely directly on `afterEach` without library detection
+ * @see https://testing-library.com/docs/react-testing-library/setup/#skipping-auto-cleanup
+ */
 afterEach(() => {
+  /**
+   * Behavior should be customizability like it is with `react-testing-library`
+   * @see https://testing-library.com/docs/react-testing-library/setup/#skipping-auto-cleanup
+   */
+  if (instance.current) fireEvent.sigkill(instance.current);
   instance.current = undefined;
 })
 

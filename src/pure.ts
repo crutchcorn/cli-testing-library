@@ -66,6 +66,15 @@ async function render(
 
   exec.stderr.on('data', (result: string) => {
     if (_readyPromiseInternals && !_isReadyResolved) {
+      /**
+       * TODO: We're getting an error where "result" is only the first line of many drawn.
+       *  Let's go ahead and set a timeout var in `config.js` and debounce the rejection
+       *
+       * Then, we'll set a boolean to not do any other kind of logging to stdout (or promise resolve)
+       * until that timeout/debounce has expired.
+       *
+       * Also merge with the `'error'` field above
+       */
       _readyPromiseInternals.reject(new Error(result))
       _isReadyResolved = true;
     }
