@@ -3,6 +3,17 @@ const isRunning = require('is-running')
 const {render} = require('../pure')
 const {fireEvent} = require('../events')
 const {waitFor} = require("../wait-for");
+const {getConfig, configure} = require("../config");
+
+let originalConfig
+beforeEach(() => {
+  originalConfig = getConfig()
+  configure({asyncUtilTimeout: 15000})
+})
+
+afterEach(() => {
+  configure(originalConfig)
+})
 
 test('Should handle stderr outputs with rejection', async () => {
   await expect(() =>
