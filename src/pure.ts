@@ -85,6 +85,7 @@ async function render(
       stdin: exec.stdin,
       stdout: exec.stdout,
       stderr: exec.stderr,
+      pid: exec.pid
     },
     getQueriesForElement(execOutputAPI),
     getFireEventForElement(execOutputAPI as unknown as TestInstance)

@@ -9,11 +9,10 @@ type BoundFireEventRecord = Record<
     ShiftArgs<FireEventRecord[string]>
 >
 
-
 const fireEvent = Object.entries(eventMap).reduce<FireEventRecord>(
-  (prev, [eventName, keyCode]) => {
+  (prev, [eventName, eventFn]) => {
     prev[eventName] = (instance) => {
-      instance.stdin.write(keyCode)
+        eventFn(instance)
     }
     return prev
   },

@@ -16,4 +16,5 @@ export interface TestInstance {
   stdout: Readable
   stderr: Readable
   stdoutStr: string
+  pid: number | undefined
 }

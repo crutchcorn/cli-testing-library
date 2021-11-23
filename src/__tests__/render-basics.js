@@ -1,6 +1,8 @@
 const {resolve} = require('path')
 const {render} = require('../pure')
 const {fireEvent} = require('../events')
+const isRunning = require('is-running')
+const {waitFor} = require("../wait-for");
 
 test('Should handle stderr outputs with rejection', async () => {
   await expect(() =>
@@ -44,7 +46,6 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
   expect(await findByText('First option: Two')).toBeTruthy()
 })
 
-
 test('fireEvent works when bound', async () => {
   const {fireEvent: fireEventLocal, findByText, cleanup} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
@@ -67,3 +68,21 @@ test('fireEvent works when bound', async () => {
   fireEvent.enter(instance)
   cleanup();
 })
+
+
+test('SigTerm works', async () => {
+  const {findByText, cleanup} = await render('node', [
+    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
+  ])
+
+  const instance = await findByText('First option')
+
+  expect(instance).toBeTruthy()
+
+  fireEvent.sigterm(instance);
+
+  cleanup()
+
+  await waitFor(() => expect(isRunning(instance.pid)).toBeFalsy())
+})
+
