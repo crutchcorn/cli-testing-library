@@ -1,7 +1,8 @@
 import {Readable, Writable} from 'node:stream'
 
 export interface RenderOptions {
-  cwd: string
+  cwd: string,
+  debug: boolean
 }
 
 /**

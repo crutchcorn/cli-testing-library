@@ -70,6 +70,10 @@ async function render(
     }
   })
 
+  if (opts.debug) {
+    exec.stdout.pipe(process.stdout)
+  }
+
   await execOutputAPI._isReady
 
   setCurrentInstance(execOutputAPI);
