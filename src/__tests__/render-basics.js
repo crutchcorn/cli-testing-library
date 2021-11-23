@@ -1,7 +1,7 @@
 const {resolve} = require('path')
+const isRunning = require('is-running')
 const {render} = require('../pure')
 const {fireEvent} = require('../events')
-const isRunning = require('is-running')
 const {waitFor} = require("../wait-for");
 
 test('Should handle stderr outputs with rejection', async () => {
@@ -69,7 +69,6 @@ test('fireEvent works when bound', async () => {
   cleanup();
 })
 
-
 test('SigTerm works', async () => {
   const {findByText, cleanup} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
@@ -84,5 +83,21 @@ test('SigTerm works', async () => {
   cleanup()
 
   await waitFor(() => expect(isRunning(instance.pid)).toBeFalsy())
+})
+
+test('input works', async () => {
+  const {findByText, fireEvent: fireEventLocal, cleanup} = await render('node', [
+    resolve(__dirname, './execute-scripts/stdio-inquirer-input.js'),
+  ])
+
+  expect(await findByText('What is your name?')).toBeTruthy()
+
+  fireEventLocal.type("Corbin");
+
+  expect(await findByText('Corbin')).toBeTruthy()
+
+  fireEventLocal.enter();
+
+  cleanup()
 })
 

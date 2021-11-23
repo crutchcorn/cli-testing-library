@@ -1,14 +1,11 @@
 import {Readable, Writable} from 'node:stream'
+import type {
+  queries,
+  BoundFunction,
+} from '@testing-library/dom'
 
-export interface RenderOptions {
-  cwd: string,
-  debug: boolean
-}
+import {getFireEventForElement} from "./events";
 
-/**
- * TODO: Rename to `RenderResults` (to match react-testing-library),
- *    then move `std*` into `container` type/prop on RenderResults
- */
 export interface TestInstance {
   cleanup(): void
   stdoutArr: Array<string, Buffer>
@@ -18,3 +15,18 @@ export interface TestInstance {
   stdoutStr: string
   pid: number | undefined
 }
+
+export interface RenderOptions {
+  cwd: string,
+  debug: boolean
+}
+
+export type RenderResult = TestInstance & {
+  fireEvent: ReturnType<ReturnType<getFireEventForElement>>
+} & {[P in keyof typeof queries]: BoundFunction<typeof queries[P]>}
+
+export function render(
+  command: string,
+  args: string[],
+  opts: Partial<RenderOptions>,
+): RenderResult;

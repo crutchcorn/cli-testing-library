@@ -7,9 +7,9 @@ import type {
   WithSuggest,
   Variant,
 } from '../types'
+import {TestInstance} from "../types/pure";
 import {getSuggestedQuery} from './suggestions'
 import {waitFor} from './wait-for'
-import {TestInstance} from "../types/pure";
 import {getConfig} from "./config";
 
 function getInstanceError(message: string | null, instance: TestInstance) {

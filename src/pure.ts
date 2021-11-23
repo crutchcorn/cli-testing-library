@@ -6,7 +6,7 @@
  */
 import childProcess from 'child_process'
 import stripFinalNewline from 'strip-final-newline'
-import {RenderOptions, TestInstance} from '../types/pure'
+import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
 import {getFireEventForElement} from './events'
@@ -16,7 +16,7 @@ async function render(
   command: string,
   args: string[] = [],
   opts: Partial<RenderOptions> = {},
-): Promise<TestInstance> {
+): Promise<RenderResult> {
   const {cwd = __dirname} = opts
 
   const exec = childProcess.spawn(command, args, {
@@ -88,8 +88,8 @@ async function render(
       pid: exec.pid
     },
     getQueriesForElement(execOutputAPI),
-    getFireEventForElement(execOutputAPI as unknown as TestInstance)
-  )
+    getFireEventForElement(execOutputAPI)
+  ) as TestInstance as RenderResult
 }
 
 export {render}
