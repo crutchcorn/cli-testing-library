@@ -10,7 +10,8 @@ import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
 import {getFireEventForElement} from './events'
-import {setCurrentInstance} from "./helpers";
+import {debounce, setCurrentInstance} from "./helpers";
+import {getConfig} from "./config";
 
 async function render(
   command: string,
@@ -47,39 +48,62 @@ async function render(
     set stdoutStr(val: string) {},
   }
 
+  /**
+   * This method does not throw errors after-the-fact,
+   * meaning that if post-render errors are thrown,
+   * they will be missed
+   *
+   * THINK: Should we should simply `throw` when this occurs?
+   * What about cleanup?
+   * What about interactive errors?
+   */
+  let _errorHasOccured = false;
+  const _errors: Array<string | Buffer | Error> = [];
+
   exec.stdout.on('data', (result: string | Buffer) => {
     const resStr = stripFinalNewline(result as string);
     execOutputAPI.stdoutArr.push(resStr)
     _runObservers()
-    if (_readyPromiseInternals && !_isReadyResolved) {
+    if (!_errorHasOccured && _readyPromiseInternals && !_isReadyResolved) {
       _readyPromiseInternals.resolve()
       _isReadyResolved = true;
     }
+    // stdout might contain relevant error info
+    if (_errorHasOccured && _readyPromiseInternals && !_isReadyResolved) {
+      _errors.push(result);
+    }
   })
+
+  const _onError = () => {
+    if (!_readyPromiseInternals) return;
+    _readyPromiseInternals.reject(new Error(_errors.join('\n')))
+    _isReadyResolved = true;
+  }
+
+  const config = getConfig()
+  // TODO: Migrate to new config option?
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+  const _throttledOnError = debounce(_onError, config.asyncUtilTimeout);
 
   exec.stdout.on('error', result => {
     if (_readyPromiseInternals && !_isReadyResolved) {
-      _readyPromiseInternals.reject(result)
-      _isReadyResolved = true;
+      _errors.push(result);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+      _throttledOnError();
+      _errorHasOccured = true;
     }
   })
 
   exec.stderr.on('data', (result: string) => {
     if (_readyPromiseInternals && !_isReadyResolved) {
-      /**
-       * TODO: We're getting an error where "result" is only the first line of many drawn.
-       *  Let's go ahead and set a timeout var in `config.js` and debounce the rejection
-       *
-       * Then, we'll set a boolean to not do any other kind of logging to stdout (or promise resolve)
-       * until that timeout/debounce has expired.
-       *
-       * Also merge with the `'error'` field above
-       */
-      _readyPromiseInternals.reject(new Error(result))
-      _isReadyResolved = true;
+      _errors.push(result);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
+      _throttledOnError();
+      _errorHasOccured = true;
     }
   })
 
+  // TODO: Replace with `debug()` function
   if (opts.debug) {
     exec.stdout.pipe(process.stdout)
   }
