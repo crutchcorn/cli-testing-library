@@ -18,9 +18,11 @@ async function render(
   args: string[] = [],
   opts: Partial<RenderOptions> = {},
 ): Promise<RenderResult> {
-  const {cwd = __dirname} = opts
+  const {cwd = __dirname, spawnOpts = {}} = opts
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const exec = childProcess.spawn(command, args, {
+    ...spawnOpts,
     cwd,
     shell: true,
   })

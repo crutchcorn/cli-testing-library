@@ -5,6 +5,7 @@ import type {
 } from '@testing-library/dom'
 
 import {getFireEventForElement} from "./events";
+import {SpawnOptionsWithoutStdio} from "child_process";
 
 export interface TestInstance {
   cleanup(): void
@@ -18,7 +19,8 @@ export interface TestInstance {
 
 export interface RenderOptions {
   cwd: string,
-  debug: boolean
+  debug: boolean,
+  spawnOpts: Omit<SpawnOptionsWithoutStdio, 'cwd'>
 }
 
 export type RenderResult = TestInstance & {
