@@ -1,5 +1,9 @@
 import {eventMap} from './event-map'
 
+/**
+ * Silence TypeScript errors
+ * @type {*}
+ */
 const fireEvent = (instance, event) => {
     fireEvent[event](instance);
 }
