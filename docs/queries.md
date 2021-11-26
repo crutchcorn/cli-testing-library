@@ -15,6 +15,11 @@ While our APIs [differ slightly](./differences.md) from upstream Testing Library
 
 - [Example](#example)
 - [Types of Queries](#types-of-queries)
+- [`TextMatch`](#textmatch)
+  - [TextMatch Examples](#textmatch-examples)
+  - [Precision](#precision)
+  - [Normalization](#normalization)
+    - [Normalization Examples](#normalization-examples)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -53,3 +58,109 @@ test('should show login form', () => {
 | `findBy...`           | Throw error   | Return element | Throw error  |         Yes         |
 
 </details>
+
+# `TextMatch`
+
+Most of the query APIs take a `TextMatch` as an argument, which means the
+argument can be either a _string_, _regex_, or a _function_ which returns `true`
+for a match and `false` for a mismatch.
+
+## TextMatch Examples
+
+Given the following output line:
+
+```html
+Hello World
+```
+
+**_Will_ find the instance:**
+
+```javascript
+// Matching a string:
+getByText('Hello World') // full string match
+getByText('llo Worl', {exact: false}) // substring match
+getByText('hello world', {exact: false}) // ignore case
+
+// Matching a regex:
+getByText(/World/) // substring match
+getByText(/world/i) // substring match, ignore case
+getByText(/^hello world$/i) // full string match, ignore case
+getByText(/Hello W?oRlD/i) // substring match, ignore case, searches for "hello world" or "hello orld"
+
+// Matching with a custom function:
+getByText((content, instance) => content.startsWith('Hello'))
+```
+
+**_Will not_ find the instance:**
+
+```javascript
+// full string does not match
+getByText('Goodbye World')
+
+// case-sensitive regex with different case
+getByText(/hello world/)
+
+// function looking contents that don't exist:
+getByText((content, instance) => {
+  return instance.stdoutStr.includes('Goodbye World')
+})
+```
+
+## Precision
+
+Queries that take a `TextMatch` also accept an object as the final argument that
+can contain options that affect the precision of string matching:
+
+- `exact`: Defaults to `true`; matches full strings, case-sensitive. When false,
+  matches substrings and is not case-sensitive.
+  - `exact` has no effect on `regex` or `function` arguments.
+  - In most cases using a regex instead of a string gives you more control over
+    fuzzy matching and should be preferred over `{ exact: false }`.
+- `normalizer`: An optional function which overrides normalization behavior. See
+  [`Normalization`](#normalization).
+
+## Normalization
+
+Before running any matching logic against text in `stdout`, `CLI Testing Library`
+automatically normalizes that text. By default, normalization consists of
+trimming whitespace from the start and end of text, collapsing multiple
+adjacent whitespace characters into a single space, and removing [ANSI escapes](https://en.wikipedia.org/wiki/ANSI_escape_code).
+
+If you want to prevent that normalization, or provide alternative normalization
+(e.g. to remove Unicode control characters), you can provide a `normalizer`
+function in the options object. This function will be given a string and is
+expected to return a normalized version of that string.
+
+> **Note**
+>
+> Specifying a value for `normalizer` _replaces_ the built-in normalization, but
+> you can call `getDefaultNormalizer` to obtain a built-in normalizer, either to
+> adjust that normalization or to call it from your own normalizer.
+
+`getDefaultNormalizer` takes an options object which allows the selection of
+behaviour:
+
+- `trim`: Defaults to `true`. Trims leading and trailing whitespace
+- `collapseWhitespace`: Defaults to `true`. Collapses inner whitespace
+  (newlines, tabs, repeated spaces) into a single space.
+- `stripAnsi`: Defaults to `true`. Removes ANSI escapes from `stdout` entirely to leave only human-readible text.
+
+### Normalization Examples
+
+To perform a match against text without trimming:
+
+```javascript
+getByText('text', {
+  normalizer: getDefaultNormalizer({trim: false}),
+})
+```
+
+To override normalization to remove some Unicode characters whilst keeping some
+(but not all) of the built-in normalization behavior:
+
+```javascript
+getByText('text', {
+  normalizer: str =>
+    getDefaultNormalizer({trim: false})(str).replace(/[\u200E-\u200F]*/g, ''),
+})
+```
