@@ -1,4 +1,5 @@
 import {getNextKeyDef} from './getNextKeyDef'
+import {TestInstance} from "../../../types";
 
 /**
  * @internal Do not create/alter this by yourself as this type might be subject to changes.
@@ -46,21 +47,12 @@ export type keyboardState = {
 }
 
 export type keyboardOptions = {
-  /** Document in which to perform the events */
-  document: Document
+  /** Instance in which to perform the events */
+  instance: TestInstance
   /** Delay between keystrokes */
   delay: number
-  /** Add modifiers for given keys - not implemented yet */
-  autoModify: boolean
   /** Keyboard layout to use */
   keyboardMap: keyboardKey[]
-}
-
-export enum DOM_KEY_LOCATION {
-  STANDARD = 0,
-  LEFT = 1,
-  RIGHT = 2,
-  NUMPAD = 3,
 }
 
 export interface keyboardKey {
@@ -68,19 +60,4 @@ export interface keyboardKey {
   code?: string
   /** Character or functional key hex code */
   hex?: string
-}
-
-export interface behaviorPlugin {
-  matches: (
-    keyDef: keyboardKey,
-    element: Element,
-    options: keyboardOptions,
-    state: keyboardState,
-  ) => boolean
-  handle: (
-    keyDef: keyboardKey,
-    element: Element,
-    options: keyboardOptions,
-    state: keyboardState,
-  ) => void
 }

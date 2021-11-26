@@ -30,6 +30,7 @@ test('Should handle argument passing', async () => {
   expect(await findByText('--version')).toBeTruthy()
 })
 
+// TODO: Replace fireEvent with userevent
 test('Is able to make terminal input and view in-progress stdout', async () => {
   const props = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
@@ -56,107 +57,3 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
 
   expect(await findByText('First option: Two')).toBeTruthy()
 })
-
-test('Is able to use fireEvent as function', async () => {
-  const props = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
-  ])
-
-  const {clear, findByText} = props;
-
-  const instance = await findByText('First option')
-
-  expect(instance).toBeTruthy()
-
-  // Windows uses ">", Linux/MacOS use "❯"
-  expect(await findByText(/[❯>] One/)).toBeTruthy()
-
-  clear()
-
-  fireEvent(instance, 'down')
-
-  expect(await findByText(/[❯>] Two/)).toBeTruthy()
-
-  clear()
-
-  fireEvent(instance, 'enter')
-
-  expect(await findByText('First option: Two')).toBeTruthy()
-})
-
-test('fireEvent works when bound', async () => {
-  const {fireEvent: fireEventLocal, findByText, clear} = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
-  ])
-
-  const instance = await findByText('First option')
-
-  expect(instance).toBeTruthy()
-
-  // Windows uses ">", Linux/MacOS use "❯"
-  expect(await findByText(/[❯>] One/)).toBeTruthy()
-
-  clear();
-
-  fireEventLocal.down()
-
-  expect(await findByText(/[❯>] Two/)).toBeTruthy()
-
-  fireEventLocal.enter()
-  fireEventLocal.enter()
-  clear();
-})
-
-test('fireEvent works when bound and used as function', async () => {
-  const {fireEvent: fireEventLocal, findByText, clear} = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
-  ])
-
-  const instance = await findByText('First option')
-
-  expect(instance).toBeTruthy()
-
-  // Windows uses ">", Linux/MacOS use "❯"
-  expect(await findByText(/[❯>] One/)).toBeTruthy()
-
-  clear();
-
-  fireEventLocal('down')
-
-  expect(await findByText(/[❯>] Two/)).toBeTruthy()
-
-  fireEventLocal('enter')
-  fireEventLocal('enter')
-  clear();
-})
-
-test('SigTerm works', async () => {
-  const {findByText} = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
-  ])
-
-  const instance = await findByText('First option')
-
-  expect(instance).toBeTruthy()
-
-  fireEvent.sigterm(instance);
-
-  await waitFor(() => expect(isRunning(instance.pid)).toBeFalsy())
-})
-
-test('input works', async () => {
-  const {findByText, fireEvent: fireEventLocal, clear} = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer-input.js'),
-  ])
-
-  expect(await findByText('What is your name?')).toBeTruthy()
-
-  fireEventLocal.type("Corbin");
-
-  expect(await findByText('Corbin')).toBeTruthy()
-
-  fireEventLocal.enter();
-
-  clear()
-})
-
