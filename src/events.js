@@ -1,27 +1,26 @@
 import {eventMap} from './event-map'
 
-/**
- * Silence TypeScript errors
- * @type {*}
- */
-const fireEvent = Object.entries(eventMap).reduce(
-  (prev, [eventName, eventFn]) => {
-    prev[eventName] = ((instance, ...props) => {
+const fireEvent = (instance, event) => {
+    fireEvent[event](instance);
+}
+
+Object.entries(eventMap).forEach(
+  ([eventName, eventFn]) => {
+    fireEvent[eventName] = ((instance, ...props) => {
         eventFn(instance, ...(props))
     })
-    return prev
-  },
-  {}
+  }
 )
 
 function getFireEventForElement (
     instance
 ) {
+    const fireEventElement = event => fireEvent(instance, event);
+    Object.entries(fireEvent).forEach(( [eventName, eventFn]) => {
+        fireEventElement[eventName] = (...props) => eventFn(instance, ...(props))
+    })
     return {
-        fireEvent: Object.entries(fireEvent).reduce((prev, [eventName, eventFn]) => {
-            prev[eventName] = (...props) => eventFn(instance, ...(props))
-            return prev;
-        }, {})
+        fireEvent: fireEventElement
     }
 }
 

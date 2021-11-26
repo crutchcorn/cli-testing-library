@@ -35,7 +35,7 @@ async function render(
       (resolve, reject) => (_readyPromiseInternals = {resolve, reject}),
     ),
     // Clear buffer of stdout to do more accurate `t.regex` checks
-    cleanup() {
+    clear() {
       execOutputAPI.stdoutArr = []
     },
     // An array of strings gathered from stdout when unable to do

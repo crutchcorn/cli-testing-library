@@ -35,7 +35,7 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
 
-  const {cleanup, findByText} = props;
+  const {clear, findByText} = props;
 
   const instance = await findByText('First option')
 
@@ -44,21 +44,48 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
   // Windows uses ">", Linux/MacOS use "❯"
   expect(await findByText(/[❯>] One/)).toBeTruthy()
 
-  cleanup()
+  clear()
 
   fireEvent.down(instance)
 
   expect(await findByText(/[❯>] Two/)).toBeTruthy()
 
-  cleanup()
+  clear()
 
   fireEvent.enter(instance)
 
   expect(await findByText('First option: Two')).toBeTruthy()
 })
 
+test('Is able to use fireEvent as function', async () => {
+  const props = await render('node', [
+    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
+  ])
+
+  const {clear, findByText} = props;
+
+  const instance = await findByText('First option')
+
+  expect(instance).toBeTruthy()
+
+  // Windows uses ">", Linux/MacOS use "❯"
+  expect(await findByText(/[❯>] One/)).toBeTruthy()
+
+  clear()
+
+  fireEvent(instance, 'down')
+
+  expect(await findByText(/[❯>] Two/)).toBeTruthy()
+
+  clear()
+
+  fireEvent(instance, 'enter')
+
+  expect(await findByText('First option: Two')).toBeTruthy()
+})
+
 test('fireEvent works when bound', async () => {
-  const {fireEvent: fireEventLocal, findByText, cleanup} = await render('node', [
+  const {fireEvent: fireEventLocal, findByText, clear} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
 
@@ -69,19 +96,42 @@ test('fireEvent works when bound', async () => {
   // Windows uses ">", Linux/MacOS use "❯"
   expect(await findByText(/[❯>] One/)).toBeTruthy()
 
-  cleanup();
+  clear();
 
-  fireEventLocal.down(instance)
+  fireEventLocal.down()
 
   expect(await findByText(/[❯>] Two/)).toBeTruthy()
 
-  fireEvent.enter(instance)
-  fireEvent.enter(instance)
-  cleanup();
+  fireEventLocal.enter()
+  fireEventLocal.enter()
+  clear();
+})
+
+test('fireEvent works when bound and used as function', async () => {
+  const {fireEvent: fireEventLocal, findByText, clear} = await render('node', [
+    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
+  ])
+
+  const instance = await findByText('First option')
+
+  expect(instance).toBeTruthy()
+
+  // Windows uses ">", Linux/MacOS use "❯"
+  expect(await findByText(/[❯>] One/)).toBeTruthy()
+
+  clear();
+
+  fireEventLocal('down')
+
+  expect(await findByText(/[❯>] Two/)).toBeTruthy()
+
+  fireEventLocal('enter')
+  fireEventLocal('enter')
+  clear();
 })
 
 test('SigTerm works', async () => {
-  const {findByText, cleanup} = await render('node', [
+  const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
 
@@ -91,13 +141,11 @@ test('SigTerm works', async () => {
 
   fireEvent.sigterm(instance);
 
-  cleanup()
-
   await waitFor(() => expect(isRunning(instance.pid)).toBeFalsy())
 })
 
 test('input works', async () => {
-  const {findByText, fireEvent: fireEventLocal, cleanup} = await render('node', [
+  const {findByText, fireEvent: fireEventLocal, clear} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer-input.js'),
   ])
 
@@ -109,6 +157,6 @@ test('input works', async () => {
 
   fireEventLocal.enter();
 
-  cleanup()
+  clear()
 })
 

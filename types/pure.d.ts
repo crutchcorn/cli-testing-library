@@ -8,7 +8,7 @@ import {getFireEventForElement} from "./events";
 import {SpawnOptionsWithoutStdio} from "child_process";
 
 export interface TestInstance {
-  cleanup(): void
+  clear(): void
   stdoutArr: Array<string, Buffer>
   stdin: Writable
   stdout: Readable
