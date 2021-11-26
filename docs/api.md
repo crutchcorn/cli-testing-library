@@ -17,6 +17,9 @@ Instead, the following API is what `CLI Testing Library` provides the following.
 - [`render` Options](#render-options)
   - [`cwd`](#cwd)
   - [`spawnOpts`](#spawnopts)
+- [`render` Result](#render-result)
+  - [`...queries`](#queries)
+    - [ByText](#bytext)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -87,3 +90,37 @@ const {getByText} = render('script.ps1', {
     }
 })
 ```
+
+# `render` Result
+
+The `render` method returns an object that has a few properties:
+
+## `...queries`
+
+The most important feature of render is that the queries from [CLI Testing Library](https://github.com/crutchcorn/cli-testing-library)
+are automatically returned with their first argument bound to the testInstance.
+
+See [Queries](./queries.md) to learn more about how to use these queries and the philosophy behind them.
+
+### ByText
+
+> getByText, queryByText, findByText
+
+```typescript
+getByText(
+        // If you're using `screen`, then skip the container argument:
+        instance: TestInstance,
+        text: TextMatch,
+        options?: {
+          exact?: boolean = true,
+          trim?: boolean = false,
+          stripAnsi?: boolean = false,
+          collapseWhitespace?: boolean = false,
+          normalizer?: NormalizerFn,
+          suggest?: boolean,
+        }): TestInstance
+```
+
+Queries for test instance `stdout` results with the given text (and it also accepts a TextMatch). 
+
+These options are all standard for text matching. To learn more, see our [Queries page](./queries.md).
