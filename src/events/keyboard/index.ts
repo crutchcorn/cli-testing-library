@@ -1,58 +1,55 @@
-import {getConfig as getDOMTestingLibraryConfig} from '@testing-library/dom'
-import {keyboardImplementation, releaseAllKeys} from './keyboardImplementation'
+import {getConfig as getCLITestingLibraryConfig} from '../../config';
+import {keyboardImplementation} from './keyboardImplementation'
 import {defaultKeyMap} from './keyMap'
-import {keyboardState, keyboardOptions, keyboardKey} from './types'
+import {keyboardOptions, keyboardKey} from './types'
+import {TestInstance} from "../../../types";
 
 export type {keyboardOptions, keyboardKey}
 
 export function keyboard(
+    instance: TestInstance,
     text: string,
-    options?: Partial<keyboardOptions & {keyboardState: keyboardState; delay: 0}>,
-): keyboardState
+    options?: Partial<keyboardOptions & {delay: 0}>,
+): void
 export function keyboard(
+    instance: TestInstance,
     text: string,
     options: Partial<
-        keyboardOptions & {keyboardState: keyboardState; delay: number}
+        keyboardOptions & {delay: number}
         >,
-): Promise<keyboardState>
+): Promise<void>
 export function keyboard(
+    instance: TestInstance,
     text: string,
-    options?: Partial<keyboardOptions & {keyboardState: keyboardState}>,
-): keyboardState | Promise<keyboardState> {
-    const {promise, state} = keyboardImplementationWrapper(text, options)
+    options?: Partial<keyboardOptions>,
+): void | Promise<void> {
+    const {promise} = keyboardImplementationWrapper(instance, text, options)
 
     if ((options?.delay ?? 0) > 0) {
-        return getDOMTestingLibraryConfig().asyncWrapper(() =>
-            promise.then(() => state),
+        return getCLITestingLibraryConfig().asyncWrapper(() =>
+            promise,
         )
     } else {
         // prevent users from dealing with UnhandledPromiseRejectionWarning in sync call
         promise.catch(console.error)
-
-        return state
     }
 }
 
 export function keyboardImplementationWrapper(
+    instance: TestInstance,
     text: string,
-    config: Partial<keyboardOptions & {keyboardState: keyboardState}> = {},
+    config: Partial<keyboardOptions> = {},
 ) {
     const {
         delay = 0,
-        document: doc = document,
-        autoModify = false,
         keyboardMap = defaultKeyMap,
     } = config
     const options = {
         delay,
-        document: doc,
-        autoModify,
         keyboardMap,
     }
 
     return {
-        promise: keyboardImplementation(text, options, state),
-        state,
-        releaseAllKeys: () => releaseAllKeys(options, state),
+        promise: keyboardImplementation(instance, text, options)
     }
 }

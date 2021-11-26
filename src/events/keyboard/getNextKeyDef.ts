@@ -1,22 +1,8 @@
 import {keyboardKey, keyboardOptions} from './types'
 
 enum bracketDict {
-  '{' = '}',
-  '[' = ']',
-}
-
-enum legacyModifiers {
-  'alt' = 'alt',
-  'ctrl' = 'ctrl',
-  'meta' = 'meta',
-  'shift' = 'shift',
-}
-
-enum legacyKeyMap {
-  ctrl = 'Control',
-  del = 'Delete',
-  esc = 'Escape',
-  space = ' ',
+    '{' = '}',
+    '[' = ']',
 }
 
 /**
@@ -25,201 +11,128 @@ enum legacyKeyMap {
  * Keys can be referenced by `{key}` or `{special}` as well as physical locations per `[code]`.
  * Everything else will be interpreted as a typed character - e.g. `a`.
  * Brackets `{` and `[` can be escaped by doubling - e.g. `foo[[bar` translates to `foo[bar`.
- * Keeping the key pressed can be written as `{key>}`.
- * When keeping the key pressed you can choose how long (how many keydown and keypress) the key is pressed `{key>3}`.
- * You can then release the key per `{key>3/}` or keep it pressed and continue with the next key.
- * Modifiers like `{shift}` imply being kept pressed. This can be turned of per `{shift/}`.
  */
 export function getNextKeyDef(
-  text: string,
-  options: keyboardOptions,
+    text: string,
+    options: keyboardOptions,
 ): {
-  keyDef: keyboardKey
-  consumedLength: number
-  releasePrevious: boolean
-  releaseSelf: boolean
-  repeat: number
+    keyDef: keyboardKey
+    consumedLength: number
 } {
-  const {
-    type,
-    descriptor,
-    consumedLength,
-    releasePrevious,
-    releaseSelf,
-    repeat,
-  } = readNextDescriptor(text)
+    const {
+        type,
+        descriptor,
+        consumedLength,
+    } = readNextDescriptor(text)
 
-  const keyDef = options.keyboardMap.find(def => {
-    if (type === '[') {
-      return def.code?.toLowerCase() === descriptor.toLowerCase()
-    } else if (type === '{') {
-      const key = mapLegacyKey(descriptor)
-      return def.hex?.toLowerCase() === key.toLowerCase()
+    const keyDef: keyboardKey = options.keyboardMap.find(def => {
+        if (type === '[') {
+            return def.code?.toLowerCase() === descriptor.toLowerCase()
+        } else if (type === '{') {
+            return def.hex?.toLowerCase() === descriptor.toLowerCase()
+        }
+        return def.hex === descriptor
+    }) ?? {
+        code: 'Unknown',
+        hex: 'Unknown',
+        [type === '[' ? 'code' : 'key']: descriptor,
     }
-    return def.hex === descriptor
-  }) ?? {
-    key: 'Unknown',
-    code: 'Unknown',
-    [type === '[' ? 'code' : 'key']: descriptor,
-  }
 
-  return {
-    keyDef,
-    consumedLength,
-    releasePrevious,
-    releaseSelf,
-    repeat,
-  }
+    return {
+        keyDef,
+        consumedLength,
+    }
 }
 
 function readNextDescriptor(text: string) {
-  let pos = 0
-  const startBracket =
-    text[pos] in bracketDict ? (text[pos] as keyof typeof bracketDict) : ''
+    let pos = 0
+    const startBracket =
+        text[pos] in bracketDict ? (text[pos] as keyof typeof bracketDict) : ''
 
-  pos += startBracket.length
+    pos += startBracket.length
 
-  // `foo{{bar` is an escaped char at position 3,
-  // but `foo{{{>5}bar` should be treated as `{` pressed down for 5 keydowns.
-  const startBracketRepeated = startBracket
-    ? (text.match(new RegExp(`^\\${startBracket}+`)) as RegExpMatchArray)[0]
-        .length
-    : 0
-  const isEscapedChar =
-    startBracketRepeated === 2 ||
-    (startBracket === '{' && startBracketRepeated > 3)
+    // `foo{{bar` is an escaped char at position 3,
+    // but `foo{{{>5}bar` should be treated as `{` pressed down for 5 keydowns.
+    const startBracketRepeated = startBracket
+        ? (text.match(new RegExp(`^\\${startBracket}+`)) as RegExpMatchArray)[0]
+            .length
+        : 0
+    const isEscapedChar =
+        startBracketRepeated === 2 ||
+        (startBracket === '{' && startBracketRepeated > 3)
 
-  const type = isEscapedChar ? '' : startBracket
+    const type = isEscapedChar ? '' : startBracket
 
-  return {
-    type,
-    ...(type === '' ? readPrintableChar(text, pos) : readTag(text, pos, type)),
-  }
+    return {
+        type,
+        ...(type === '' ? readPrintableChar(text, pos) : readTag(text, pos, type)),
+    }
 }
 
 function readPrintableChar(text: string, pos: number) {
-  const descriptor = text[pos]
+    const descriptor = text[pos]
 
-  assertDescriptor(descriptor, text, pos)
+    assertDescriptor(descriptor, text, pos)
 
-  pos += descriptor.length
+    pos += descriptor.length
 
-  return {
-    consumedLength: pos,
-    descriptor,
-    releasePrevious: false,
-    releaseSelf: true,
-    repeat: 1,
-  }
+    return {
+        consumedLength: pos,
+        descriptor,
+        releasePrevious: false,
+        releaseSelf: true,
+        repeat: 1,
+    }
 }
 
 function readTag(
-  text: string,
-  pos: number,
-  startBracket: keyof typeof bracketDict,
+    text: string,
+    pos: number,
+    startBracket: keyof typeof bracketDict,
 ) {
-  const releasePreviousModifier = text[pos] === '/' ? '/' : ''
+    const descriptor = text.slice(pos).match(/^\w+/)?.[0]
 
-  pos += releasePreviousModifier.length
+    assertDescriptor(descriptor, text, pos)
 
-  const descriptor = text.slice(pos).match(/^\w+/)?.[0]
+    pos += descriptor.length
 
-  assertDescriptor(descriptor, text, pos)
+    const expectedEndBracket = bracketDict[startBracket]
+    const endBracket = text[pos] === expectedEndBracket ? expectedEndBracket : ''
 
-  pos += descriptor.length
+    if (!endBracket) {
+        throw new Error(
+            getErrorMessage(
+                `"${expectedEndBracket}"`,
+                text[pos],
+                text,
+            ),
+        )
+    }
 
-  const repeatModifier = text.slice(pos).match(/^>\d+/)?.[0] ?? ''
+    pos += endBracket.length
 
-  pos += repeatModifier.length
-
-  const releaseSelfModifier =
-    text[pos] === '/' || (!repeatModifier && text[pos] === '>') ? text[pos] : ''
-
-  pos += releaseSelfModifier.length
-
-  const expectedEndBracket = bracketDict[startBracket]
-  const endBracket = text[pos] === expectedEndBracket ? expectedEndBracket : ''
-
-  if (!endBracket) {
-    throw new Error(
-      getErrorMessage(
-        [
-          !repeatModifier && 'repeat modifier',
-          !releaseSelfModifier && 'release modifier',
-          `"${expectedEndBracket}"`,
-        ]
-          .filter(Boolean)
-          .join(' or '),
-        text[pos],
-        text,
-      ),
-    )
-  }
-
-  pos += endBracket.length
-
-  return {
-    consumedLength: pos,
-    descriptor,
-    releasePrevious: !!releasePreviousModifier,
-    repeat: repeatModifier ? Math.max(Number(repeatModifier.substr(1)), 1) : 1,
-    releaseSelf: hasReleaseSelf(
-      startBracket,
-      descriptor,
-      releaseSelfModifier,
-      repeatModifier,
-    ),
-  }
+    return {
+        consumedLength: pos,
+        descriptor
+    }
 }
 
 function assertDescriptor(
-  descriptor: string | undefined,
-  text: string,
-  pos: number,
+    descriptor: string | undefined,
+    text: string,
+    pos: number,
 ): asserts descriptor is string {
-  if (!descriptor) {
-    throw new Error(getErrorMessage('key descriptor', text[pos], text))
-  }
-}
-
-function getEnumValue<T>(f: Record<string, T>, key: string): T | undefined {
-  return f[key]
-}
-
-function hasReleaseSelf(
-  startBracket: keyof typeof bracketDict,
-  descriptor: string,
-  releaseSelfModifier: string,
-  repeatModifier: string,
-) {
-  if (releaseSelfModifier) {
-    return releaseSelfModifier === '/'
-  }
-
-  if (repeatModifier) {
-    return false
-  }
-
-  if (
-    startBracket === '{' &&
-    getEnumValue(legacyModifiers, descriptor.toLowerCase())
-  ) {
-    return false
-  }
-
-  return true
-}
-
-function mapLegacyKey(descriptor: string) {
-  return getEnumValue(legacyKeyMap, descriptor) ?? descriptor
+    if (!descriptor) {
+        throw new Error(getErrorMessage('key descriptor', text[pos], text))
+    }
 }
 
 function getErrorMessage(
-  expected: string,
-  found: string | undefined,
-  text: string,
+    expected: string,
+    found: string | undefined,
+    text: string,
 ) {
-  return `Expected ${expected} but found "${found ?? ''}" in "${text}"
+    return `Expected ${expected} but found "${found ?? ''}" in "${text}"
     See https://github.com/testing-library/user-event/blob/main/README.md#keyboardtext-options
     for more information about how userEvent parses your input.`
 }
