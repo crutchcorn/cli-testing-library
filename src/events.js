@@ -1,5 +1,9 @@
 import {eventMap} from './event-map'
 
+/**
+ * Silence TypeScript errors
+ * @type {*}
+ */
 const fireEvent = Object.entries(eventMap).reduce(
   (prev, [eventName, eventFn]) => {
     prev[eventName] = ((instance, ...props) => {

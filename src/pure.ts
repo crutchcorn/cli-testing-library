@@ -1,17 +1,14 @@
-/**
- * I'm not going to pretend to know why `react-testing-library` calls a very similar
- * file "pure", but I am familiar enough with the concept of "pure" methods or whatnot
- * that I am not confident we are using it here properly. Plz no yell for the name
- * but suggestions for alternatives welcome in GH issues 😭🙏💯
- */
 import childProcess from 'child_process'
 import stripFinalNewline from 'strip-final-newline'
 import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
-import {getFireEventForElement} from './events'
+import {fireEvent, getFireEventForElement} from './events'
 import {debounce, setCurrentInstance} from "./helpers";
 import {getConfig} from "./config";
+
+
+const mountedInstances = new Set<TestInstance>()
 
 async function render(
   command: string,
@@ -49,6 +46,8 @@ async function render(
     },
     set stdoutStr(val: string) {},
   }
+
+  mountedInstances.add(execOutputAPI as unknown as TestInstance)
 
   /**
    * This method does not throw errors after-the-fact,
@@ -127,4 +126,16 @@ async function render(
   ) as TestInstance as RenderResult
 }
 
-export {render}
+function cleanup() {
+  mountedInstances.forEach(cleanupAtInstance)
+}
+
+// maybe one day we'll expose this (perhaps even as a utility returned by render).
+// but let's wait until someone asks for it.
+function cleanupAtInstance(instance: TestInstance) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  fireEvent.sigkill(instance)
+  mountedInstances.delete(instance)
+}
+
+export {render, cleanup}

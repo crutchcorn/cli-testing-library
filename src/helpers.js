@@ -1,5 +1,3 @@
-import {fireEvent} from "./events";
-
 function jestFakeTimersAreEnabled() {
     /* istanbul ignore else */
     if (typeof jest !== 'undefined' && jest !== null) {
@@ -16,23 +14,16 @@ function jestFakeTimersAreEnabled() {
 
 const instance = {current: undefined};
 
-/**
- * Should not rely directly on `afterEach` without library detection
- * @see https://testing-library.com/docs/react-testing-library/setup/#skipping-auto-cleanup
- */
-afterEach(() => {
-    /**
-     * Behavior should be customizability like it is with `react-testing-library`
-     * @see https://testing-library.com/docs/react-testing-library/setup/#skipping-auto-cleanup
-     */
-    if (instance.current) fireEvent.sigkill(instance.current);
-    instance.current = undefined;
-})
+if (typeof afterEach === 'function') {
+    afterEach(() => {
+        instance.current = undefined;
+    })
+}
 
 function getCurrentInstance() {
     /**
      * Worth mentioning that this deviates from the upstream implementation
-     * of `dom-testing-library`'s `getDocument`, which throws an error whenever
+     * of `dom-testing-library`'s `getDocument` in waitFor, which throws an error whenever
      * `window` is not defined.
      *
      * Admittedly, this is another way that `cli-testing-library` will need to figure out
@@ -40,7 +31,7 @@ function getCurrentInstance() {
      * in a CLI like there is in a browser. (although FWIW, "process" might work)
      *
      * Have ideas how to solve? Please let us know:
-     * https://github.com/crutchcorn/cli-testing-library/issues/2
+     * https://github.com/crutchcorn/cli-testing-library/issues/
      */
     return instance.current
 }
