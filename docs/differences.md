@@ -1,4 +1,4 @@
-# Differences Between `@testing-library/dom` and `cli-testing-library`
+# Differences Between `cli-testing-library` & Testing Library
 
 While we clearly take inspiration from [`DOM Testing Library`](https://github.com/testing-library/dom-testing-library)
 and [`React Testing Library`](https://github.com/testing-library/react-testing-library),
@@ -43,9 +43,9 @@ While we would be happy to reconsider, there are once again
 
 # Events
 
-Another area where we diverge from the DOM is in our event system (as implemented via `fireEvent`).
+Another area where we diverge from the DOM is in our event system (as implemented via `fireEvent` and `userEvent`).
 
-Despite our APIs naming indicating an actual event system (complete with bubbling and more, like the DOM),
+Despite our APIs' naming indicating an actual event system (complete with bubbling and more, like the DOM),
 the CLI has no such concept.
 
 This means that, while `fireEvent` in the `DOM Testing Library` has the ability to inherent from all
@@ -53,12 +53,21 @@ baked-into-browser events, we must hard-code a list of "events" and actions a us
 
 We try our best to implement ones that make sense:
 
-- `fireEvent.up()` for keyboard up
-- `fireEvent.type(str)` to write code into stdin
+- `fireEvent.write({value: str})` to write `str` into stdin
 - `fireEvent.sigkill()` to send a [sigkill](https://en.wikipedia.org/wiki/Signal_(IPC)#SIGKILL) to the process
+- `fireEvent.sigint()` to send a [sigint](https://en.wikipedia.org/wiki/Signal_(IPC)#SIGINT) to the process
 
-But there are avenues where this diverges from upstream. [We have an open list of questions about how we can
-make our events align more with upstream](https://github.com/crutchcorn/cli-testing-library/issues/2)
+There is a missing API for that might make sense in `keypress`. It's unclear what this behavior would do that `write` wouldn't
+be able to.
+
+There's also the API of `userEvent` that allows us to implement a fairly similar `keyboard` event
+[to upstream](https://testing-library.com/docs/ecosystem-user-event/#keyboardtext-options). However, there are a few differences
+here as well:
+
+1) `userEvent` can be bound to the `render` output. This is due to limitations of not having a `screen` API. It's unclear how
+    this would work in practice, due to a lack of the `window` API.
+2) `userEvent.keyboard` does not support modifier keys. It's only key-presses, no holding. This is because of API 
+    differences that would require us to figure out a manual binding system for every single key using ANSI AFAIK.
 
 # Matchers
 

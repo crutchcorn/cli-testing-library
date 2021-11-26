@@ -124,3 +124,12 @@ getByText(
 Queries for test instance `stdout` results with the given text (and it also accepts a TextMatch). 
 
 These options are all standard for text matching. To learn more, see our [Queries page](./queries.md).
+
+## `fireEvent`
+
+```javascript
+fireEvent(instance: TestInstace, event: Event)
+```
+
+> While `fireEvent` isn't usually returned on `render` in, say, `React Testing Library`, we're able to do
+> so because of our differences in implementation with upstream. See our [Differences](./differences.md) doc for more.
