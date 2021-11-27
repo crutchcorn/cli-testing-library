@@ -30,13 +30,12 @@ test('Should handle argument passing', async () => {
   expect(await findByText('--version')).toBeTruthy()
 })
 
-// TODO: Replace fireEvent with userevent
 test('Is able to make terminal input and view in-progress stdout', async () => {
   const props = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
 
-  const {clear, findByText} = props;
+  const {clear, findByText, userEvent} = props;
 
   const instance = await findByText('First option')
 
@@ -47,13 +46,13 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
 
   clear()
 
-  fireEvent.down(instance)
+  userEvent.keyboard("[ArrowDown]")
 
   expect(await findByText(/[❯>] Two/)).toBeTruthy()
 
   clear()
 
-  fireEvent.enter(instance)
+  userEvent.keyboard("[Enter]")
 
   expect(await findByText('First option: Two')).toBeTruthy()
 })

@@ -60,7 +60,7 @@ test('FireEvent SigTerm works', async () => {
   await waitFor(() => expect(isRunning(instance.pid)).toBeFalsy())
 })
 
-test.only('userEvent basic keyboard works', async () => {
+test('userEvent basic keyboard works', async () => {
   const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer-input.js'),
   ])
@@ -86,4 +86,29 @@ test('userEvent basic keyboard works when bound', async () => {
   expect(await findByText('Test')).toBeTruthy();
 })
 
-test.todo("UserEvent.keyboard works")
+test("UserEvent.keyboard enter key works", async () => {
+  const props = await render('node', [
+    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
+  ])
+
+  const {clear, findByText, userEvent: userEventLocal} = props;
+
+  const instance = await findByText('First option')
+
+  expect(instance).toBeTruthy()
+
+  // Windows uses ">", Linux/MacOS use "❯"
+  expect(await findByText(/[❯>] One/)).toBeTruthy()
+
+  clear()
+
+  userEventLocal.keyboard('[ArrowDown]')
+
+  expect(await findByText(/[❯>] Two/)).toBeTruthy()
+
+  clear()
+
+  userEventLocal.keyboard('[Enter]')
+
+  expect(await findByText('First option: Two')).toBeTruthy()
+})

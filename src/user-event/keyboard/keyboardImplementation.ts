@@ -33,5 +33,5 @@ function keypress(
     instance: TestInstance,
 ) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    fireEvent.write(instance, keyDef.hex);
+    fireEvent.write(instance, {value: keyDef.hex});
 }
