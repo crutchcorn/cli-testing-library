@@ -4,9 +4,9 @@ import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
 import userEvent from './user-event'
-import {bindObjectFnsToInstance, debounce, setCurrentInstance} from "./helpers";
-import {getConfig} from "./config";
-import {fireEvent} from "./events";
+import {bindObjectFnsToInstance, debounce, setCurrentInstance} from './helpers'
+import {getConfig} from './config'
+import {fireEvent} from './events'
 
 const mountedInstances = new Set<TestInstance>()
 
@@ -27,7 +27,7 @@ async function render(
   let _readyPromiseInternals: null | {resolve: Function; reject: Function} =
     null
 
-  let _isReadyResolved = false;
+  let _isReadyResolved = false
 
   const execOutputAPI = {
     __exitCode: null as null | number,
@@ -47,8 +47,8 @@ async function render(
     },
     set stdoutStr(val: string) {},
     hasExit() {
-      return this.__exitCode === null ? null : {exitCode: this.__exitCode};
-    }
+      return this.__exitCode === null ? null : {exitCode: this.__exitCode}
+    },
   }
 
   mountedInstances.add(execOutputAPI as unknown as TestInstance)
@@ -62,50 +62,50 @@ async function render(
    * What about cleanup?
    * What about interactive errors?
    */
-  let _errorHasOccured = false;
-  const _errors: Array<string | Buffer | Error> = [];
+  let _errorHasOccured = false
+  const _errors: Array<string | Buffer | Error> = []
 
   exec.stdout.on('data', (result: string | Buffer) => {
-    const resStr = stripFinalNewline(result as string);
+    const resStr = stripFinalNewline(result as string)
     execOutputAPI.stdoutArr.push(resStr)
     _runObservers()
     if (!_errorHasOccured && _readyPromiseInternals && !_isReadyResolved) {
       _readyPromiseInternals.resolve()
-      _isReadyResolved = true;
+      _isReadyResolved = true
     }
     // stdout might contain relevant error info
     if (_errorHasOccured && _readyPromiseInternals && !_isReadyResolved) {
-      _errors.push(result);
+      _errors.push(result)
     }
   })
 
   const _onError = () => {
-    if (!_readyPromiseInternals) return;
+    if (!_readyPromiseInternals) return
     _readyPromiseInternals.reject(new Error(_errors.join('\n')))
-    _isReadyResolved = true;
+    _isReadyResolved = true
   }
 
   const config = getConfig()
-  const _throttledOnError = debounce(_onError, config.errorDebounceTimeout);
+  const _throttledOnError = debounce(_onError, config.errorDebounceTimeout)
 
   exec.stdout.on('error', result => {
     if (_readyPromiseInternals && !_isReadyResolved) {
-      _errors.push(result);
-      _throttledOnError();
-      _errorHasOccured = true;
+      _errors.push(result)
+      _throttledOnError()
+      _errorHasOccured = true
     }
   })
 
   exec.stderr.on('data', (result: string) => {
     if (_readyPromiseInternals && !_isReadyResolved) {
-      _errors.push(result);
-      _throttledOnError();
-      _errorHasOccured = true;
+      _errors.push(result)
+      _throttledOnError()
+      _errorHasOccured = true
     }
   })
 
-  exec.on('exit', (code) => {
-    execOutputAPI.__exitCode = code;
+  exec.on('exit', code => {
+    execOutputAPI.__exitCode = code ?? 0
   })
 
   // TODO: Replace with `debug()` function
@@ -115,7 +115,7 @@ async function render(
 
   await execOutputAPI._isReady
 
-  setCurrentInstance(execOutputAPI);
+  setCurrentInstance(execOutputAPI)
 
   return Object.assign(
     execOutputAPI,
@@ -124,7 +124,7 @@ async function render(
       stdout: exec.stdout,
       stderr: exec.stderr,
       pid: exec.pid,
-      userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent)
+      userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent),
     },
     getQueriesForElement(execOutputAPI),
   ) as TestInstance as RenderResult
