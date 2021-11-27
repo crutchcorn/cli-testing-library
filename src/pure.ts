@@ -125,6 +125,7 @@ async function render(
       stderr: exec.stderr,
       pid: exec.pid,
       userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent),
+      kill: exec.kill.bind(exec),
     },
     getQueriesForElement(execOutputAPI),
   ) as TestInstance as RenderResult
