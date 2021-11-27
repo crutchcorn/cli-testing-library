@@ -1,11 +1,10 @@
 import {Readable, Writable} from 'node:stream'
+import type {SpawnOptionsWithoutStdio} from "child_process";
+import type userEvent from "../src/user-event";
 import type {
   queries,
   BoundFunction,
-} from '@testing-library/dom'
-
-import {getFireEventForElement} from "./events";
-import {SpawnOptionsWithoutStdio} from "child_process";
+} from './get-queries-for-instance'
 
 export interface TestInstance {
   clear(): void
@@ -24,7 +23,9 @@ export interface RenderOptions {
 }
 
 export type RenderResult = TestInstance & {
-  fireEvent: ReturnType<ReturnType<getFireEventForElement>>
+  userEvent: ReturnType<{
+    [key in keyof typeof userEvent]: BoundFunction<typeof userEvent[key]>;
+  }>
 } & {[P in keyof typeof queries]: BoundFunction<typeof queries[P]>}
 
 export function render(

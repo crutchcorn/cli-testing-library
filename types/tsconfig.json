@@ -2,6 +2,6 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "paths": {"@testing-library/dom": ["."]}
+    "paths": {"cli-testing-library": ["."]}
   }
 }

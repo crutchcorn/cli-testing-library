@@ -3,10 +3,10 @@ import stripFinalNewline from 'strip-final-newline'
 import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
-import {fireEvent, getFireEventForElement} from './events'
-import {debounce, setCurrentInstance} from "./helpers";
+import userEvent from './user-event'
+import {bindObjectFnsToInstance, debounce, setCurrentInstance} from "./helpers";
 import {getConfig} from "./config";
-
+import {fireEvent} from "./events";
 
 const mountedInstances = new Set<TestInstance>()
 
@@ -119,10 +119,11 @@ async function render(
       stdin: exec.stdin,
       stdout: exec.stdout,
       stderr: exec.stderr,
-      pid: exec.pid
+      pid: exec.pid,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
+      userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent)
     },
     getQueriesForElement(execOutputAPI),
-    getFireEventForElement(execOutputAPI)
   ) as TestInstance as RenderResult
 }
 
@@ -133,7 +134,7 @@ function cleanup() {
 // maybe one day we'll expose this (perhaps even as a utility returned by render).
 // but let's wait until someone asks for it.
 function cleanupAtInstance(instance: TestInstance) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   fireEvent.sigkill(instance)
   mountedInstances.delete(instance)
 }

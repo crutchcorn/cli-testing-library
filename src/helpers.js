@@ -12,11 +12,11 @@ function jestFakeTimersAreEnabled() {
     return false
 }
 
-const instance = {current: undefined};
+const instanceRef = {current: undefined};
 
 if (typeof afterEach === 'function') {
     afterEach(() => {
-        instance.current = undefined;
+        instanceRef.current = undefined;
     })
 }
 
@@ -33,14 +33,14 @@ function getCurrentInstance() {
      * Have ideas how to solve? Please let us know:
      * https://github.com/crutchcorn/cli-testing-library/issues/
      */
-    return instance.current
+    return instanceRef.current
 }
 
 // TODO: Does this need to be namespaced for each test that runs?
 //  That way, we don't end up with a "singleton" that ends up wiped between
 //  parallel tests.
 function setCurrentInstance(newInstance) {
-    instance.current = newInstance;
+    instanceRef.current = newInstance;
 }
 
 function debounce(func, timeout) {
@@ -54,4 +54,18 @@ function debounce(func, timeout) {
     };
 }
 
-export {jestFakeTimersAreEnabled, setCurrentInstance, getCurrentInstance, debounce}
+/**
+ * This is used to bind a series of functions where `instance` is the first argument
+ * to an instance, removing the implicit first argument.
+ */
+function bindObjectFnsToInstance (
+    instance,
+    object
+) {
+    return Object.entries(object).reduce((prev, [key, fn]) => {
+        prev[key] = (...props) => fn(instance, ...(props))
+        return prev;
+    }, {})
+}
+
+export {jestFakeTimersAreEnabled, setCurrentInstance, getCurrentInstance, debounce, bindObjectFnsToInstance}

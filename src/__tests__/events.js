@@ -4,6 +4,7 @@ const {render} = require('../pure')
 const {fireEvent} = require('../events')
 const {waitFor} = require("../wait-for");
 const {getConfig, configure} = require("../config");
+const {default: userEvent} = require("../user-event");
 
 let originalConfig
 beforeEach(() => {
@@ -15,10 +16,7 @@ afterEach(() => {
   configure(originalConfig)
 })
 
-// TODO: fireEvent should not be bound
-
-// Refactor to use `fireEvent` and not `userEvent` style
-test.skip('Is able to use fireEvent as function', async () => {
+test('fireEvent write works', async () => {
   const props = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
@@ -34,69 +32,21 @@ test.skip('Is able to use fireEvent as function', async () => {
 
   clear()
 
-  fireEvent(instance, 'down')
+  const down = "\x1B\x5B\x42";
+  fireEvent(instance, 'write', {value: down})
 
   expect(await findByText(/[❯>] Two/)).toBeTruthy()
 
   clear()
 
-  fireEvent(instance, 'enter')
+  const enter = "\x0D";
+  fireEvent(instance, 'write', {value: enter})
 
   expect(await findByText('First option: Two')).toBeTruthy()
 })
 
 // Refactor to use `fireEvent` and not `userEvent` style
-// TODO: fireEvent should not be bound
-test.skip('fireEvent works when bound', async () => {
-  const {fireEvent: fireEventLocal, findByText, clear} = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
-  ])
-
-  const instance = await findByText('First option')
-
-  expect(instance).toBeTruthy()
-
-  // Windows uses ">", Linux/MacOS use "❯"
-  expect(await findByText(/[❯>] One/)).toBeTruthy()
-
-  clear();
-
-  fireEventLocal.down()
-
-  expect(await findByText(/[❯>] Two/)).toBeTruthy()
-
-  fireEventLocal.enter()
-  fireEventLocal.enter()
-  clear();
-})
-
-// Refactor to use `fireEvent` and not `userEvent` style
-// TODO: fireEvent should not be bound
-test.skip('fireEvent works when bound and used as function', async () => {
-  const {fireEvent: fireEventLocal, findByText, clear} = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
-  ])
-
-  const instance = await findByText('First option')
-
-  expect(instance).toBeTruthy()
-
-  // Windows uses ">", Linux/MacOS use "❯"
-  expect(await findByText(/[❯>] One/)).toBeTruthy()
-
-  clear();
-
-  fireEventLocal('down')
-
-  expect(await findByText(/[❯>] Two/)).toBeTruthy()
-
-  fireEventLocal('enter')
-  fireEventLocal('enter')
-  clear();
-})
-
-// Refactor to use `fireEvent` and not `userEvent` style
-test.skip('SigTerm works', async () => {
+test('FireEvent SigTerm works', async () => {
   const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
@@ -110,23 +60,30 @@ test.skip('SigTerm works', async () => {
   await waitFor(() => expect(isRunning(instance.pid)).toBeFalsy())
 })
 
-test.todo('userEvent SigTerm works')
-
-// Refactor to use `fireEvent` and not `userEvent` style
-test.skip('input works', async () => {
-  const {findByText, fireEvent: fireEventLocal, clear} = await render('node', [
+test.only('userEvent basic keyboard works', async () => {
+  const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer-input.js'),
   ])
 
-  expect(await findByText('What is your name?')).toBeTruthy()
+  const instance = await findByText('What is your name?');
+  expect(instance).toBeTruthy();
 
-  fireEventLocal.keyboard("Corbin");
+  userEvent.keyboard(instance, "Test")
 
-  expect(await findByText('Corbin')).toBeTruthy()
+  expect(await findByText('Test')).toBeTruthy();
+})
 
-  fireEventLocal.enter();
+test('userEvent basic keyboard works when bound', async () => {
+  const {findByText, userEvent: userEventLocal} = await render('node', [
+    resolve(__dirname, './execute-scripts/stdio-inquirer-input.js'),
+  ])
 
-  clear()
+  const instance = await findByText('What is your name?');
+  expect(instance).toBeTruthy();
+
+  userEventLocal.keyboard("Test")
+
+  expect(await findByText('Test')).toBeTruthy();
 })
 
 test.todo("UserEvent.keyboard works")

@@ -27,4 +27,4 @@ export * from './pure'
 export * from './matches'
 export * from './mutation-observer'
 export * from './wait-for'
-
+export * from './user-event'
