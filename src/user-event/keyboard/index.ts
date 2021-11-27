@@ -1,8 +1,8 @@
 import {getConfig as getCLITestingLibraryConfig} from '../../config';
+import {TestInstance} from "../../../types";
 import {keyboardImplementation} from './keyboardImplementation'
 import {defaultKeyMap} from './keyMap'
 import {keyboardOptions, keyboardKey} from './types'
-import {TestInstance} from "../../../types";
 
 export type {keyboardOptions, keyboardKey}
 

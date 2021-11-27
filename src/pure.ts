@@ -83,13 +83,11 @@ async function render(
 
   const config = getConfig()
   // TODO: Migrate to new config option?
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
   const _throttledOnError = debounce(_onError, config.asyncUtilTimeout);
 
   exec.stdout.on('error', result => {
     if (_readyPromiseInternals && !_isReadyResolved) {
       _errors.push(result);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
       _throttledOnError();
       _errorHasOccured = true;
     }
@@ -98,7 +96,6 @@ async function render(
   exec.stderr.on('data', (result: string) => {
     if (_readyPromiseInternals && !_isReadyResolved) {
       _errors.push(result);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
       _throttledOnError();
       _errorHasOccured = true;
     }
@@ -120,7 +117,6 @@ async function render(
       stdout: exec.stdout,
       stderr: exec.stderr,
       pid: exec.pid,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
       userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent)
     },
     getQueriesForElement(execOutputAPI),
@@ -134,7 +130,6 @@ function cleanup() {
 // maybe one day we'll expose this (perhaps even as a utility returned by render).
 // but let's wait until someone asks for it.
 function cleanupAtInstance(instance: TestInstance) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   fireEvent.sigkill(instance)
   mountedInstances.delete(instance)
 }

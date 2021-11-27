@@ -1,7 +1,7 @@
 import kill from 'tree-kill';
 
-import {TestInstance} from "../types/pure";
 import isRunning from 'is-running';
+import {TestInstance} from "../types/pure";
 
 const eventMap = {
   sigterm: (instance: TestInstance) => instance.pid && isRunning(instance.pid) && kill(instance.pid),

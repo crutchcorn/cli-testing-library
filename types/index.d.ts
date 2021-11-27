@@ -14,3 +14,4 @@ export * from './matches'
 export * from './config'
 export * from './suggestions'
 export * from './pure'
+export type * from '../src/user-event';

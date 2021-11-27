@@ -19,7 +19,6 @@ export async function keyboardImplementation(
 
     if (text.length > consumedLength) {
         if (options.delay > 0) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             await wait(options.delay)
         }
 
@@ -32,6 +31,5 @@ function keypress(
     keyDef: keyboardKey,
     instance: TestInstance,
 ) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     fireEvent.write(instance, {value: keyDef.hex});
 }

@@ -31,5 +31,5 @@ export type RenderResult = TestInstance & {
 export function render(
   command: string,
   args: string[],
-  opts: Partial<RenderOptions>,
-): RenderResult;
+  opts?: Partial<RenderOptions>,
+): Promise<RenderResult>;
