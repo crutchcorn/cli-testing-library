@@ -1,4 +1,5 @@
 import jestSnapshotSerializerAnsi from 'jest-snapshot-serializer-ansi'
+import {cleanup} from "../src";
 
 expect.addSnapshotSerializer(jestSnapshotSerializerAnsi)
 // add serializer for MutationRecord
@@ -35,7 +36,7 @@ beforeAll(() => {
   })
 })
 
-afterEach(() => {
+afterEach(async () => {
   if (jest.isMockFunction(global.setTimeout)) {
     jest.useRealTimers()
   }

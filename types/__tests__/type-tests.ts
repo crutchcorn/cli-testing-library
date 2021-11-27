@@ -41,7 +41,7 @@ export function testBoundFunctions() {
 export async function eventTest() {
   const instance = await render('command', []);
 
-  fireEvent.sigterm(instance)
+  await fireEvent.sigterm(instance)
 
   fireEvent.write(instance, {value: 'test'});
 }

@@ -14,6 +14,7 @@ export interface TestInstance {
   stderr: Readable
   stdoutStr: string
   pid: number | undefined
+  hasExit(): null | {exitCode: number}
 }
 
 export interface RenderOptions {

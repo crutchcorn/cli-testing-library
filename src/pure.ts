@@ -30,6 +30,7 @@ async function render(
   let _isReadyResolved = false;
 
   const execOutputAPI = {
+    __exitCode: null as null | number,
     _isOutputAPI: true,
     _isReady: new Promise(
       (resolve, reject) => (_readyPromiseInternals = {resolve, reject}),
@@ -45,6 +46,9 @@ async function render(
       return this.stdoutArr.join('\n')
     },
     set stdoutStr(val: string) {},
+    hasExit() {
+      return this.__exitCode === null ? null : {exitCode: this.__exitCode};
+    }
   }
 
   mountedInstances.add(execOutputAPI as unknown as TestInstance)
@@ -100,6 +104,10 @@ async function render(
     }
   })
 
+  exec.on('exit', (code) => {
+    execOutputAPI.__exitCode = code;
+  })
+
   // TODO: Replace with `debug()` function
   if (opts.debug) {
     exec.stdout.pipe(process.stdout)
@@ -123,13 +131,14 @@ async function render(
 }
 
 function cleanup() {
-  mountedInstances.forEach(cleanupAtInstance)
+  return Promise.all([...mountedInstances].map(cleanupAtInstance))
 }
 
 // maybe one day we'll expose this (perhaps even as a utility returned by render).
 // but let's wait until someone asks for it.
-function cleanupAtInstance(instance: TestInstance) {
-  fireEvent.sigkill(instance)
+async function cleanupAtInstance(instance: TestInstance) {
+  await fireEvent.sigkill(instance)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   mountedInstances.delete(instance)
 }
 
