@@ -82,8 +82,7 @@ async function render(
   }
 
   const config = getConfig()
-  // TODO: Migrate to new config option?
-  const _throttledOnError = debounce(_onError, config.asyncUtilTimeout);
+  const _throttledOnError = debounce(_onError, config.errorDebounceTimeout);
 
   exec.stdout.on('error', result => {
     if (_readyPromiseInternals && !_isReadyResolved) {

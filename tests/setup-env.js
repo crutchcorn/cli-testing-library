@@ -45,4 +45,4 @@ afterAll(() => {
   jest.restoreAllMocks()
 })
 
-jest.setTimeout(25000)
+jest.setTimeout(7000)

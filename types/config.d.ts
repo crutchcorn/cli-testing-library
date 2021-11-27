@@ -12,6 +12,7 @@ export interface Config {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   eventWrapper(cb: (...args: any[]) => any): void
   asyncUtilTimeout: number
+  errorDebounceTimeout: number
   computedStyleSupportsPseudoElements: boolean
   defaultHidden: boolean
   showOriginalStackTrace: boolean

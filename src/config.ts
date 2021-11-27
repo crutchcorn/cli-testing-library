@@ -13,6 +13,7 @@ interface InternalConfig extends Config {
 let config: InternalConfig = {
   testIdAttribute: 'data-testid',
   asyncUtilTimeout: 1000,
+  errorDebounceTimeout: 100,
   // asyncWrapper and advanceTimersWrapper is to support React's async `act` function.
   // forcing react-testing-library to wrap all async functions would've been
   // a total nightmare (consider wrapping every findBy* query and then also
