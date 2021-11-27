@@ -3,18 +3,7 @@ const isRunning = require('is-running')
 const {render} = require('../pure')
 const {fireEvent} = require('../events')
 const {waitFor} = require("../wait-for");
-const {getConfig, configure} = require("../config");
 const {default: userEvent} = require("../user-event");
-
-let originalConfig
-beforeEach(() => {
-  originalConfig = getConfig()
-  configure({asyncUtilTimeout: 15000})
-})
-
-afterEach(() => {
-  configure(originalConfig)
-})
 
 test('fireEvent write works', async () => {
   const props = await render('node', [
