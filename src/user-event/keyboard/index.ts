@@ -9,19 +9,7 @@ export type {keyboardOptions, keyboardKey}
 export function keyboard(
     instance: TestInstance,
     text: string,
-    options?: Partial<keyboardOptions & {delay: 0}>,
-): void
-export function keyboard(
-    instance: TestInstance,
-    text: string,
-    options: Partial<
-        keyboardOptions & {delay: number}
-        >,
-): Promise<void>
-export function keyboard(
-    instance: TestInstance,
-    text: string,
-    options?: Partial<keyboardOptions>,
+    options?: Partial<keyboardOptions & {delay: number}>,
 ): void | Promise<void> {
     const {promise} = keyboardImplementationWrapper(instance, text, options)
 

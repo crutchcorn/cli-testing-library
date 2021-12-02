@@ -5,6 +5,7 @@ import {
   BoundFunctions
 } from 'cli-testing-library'
 import {render, TestInstance} from "../pure";
+import userEvent from "../../src/user-event";
 
 const {
   getByText,
@@ -42,6 +43,16 @@ export async function eventTest() {
   const instance = await render('command', []);
 
   await fireEvent.sigterm(instance)
+
+  fireEvent.write(instance, {value: 'test'});
+}
+
+export async function keyboardTest() {
+  const instance = await render('command', []);
+
+  userEvent.keyboard(instance, "Test")
+  instance.userEvent.keyboard("Test")
+  await instance.userEvent.keyboard("Test", {delay: 0})
 
   fireEvent.write(instance, {value: 'test'});
 }
