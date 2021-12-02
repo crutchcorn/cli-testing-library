@@ -66,10 +66,10 @@ Usage example:
 
 ```javascript
 const {resolve} = require('path')
-const {render, fireEvent} = require('cli-testing-library')
+const {render} = require('cli-testing-library')
 
 test('Is able to make terminal input and view in-progress stdout', async () => {
-  const {cleanup, findByText} = await render('node', [
+  const {cleanup, findByText, userEvent} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
 
@@ -81,17 +81,23 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
 
   cleanup()
 
-  fireEvent.down(instance)
+    userEvent("[ArrowDown]")
 
   expect(await findByText('❯ Two')).toBeTruthy()
 
   cleanup()
 
-  fireEvent.enter(instance)
+  userEvent.keyboard("[Enter]")
 
   expect(await findByText('First option: Two')).toBeTruthy()
 })
 ```
+
+> While this library _does_ work in Windows, it does not appear to function properly in Windows CI environments, such
+> as GitHub actions. As a result, you may need to either switch CI systems or limit your CI to only run in Linux
+> 
+> If you know how to fix this, please let us know in [this tracking issue](https://github.com/crutchcorn/cli-testing-library/issues/3)
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
