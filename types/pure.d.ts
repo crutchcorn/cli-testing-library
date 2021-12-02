@@ -1,7 +1,7 @@
 import type {SpawnOptionsWithoutStdio} from 'child_process'
 import {ChildProcess} from 'node:child_process'
 import type userEvent from '../src/user-event'
-import type {queries, BoundFunction, BoundFunctions} from './get-queries-for-instance'
+import type {queries, BoundFunction} from './get-queries-for-instance'
 
 export interface TestInstance {
   clear(): void
