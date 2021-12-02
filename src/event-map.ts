@@ -20,7 +20,8 @@ const kill = (instance: TestInstance, signal: string) =>
         }
         if (
           err.message.includes('could not be terminated') &&
-          err.message.includes('There is no running instance of the task.')
+          err.message.includes('There is no running instance of the task.') &&
+          !instance.hasExit()
         ) {
           console.warn('Ran into error while trying to kill process:')
           console.warn(err.toString())
