@@ -1,6 +1,7 @@
 import treeKill from 'tree-kill'
 
 import {TestInstance} from '../types'
+import {getConfig} from "./config";
 
 const isWin = process.platform === "win32";
 
@@ -11,43 +12,52 @@ const kill = (instance: TestInstance, signal: string | undefined) =>
       return
     }
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    treeKill(instance.pid, signal, err => {
-      if (err) {
-        if (
-          err.message.includes('The process') &&
-          err.message.includes('not found.')
-        ) {
-          resolve()
-          return
-        }
-        if (
-          err.message.includes('could not be terminated') &&
-          err.message.includes('There is no running instance of the task.') &&
-          !instance.hasExit()
-        ) {
-          console.warn('Ran into error while trying to kill process:')
-          console.warn(err.toString())
-          console.warn(`This is likely due to Window's permissions.
+    treeKill(instance.pid, signal, async err => {
+      try {
+        if (err) {
+          if (
+              err.message.includes('The process') &&
+              err.message.includes('not found.')
+          ) {
+            resolve()
+            return
+          }
+          if (
+              err.message.includes('could not be terminated') &&
+              err.message.includes('There is no running instance of the task.')
+          ) {
+            const sleep = (t: number) => new Promise(r => setTimeout(r, t))
+            await sleep(getConfig().errorDebounceTimeout);
+            if (instance.hasExit()) {
+              resolve();
+              return;
+            }
+            console.warn('Ran into error while trying to kill process:')
+            console.warn(err.toString())
+            console.warn(`This is likely due to Window's permissions.
                 Because this error is prevalent on CI Windows systems with the tree-kill package, we are attempting
                  an alternative kill method.`)
-          console.warn()
-          console.warn(
-            'Be aware that this alternative kill method is not guaranteed to work with subprocesses, and they may not exit properly as a result.',
-          )
-
-          const didKill = instance.kill(signal as 'SIGKILL')
-          if (didKill) {
-            resolve()
-          } else {
-            console.error(
-              'Alternative kill method failed. Rejecting with original error.',
+            console.warn()
+            console.warn(
+                'Be aware that this alternative kill method is not guaranteed to work with subprocesses, and they may not exit properly as a result.',
             )
-            reject(err)
+
+            const didKill = instance.kill(signal as 'SIGKILL')
+            if (didKill) {
+              resolve()
+            } else {
+              console.error(
+                  'Alternative kill method failed. Rejecting with original error.',
+              )
+              reject(err)
+            }
+            return
           }
-          return
-        }
-        reject(err)
-      } else resolve()
+          reject(err)
+        } else resolve()
+      } catch (e: unknown) {
+        reject(e);
+      }
     })
   })
 
