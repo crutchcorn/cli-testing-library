@@ -1,5 +1,4 @@
 import jestSnapshotSerializerAnsi from 'jest-snapshot-serializer-ansi'
-import isCI from "is-ci";
 
 expect.addSnapshotSerializer(jestSnapshotSerializerAnsi)
 // add serializer for MutationRecord
@@ -46,6 +45,4 @@ afterAll(() => {
   jest.restoreAllMocks()
 })
 
-const isWindowsCI = isCI && process.platform === "win32";
-
-jest.setTimeout(isWindowsCI ? 15000 : 7000)
+jest.setTimeout(7000)

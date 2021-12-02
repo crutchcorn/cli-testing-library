@@ -2,7 +2,9 @@ import treeKill from 'tree-kill'
 
 import {TestInstance} from '../types'
 
-const kill = (instance: TestInstance, signal: string) =>
+const isWin = process.platform === "win32";
+
+const kill = (instance: TestInstance, signal: string | undefined) =>
   new Promise<void>((resolve, reject) => {
     if (!instance.pid || (instance.pid && instance.hasExit())) {
       resolve()
@@ -50,8 +52,8 @@ const kill = (instance: TestInstance, signal: string) =>
   })
 
 const eventMap = {
-  sigterm: (instance: TestInstance) => kill(instance, 'SIGTERM'),
-  sigkill: (instance: TestInstance) => kill(instance, 'SIGKILL'),
+  sigterm: (instance: TestInstance) => kill(instance, isWin ? undefined : 'SIGTERM'),
+  sigkill: (instance: TestInstance) => kill(instance, isWin ? undefined : 'SIGKILL'),
   write: (instance: TestInstance, props: {value: string}) =>
     instance.stdin.write(props.value),
 }

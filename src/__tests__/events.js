@@ -1,14 +1,10 @@
 const {resolve} = require('path')
-const isCI = require('is-ci');
 const {render, cleanup} = require('../pure')
 const {fireEvent} = require('../events')
 const {waitFor} = require('../wait-for')
 const {default: userEvent} = require('../user-event')
 
-const isWindowsCI = isCI && process.platform === "win32";
-
 afterEach(async () => {
-  if (isWindowsCI) return;
   await cleanup()
 })
 
@@ -42,13 +38,6 @@ test('fireEvent write works', async () => {
 })
 
 test('FireEvent SigTerm works', async () => {
-  // @see https://github.com/crutchcorn/cli-testing-library/issues/3
-  // eslint-disable-next-line jest/no-if
-  if (isWindowsCI) {
-    // eslint-disable-next-line jest/no-conditional-expect
-    expect(true).toBeTruthy();
-    return;
-  }
   const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
@@ -63,13 +52,6 @@ test('FireEvent SigTerm works', async () => {
 })
 
 test('FireEvent SigKill works', async () => {
-  // @see https://github.com/crutchcorn/cli-testing-library/issues/3
-  // eslint-disable-next-line jest/no-if
-  if (isWindowsCI) {
-    // eslint-disable-next-line jest/no-conditional-expect
-    expect(true).toBeTruthy();
-    return;
-  }
   const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
@@ -97,13 +79,6 @@ test('userEvent basic keyboard works', async () => {
 })
 
 test('userEvent basic keyboard works when bound', async () => {
-  // @see https://github.com/crutchcorn/cli-testing-library/issues/3
-  // eslint-disable-next-line jest/no-if
-  if (isWindowsCI) {
-    // eslint-disable-next-line jest/no-conditional-expect
-    expect(true).toBeTruthy();
-    return;
-  }
   const {findByText, userEvent: userEventLocal} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer-input.js'),
   ])
