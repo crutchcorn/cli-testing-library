@@ -3,9 +3,20 @@ const {render, cleanup} = require('../pure')
 const {fireEvent} = require('../events')
 const {waitFor} = require('../wait-for')
 const {default: userEvent} = require('../user-event')
+const {getConfig, configure} = require("../config");
 
 afterEach(async () => {
   await cleanup()
+})
+
+let originalConfig
+beforeAll(() => {
+  originalConfig = getConfig()
+  configure({asyncUtilTimeout: 7000, errorDebounceTimeout: 500})
+})
+
+afterAll(() => {
+  configure(originalConfig)
 })
 
 test('fireEvent write works', async () => {
