@@ -81,7 +81,7 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
 
   cleanup()
 
-    userEvent("[ArrowDown]")
+  userEvent("[ArrowDown]")
 
   expect(await findByText('❯ Two')).toBeTruthy()
 
