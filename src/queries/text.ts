@@ -24,7 +24,7 @@ const queryByTextBase: QueryByText = (
         trim,
         normalizer
     })
-    const str = instance.stdoutStr
+    const str = instance.stdoutArr.join('\n')
     if (matcher(str, instance, text, matchNormalizer)) return instance
     else return null
 }

@@ -7,7 +7,6 @@ export interface TestInstance {
   clear(): void
   process: ChildProcessWithoutNullStreams
   stdoutArr: Array<string, Buffer>
-  stdoutStr: string
   hasExit(): null | {exitCode: number}
 }
 

@@ -12,10 +12,9 @@ afterEach(() => {
   configure(originalConfig)
 })
 
-test('Should handle stderr outputs with rejection', async () => {
-  await expect(() =>
-    render('node', [resolve(__dirname, './execute-scripts/throw.js')]),
-  ).rejects.toThrow(/Search for this error in stderr/)
+test('Should expect error codes when intended', async () => {
+  const instance = await render('node', [resolve(__dirname, './execute-scripts/throw.js')])
+  expect(instance.hasExit()).toMatchObject({exitCode: 1})
 })
 
 test('Should handle argument passing', async () => {

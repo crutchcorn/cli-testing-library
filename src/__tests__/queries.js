@@ -21,14 +21,12 @@ test('findByText should throw errors', async () => {
 })
 
 test('queryByText should find text', async () => {
-  const props = await render('node', [
+  const {queryByText} = await render('node', [
     resolve(__dirname, './execute-scripts/list-args.js'),
     '--version',
   ])
 
-  const {queryByText} = props;
-
-  expect(await queryByText('--version')).toBeTruthy()
+  expect(queryByText('--version')).toBeTruthy()
 })
 
 test('queryByText should not throw errors', async () => {

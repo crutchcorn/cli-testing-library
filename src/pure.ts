@@ -4,9 +4,9 @@ import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
 import userEvent from './user-event'
-import {bindObjectFnsToInstance, debounce, setCurrentInstance} from './helpers'
-import {getConfig} from './config'
+import {bindObjectFnsToInstance, setCurrentInstance} from './helpers'
 import {fireEvent} from './events'
+import {getConfig} from "./config";
 
 const mountedInstances = new Set<TestInstance>()
 
@@ -25,28 +25,23 @@ async function render(
   })
 
   let _readyPromiseInternals: null | {resolve: Function; reject: Function} =
-    null
-
-  let _isReadyResolved = false
+      null
 
   const execOutputAPI = {
     __exitCode: null as null | number,
     _isOutputAPI: true,
     _isReady: new Promise(
-      (resolve, reject) => (_readyPromiseInternals = {resolve, reject}),
+        (resolve, reject) => (_readyPromiseInternals = {resolve, reject}),
     ),
     process: exec,
     // Clear buffer of stdout to do more accurate `t.regex` checks
     clear() {
-      execOutputAPI.stdoutArr = []
+        execOutputAPI.stdoutArr = []
     },
     // An array of strings gathered from stdout when unable to do
     // `await stdout` because of inquirer interactive prompts
     stdoutArr: [] as Array<string | Buffer>,
-    get stdoutStr(): string {
-      return this.stdoutArr.join('\n')
-    },
-    set stdoutStr(val: string) {},
+    stderrArr: [] as Array<string | Buffer>,
     hasExit() {
       return this.__exitCode === null ? null : {exitCode: this.__exitCode}
     },
@@ -54,69 +49,40 @@ async function render(
 
   mountedInstances.add(execOutputAPI as unknown as TestInstance)
 
-  /**
-   * This method does not throw errors after-the-fact,
-   * meaning that if post-render errors are thrown,
-   * they will be missed
-   *
-   * THINK: Should we should simply `throw` when this occurs?
-   * What about cleanup?
-   * What about interactive errors?
-   */
-  let _errorHasOccured = false
-  const _errors: Array<string | Buffer | Error> = []
-
   exec.stdout.on('data', (result: string | Buffer) => {
     const resStr = stripFinalNewline(result as string)
     execOutputAPI.stdoutArr.push(resStr)
     _runObservers()
-    if (!_errorHasOccured && _readyPromiseInternals && !_isReadyResolved) {
-      _readyPromiseInternals.resolve()
-      _isReadyResolved = true
-    }
-    // stdout might contain relevant error info
-    if (_errorHasOccured && _readyPromiseInternals && !_isReadyResolved) {
-      _errors.push(result)
+  })
+
+  exec.stderr.on('data', (result: string | Buffer) => {
+    const resStr = stripFinalNewline(result as string)
+    execOutputAPI.stderrArr.push(resStr)
+    _runObservers()
+  })
+
+  exec.on('error', result => {
+    if (_readyPromiseInternals) {
+      _readyPromiseInternals.reject(result);
     }
   })
 
-  const _onError = () => {
-    if (!_readyPromiseInternals) return
-    _readyPromiseInternals.reject(new Error(_errors.join('\n')))
-    _isReadyResolved = true
-  }
+  exec.on('spawn', () => {
+      setTimeout(() => {
+          if (_readyPromiseInternals) {
 
-  const config = getConfig()
-  const _throttledOnError = debounce(_onError, config.errorDebounceTimeout)
-
-  exec.stdout.on('error', result => {
-    if (_readyPromiseInternals && !_isReadyResolved) {
-      _errors.push(result)
-      _throttledOnError()
-      _errorHasOccured = true
-    }
-  })
-
-  exec.stderr.on('data', (result: string) => {
-    if (_readyPromiseInternals && !_isReadyResolved) {
-      _errors.push(result)
-      _throttledOnError()
-      _errorHasOccured = true
-    }
+              _readyPromiseInternals.resolve();
+          }
+  }, getConfig().renderAwaitTime)
   })
 
   exec.on('exit', code => {
     execOutputAPI.__exitCode = code ?? 0
   })
 
-  // TODO: Replace with `debug()` function
-  if (opts.debug) {
-    exec.stdout.pipe(process.stdout)
-  }
+  setCurrentInstance(execOutputAPI)
 
   await execOutputAPI._isReady
-
-  setCurrentInstance(execOutputAPI)
 
   return Object.assign(
     execOutputAPI,

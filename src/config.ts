@@ -13,6 +13,10 @@ interface InternalConfig extends Config {
 let config: InternalConfig = {
   testIdAttribute: 'data-testid',
   asyncUtilTimeout: 1000,
+  // Short amount of time to wait for your process to spin up after a `spawn`. AFAIK There's unfortunately not much
+  // of a better way to do this
+  renderAwaitTime: 100,
+  // Internal timer time to wait before attempting error recovery debounce action
   errorDebounceTimeout: 100,
   // asyncWrapper and advanceTimersWrapper is to support React's async `act` function.
   // forcing react-testing-library to wrap all async functions would've been
@@ -37,7 +41,7 @@ let config: InternalConfig = {
     const error = new Error(
       [
         message,
-        testInstance ? `\n${testInstance.stdoutStr}` : '',
+        testInstance ? `\n${testInstance.stdoutArr.join('\n')}` : '',
       ]
         .filter(Boolean)
         .join('\n\n'),
