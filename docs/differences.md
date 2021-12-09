@@ -48,6 +48,8 @@ Another area where we diverge from the DOM is in our event system (as implemente
 Despite our APIs' naming indicating an actual event system (complete with bubbling and more, like the DOM),
 the CLI has no such concept.
 
+### FireEvent
+
 This means that, while `fireEvent` in the `DOM Testing Library` has the ability to inherent from all
 baked-into-browser events, we must hard-code a list of "events" and actions a user may take.
 
@@ -60,6 +62,8 @@ We try our best to implement ones that make sense:
 There is a missing API for that might make sense in `keypress`. It's unclear what this behavior would do that `write` wouldn't
 be able to.
 
+### UserEvent
+
 There's also the API of `userEvent` that allows us to implement a fairly similar `keyboard` event
 [to upstream](https://testing-library.com/docs/ecosystem-user-event/#keyboardtext-options). However, there are a few differences
 here as well:
@@ -68,6 +72,7 @@ here as well:
     this would work in practice, due to a lack of the `window` API.
 2) `userEvent.keyboard` does not support modifier keys. It's only key-presses, no holding. This is because of API 
     differences that would require us to figure out a manual binding system for every single key using ANSI AFAIK.
+3) Relatedly, we've remove the `{` syntax support, since there is no standard keybinding for the CLI, [like there is for the DOM](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code). Instead, we only support `[` and `]` syntax.
 
 # Matchers
 

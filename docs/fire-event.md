@@ -27,5 +27,5 @@ fireEvent[eventName](instance: TestInstance, eventProperties?: Object)
 ```
 
 Convenience methods for firing CLI events. Check out
-[src/event-map.js](https://github.com/crutchcorn/cli-testing-library/blob/main/src/event-map.js)
+[src/event-map.js](../src/event-map.ts)
 for a full list as well as default `eventProperties`.
