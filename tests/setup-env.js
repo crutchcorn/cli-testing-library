@@ -1,4 +1,5 @@
 import jestSnapshotSerializerAnsi from 'jest-snapshot-serializer-ansi'
+import '../src/extend-expect';
 
 expect.addSnapshotSerializer(jestSnapshotSerializerAnsi)
 // add serializer for MutationRecord
