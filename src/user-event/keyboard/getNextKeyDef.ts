@@ -1,7 +1,6 @@
 import {keyboardKey, keyboardOptions} from './types'
 
 enum bracketDict {
-    '{' = '}',
     '[' = ']',
 }
 
@@ -28,14 +27,11 @@ export function getNextKeyDef(
     const keyDef: keyboardKey = options.keyboardMap.find(def => {
         if (type === '[') {
             return def.code?.toLowerCase() === descriptor.toLowerCase()
-        } else if (type === '{') {
-            return def.hex?.toLowerCase() === descriptor.toLowerCase()
         }
         return def.hex === descriptor
     }) ?? {
-        code: 'Unknown',
+        code: descriptor,
         hex: 'Unknown',
-        [type === '[' ? 'code' : 'key']: descriptor,
     }
 
     return {
@@ -51,15 +47,14 @@ function readNextDescriptor(text: string) {
 
     pos += startBracket.length
 
-    // `foo{{bar` is an escaped char at position 3,
-    // but `foo{{{>5}bar` should be treated as `{` pressed down for 5 keydowns.
+    // `foo[[bar` is an escaped char at position 3,
+    // but `foo[[[>5}bar` should be treated as `{` pressed down for 5 keydowns.
     const startBracketRepeated = startBracket
         ? (text.match(new RegExp(`^\\${startBracket}+`)) as RegExpMatchArray)[0]
             .length
         : 0
     const isEscapedChar =
-        startBracketRepeated === 2 ||
-        (startBracket === '{' && startBracketRepeated > 3)
+        startBracketRepeated === 2
 
     const type = isEscapedChar ? '' : startBracket
 
