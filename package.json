@@ -43,6 +43,7 @@
     "jest-matcher-utils": "^27.4.2",
     "lz-string": "^1.4.4",
     "pretty-format": "^27.0.2",
+    "redent": "^3.0.0",
     "strip-ansi": "^6.0.1",
     "strip-final-newline": "^2.0.0",
     "tree-kill": "^1.2.2"

@@ -1,3 +1,5 @@
+import redent from 'redent'
+
 class GenericTypeError extends Error {
     constructor(expectedString, received, matcherFn, context) {
         super()
@@ -51,7 +53,33 @@ function checkCliInstance(cliInstance, ...args) {
     }
 }
 
+function display(context, value) {
+    return typeof value === 'string' ? value : context.utils.stringify(value)
+}
+
+function getMessage(
+    context,
+    matcher,
+    expectedLabel,
+    expectedValue,
+    receivedLabel,
+    receivedValue,
+) {
+    return [
+        `${matcher}\n`,
+        // eslint-disable-next-line @babel/new-cap
+        `${expectedLabel}:\n${context.utils.EXPECTED_COLOR(
+            redent(display(context, expectedValue), 2),
+        )}`,
+        // eslint-disable-next-line @babel/new-cap
+        `${receivedLabel}:\n${context.utils.RECEIVED_COLOR(
+            redent(display(context, receivedValue), 2),
+        )}`,
+    ].join('\n')
+}
+
 export {
     CliInstanceTypeError,
     checkCliInstance,
+    getMessage
 }

@@ -1,9 +1,8 @@
+/* eslint-disable @babel/no-invalid-this */
 import {checkCliInstance} from "./utils";
 
 export function toBeInTheConsole(instance) {
-  // eslint-disable-next-line @babel/no-invalid-this
   if (instance !== null || !this.isNot) {
-    // eslint-disable-next-line @babel/no-invalid-this
     checkCliInstance(instance, toBeInTheConsole, this)
   }
 
