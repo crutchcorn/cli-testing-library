@@ -5,7 +5,7 @@ const {getConfig, configure} = require("../config");
 let originalConfig
 beforeEach(() => {
   originalConfig = getConfig()
-  configure({asyncUtilTimeout: 15000})
+  configure({asyncUtilTimeout: 15000, renderAwaitTime: 300})
 })
 
 afterEach(() => {

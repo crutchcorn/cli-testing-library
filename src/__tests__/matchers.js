@@ -1,6 +1,5 @@
 const {resolve} = require('path')
 const {render} = require('../pure')
-const {toHaveErrorMessage} = require("../matchers/to-have-errormessage");
 
 test('toBeInTheConsole should pass when something is in console', async () => {
   const {findByText} = await render('node', [
