@@ -42,12 +42,13 @@ test('toHaveErrorMessage should pass during stderr when string passed', async ()
 })
 
 test('toHaveErrorMessage should fail when something is not in stderr', async () => {
-  const {queryByText} = await render('node', [
+  const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/list-args.js'),
     '--version',
   ])
 
-  expect(() => expect(queryByText('--version')).toHaveErrorMessage("Error isn't here")).toThrow(/Expected the element to have error message/)
+  const instance = await findByText('--version')
+  expect(() => expect(instance).toHaveErrorMessage("Error isn't here")).toThrow(/Expected the element to have error message/)
 })
 
 test('toHaveErrorMessage should fail when null is passed', async () => {
