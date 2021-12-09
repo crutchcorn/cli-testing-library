@@ -2,7 +2,12 @@ const {resolve} = require('path')
 const {render} = require('../pure')
 const {waitFor} = require("../wait-for");
 
-test('findByText should find text', async () => {
+test('findByError should show stderr', async () => {
+  const {findByError} = await render('node', [resolve(__dirname, './execute-scripts/throw.js')])
+  expect(findByError("Search for this error in stderr")).toBeTruthy()
+})
+
+test('findByText should find stdout', async () => {
   const {findByText} = await render('node', [
     resolve(__dirname, './execute-scripts/list-args.js'),
     '--version',
