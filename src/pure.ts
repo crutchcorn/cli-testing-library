@@ -35,6 +35,7 @@ async function render(
     _isReady: new Promise(
       (resolve, reject) => (_readyPromiseInternals = {resolve, reject}),
     ),
+    process: exec,
     // Clear buffer of stdout to do more accurate `t.regex` checks
     clear() {
       execOutputAPI.stdoutArr = []
@@ -120,12 +121,7 @@ async function render(
   return Object.assign(
     execOutputAPI,
     {
-      stdin: exec.stdin,
-      stdout: exec.stdout,
-      stderr: exec.stderr,
-      pid: exec.pid,
-      userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent),
-      kill: exec.kill.bind(exec),
+      userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent)
     },
     getQueriesForElement(execOutputAPI),
   ) as TestInstance as RenderResult

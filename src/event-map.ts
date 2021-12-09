@@ -7,7 +7,7 @@ const eventMap = {
   sigterm: (instance: TestInstance) => killProc(instance, isWin ? undefined : 'SIGTERM'),
   sigkill: (instance: TestInstance) => killProc(instance, isWin ? undefined : 'SIGKILL'),
   write: (instance: TestInstance, props: {value: string}) =>
-    instance.stdin.write(props.value),
+    instance.process.stdin.write(props.value),
 }
 
 export {eventMap}

@@ -1,17 +1,13 @@
 import type {SpawnOptionsWithoutStdio} from 'child_process'
-import {ChildProcess} from 'node:child_process'
+import {ChildProcessWithoutNullStreams} from "child_process";
 import type userEvent from '../src/user-event'
 import type {queries, BoundFunction} from './get-queries-for-instance'
 
 export interface TestInstance {
   clear(): void
+  process: ChildProcessWithoutNullStreams
   stdoutArr: Array<string, Buffer>
-  stdin: Exclude<ChildProcess['stdin'], null | undefined>
-  stdout: Exclude<ChildProcess['stdout'], null | undefined>
-  stderr: Exclude<ChildProcess['stderr'], null | undefined>
-  kill: Exclude<ChildProcess['kill'], null | undefined>
   stdoutStr: string
-  pid: number | undefined
   hasExit(): null | {exitCode: number}
 }
 

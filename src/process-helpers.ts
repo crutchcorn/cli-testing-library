@@ -4,12 +4,12 @@ import {getConfig} from "./config";
 
 export const killProc = (instance: TestInstance, signal: string | undefined) =>
     new Promise<void>((resolve, reject) => {
-        if (!instance.pid || (instance.pid && instance.hasExit())) {
+        if (!instance.process.pid || (instance.process.pid && instance.hasExit())) {
             resolve()
             return
         }
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        treeKill(instance.pid, signal, async err => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        treeKill(instance.process.pid, signal, async err => {
             try {
                 if (err) {
                     if (
@@ -39,7 +39,7 @@ export const killProc = (instance: TestInstance, signal: string | undefined) =>
                             'Be aware that this alternative kill method is not guaranteed to work with subprocesses, and they may not exit properly as a result.',
                         )
 
-                        const didKill = instance.kill(signal as 'SIGKILL')
+                        const didKill = instance.process.kill(signal as 'SIGKILL')
                         if (didKill) {
                             resolve()
                         } else {
