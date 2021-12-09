@@ -1,16 +1,5 @@
 const {resolve} = require('path')
 const {render} = require('../pure')
-const {getConfig, configure} = require("../config");
-
-let originalConfig
-beforeEach(() => {
-  originalConfig = getConfig()
-  configure({asyncUtilTimeout: 15000, renderAwaitTime: 300})
-})
-
-afterEach(() => {
-  configure(originalConfig)
-})
 
 test('Should expect error codes when intended', async () => {
   const instance = await render('node', [resolve(__dirname, './execute-scripts/throw.js')])

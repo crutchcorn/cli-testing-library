@@ -1,5 +1,6 @@
 import jestSnapshotSerializerAnsi from 'jest-snapshot-serializer-ansi'
 import '../src/extend-expect';
+import {configure, getConfig} from "../src/config";
 
 expect.addSnapshotSerializer(jestSnapshotSerializerAnsi)
 // add serializer for MutationRecord
@@ -46,5 +47,14 @@ afterAll(() => {
   jest.restoreAllMocks()
 })
 
+jest.setTimeout(20000)
 
-jest.setTimeout(7000)
+let originalConfig
+beforeAll(() => {
+  originalConfig = getConfig()
+  configure({asyncUtilTimeout: 15000, renderAwaitTime: 800})
+})
+
+afterAll(() => {
+  configure(originalConfig)
+})
