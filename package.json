@@ -34,7 +34,10 @@
   },
   "files": [
     "dist",
-    "types/*.d.ts"
+    "types/*.d.ts",
+    "extend-expect.js",
+    "src/user-event/**/*.ts",
+    "src/user-event/*.ts"
   ],
   "dependencies": {
     "@babel/code-frame": "^7.10.4",

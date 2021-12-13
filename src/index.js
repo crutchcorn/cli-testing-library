@@ -21,10 +21,14 @@ if (typeof process === 'undefined' || !process.env?.CTL_SKIP_AUTO_CLEANUP) {
     }
 }
 
+export * from './config'
 export * from './helpers'
 export * from './events'
-export * from './pure'
+export * from './get-queries-for-instance'
 export * from './matches'
+export * from './pure'
+export * from './query-helpers'
+export * from './queries'
 export * from './mutation-observer'
 export * from './wait-for'
 export * from './user-event'
