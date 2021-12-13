@@ -136,13 +136,38 @@ accepts a TextMatch).
 These options are all standard for text matching. To learn more, see our
 [Queries page](./queries.md).
 
-## `fireEvent`
+## `userEvent[eventName]`
 
 ```javascript
-fireEvent(instance: TestInstace, event: Event)
+userEvent[eventName](...eventProps)
 ```
 
-> While `fireEvent` isn't usually returned on `render` in, say,
+> While `userEvent` isn't usually returned on `render` in, say,
 > `React Testing Library`, we're able to do so because of our differences in
 > implementation with upstream. See our [Differences](./differences.md) doc for
 > more.
+
+This object is the same as described with
+[`userEvent` documentation](./user-event.md) with the key difference that
+`instance` is not expected to be passed when bound to `render`.
+
+## `debug`
+
+This method is a shortcut for `console.log(prettyCLI(instance)).`
+
+```javascript
+import {render} from 'cli-testing-library'
+
+const {debug} = render('command')
+debug()
+// Hello, world! How are you?
+//
+// you can also pass an instance: debug(getByText('message'))
+// and you can pass all the same arguments to debug as you can
+// to prettyCLI:
+// const maxLengthToPrint = 10000
+// debug(getByText('message'), maxLengthToPrint)
+```
+
+This is a simple wrapper around `prettyCLI` which is also exposed and comes from
+[CLI Testing Library](./debug.md).
