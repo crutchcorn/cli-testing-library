@@ -1,5 +1,18 @@
-[`user-event`][gh] is a helper that provides more
-advanced simulation of CLI interactions than the [`fireEvent`](./fire-event) method.
+[`user-event`][gh] is a helper that provides more advanced simulation of CLI
+interactions than the [`fireEvent`](./fire-event) method.
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Table of Contents** _generated with
+[DocToc](https://github.com/thlorenz/doctoc)_
+
+- [Import](#import)
+- [API](#api)
+  - [`keyboard(instance, text, [options])`](#keyboardinstance-text-options)
+    - [Special characters](#special-characters)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Import
 
@@ -20,9 +33,9 @@ const {userEvent} = render('command')
 ## API
 
 Note: All `userEvent` methods are synchronous with one exception: when `delay`
-option used with `userEvent.keyboard` as described below. We also discourage using
-`userEvent` inside `before/after` blocks at all, for important reasons described
-in
+option used with `userEvent.keyboard` as described below. We also discourage
+using `userEvent` inside `before/after` blocks at all, for important reasons
+described in
 ["Avoid Nesting When You're Testing"](https://kentcdodds.com/blog/avoid-nesting-when-youre-testing).
 
 ### `keyboard(instance, text, [options])`
@@ -36,7 +49,7 @@ test('type', () => {
   const {getByText, userEvent} = render('command')
 
   userEvent.keyboard('Hello, World![Enter]')
-  expect(getByText('Hello, world!')).toBeTruthy();
+  expect(getByText('Hello, world!')).toBeTruthy()
 })
 ```
 
@@ -50,28 +63,31 @@ to `await`!
 Keystrokes can be described:
 
 - Per printable character
+
   ```js
   userEvent.keyboard('foo') // translates to: f, o, o
   ```
-  The bracket `[` is used as a special character and can be referenced
-  by doubling it.
-  
+
+  The bracket `[` is used as a special character and can be referenced by
+  doubling it.
+
   ```js
   userEvent.keyboard('a[[') // translates to: a, [
   ```
-  
-- Per [special key mapping](../src/user-event/keyboard/keyMap.ts) with the `[` symbol
-  
+
+- Per [special key mapping](../src/user-event/keyboard/keyMap.ts) with the `[`
+  symbol
+
   ```js
   userEvent.keyboard('[ArrowLeft][KeyF][KeyO][KeyO]') // translates to: Left Arrow, f, o, o
   ```
+
   This does not keep any key pressed. So `Shift` will be lifted before pressing
   `f`.
 
 The mapping of special character strings are performed by a
-[default key map](../src/user-event/keyboard/keyMap.ts)
-portraying a "default" US-keyboard. You can provide your own local keyboard
-mapping per option.
+[default key map](../src/user-event/keyboard/keyMap.ts) portraying a "default"
+US-keyboard. You can provide your own local keyboard mapping per option.
 
 ```js
 userEvent.keyboard('?', {keyboardMap: myOwnLocaleKeyboardMap})
@@ -79,10 +95,10 @@ userEvent.keyboard('?', {keyboardMap: myOwnLocaleKeyboardMap})
 
 <!-- space out these notes -->
 
-
 #### Special characters
 
-We support inputting many special character strings with the `[` syntax mentioned previously. Here are some of the ones that are supported:
+We support inputting many special character strings with the `[` syntax
+mentioned previously. Here are some of the ones that are supported:
 
 | Text string    | Key name    |
 | -------------- | ----------- |
@@ -98,7 +114,7 @@ We support inputting many special character strings with the `[` syntax mentione
 | `[Home]`       | Home        |
 | `[End]`        | End         |
 
-A full list of supported special characters that can be input can be found [in our key mapping file](../src/user-event/keyboard/keyMap.ts).
-
+A full list of supported special characters that can be input can be found
+[in our key mapping file](../src/user-event/keyboard/keyMap.ts).
 
 [gh]: https://github.com/testing-library/user-event
