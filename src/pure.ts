@@ -7,6 +7,7 @@ import userEvent from './user-event'
 import {bindObjectFnsToInstance, setCurrentInstance} from './helpers'
 import {fireEvent} from './events'
 import {getConfig} from './config'
+import {logCLI} from "./pretty-cli";
 
 const mountedInstances = new Set<TestInstance>()
 
@@ -39,6 +40,9 @@ async function render(
     // Clear buffer of stdout to do more accurate `t.regex` checks
     clear() {
       execOutputAPI.stdoutArr = []
+    },
+    debug(maxLength?: number) {
+      logCLI(execOutputAPI, maxLength)
     },
     // An array of strings gathered from stdout when unable to do
     // `await stdout` because of inquirer interactive prompts

@@ -1,8 +1,17 @@
-import jestSnapshotSerializerAnsi from 'jest-snapshot-serializer-ansi'
 import '../src/extend-expect';
 import {configure, getConfig} from "../src/config";
+import hasAnsi from 'has-ansi';
+import stripAnsi from 'strip-ansi';
 
-expect.addSnapshotSerializer(jestSnapshotSerializerAnsi)
+/**
+ * We have instances where we need to disable this serializer to test for ANSI codes
+ * @see jest-snapshot-serializer-ansi
+ */
+expect.addSnapshotSerializer({
+  test: value => typeof value === 'string' && !value.includes("__disable_ansi_serialization") && hasAnsi(value),
+  print: (value, serialize) => serialize(stripAnsi(value)),
+});
+
 // add serializer for MutationRecord
 expect.addSnapshotSerializer({
   print: (record, serialize) => {

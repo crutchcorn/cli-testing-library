@@ -9,6 +9,7 @@ export interface TestInstance {
   stdoutArr: Array<string, Buffer>
   stderrArr: Array<string, Buffer>
   hasExit(): null | {exitCode: number}
+  debug(maxLength?: number): void
 }
 
 export interface RenderOptions {
