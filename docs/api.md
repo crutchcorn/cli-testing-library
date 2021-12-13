@@ -24,7 +24,12 @@ Instead, the following API is what `CLI Testing Library` provides the following.
 - [`render` Result](#render-result)
   - [`...queries`](#queries)
     - [ByText](#bytext)
-  - [`fireEvent`](#fireevent)
+  - [`userEvent[eventName]`](#usereventeventname)
+  - [`debug`](#debug)
+  - [`hasExit`](#hasexit)
+  - [`process`](#process)
+  - [`stdoutArr`/`stderrArr`](#stdoutarrstderrarr)
+  - [`clear`](#clear)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -171,3 +176,43 @@ debug()
 
 This is a simple wrapper around `prettyCLI` which is also exposed and comes from
 [CLI Testing Library](./debug.md).
+
+## `hasExit`
+
+This method allows you to check if the spawned process has exit, and if so, what
+exit code it closed with.
+
+```javascript
+const instance = render('command')
+
+await waitFor(() => instance.hasExit()).toMatchObject({exitCode: 1})
+```
+
+This method returns `null` if still running, but `{exitCode: number}` if it has
+exit
+
+## `process`
+
+The spawned process created by your rendered `TestInstnace`. It's a
+`child_instance`. This is a
+[regularly spawned process](https://nodejs.org/api/child_process.html#child_processspawncommand-args-options),
+so you can call `process.pid` etc. to inspect the process.
+
+## `stdoutArr`/`stderrArr`
+
+Each of these is an array of what's output by their respective `std`\* pipe.
+This is used internally to create the [`debug`methods](./debug.md) and more.
+They're defined as:
+
+```typescript
+interface TestInstance {
+  stdoutArr: Array<Buffer | string>
+  stderrArr: Array<Buffer | string>
+}
+```
+
+## `clear`
+
+This method acts as the terminal `clear` command might on most systems. It
+allows you to clear out the buffers for `stdoutArr` and `stderrArr` - even in
+the middle of processing - in order to do more narrowed queries.
