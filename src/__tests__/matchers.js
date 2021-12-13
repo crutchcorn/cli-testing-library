@@ -21,6 +21,24 @@ test('toBeInTheConsole should fail when something is not console', async () => {
   expect(() => expect(queryByText('NotHere')).toBeInTheConsole()).toThrow(/value must be a TestInstance/)
 })
 
+test('not.toBeInTheConsole should pass something is not console', async () => {
+  const {queryByText} = await render('node', [
+    resolve(__dirname, './execute-scripts/list-args.js'),
+    '--version',
+  ])
+
+  expect(() => expect(queryByText('NotHere')).not.toBeInTheConsole()).not.toThrow()
+})
+
+test('not.toBeInTheConsole should fail something is console', async () => {
+  const {queryByText} = await render('node', [
+    resolve(__dirname, './execute-scripts/list-args.js'),
+    '--version',
+  ])
+
+  expect(() => expect(queryByText('--version')).not.toBeInTheConsole()).toThrow(/Expected not to find the instance in the console/)
+})
+
 test('toHaveErrorMessage should pass during stderr when no string passed', async () => {
   const instance = await render('node', [
     resolve(__dirname, './execute-scripts/throw.js'),
@@ -48,7 +66,7 @@ test('toHaveErrorMessage should fail when something is not in stderr', async () 
   ])
 
   const instance = await findByText('--version')
-  expect(() => expect(instance).toHaveErrorMessage("Error isn't here")).toThrow(/Expected the element to have error message/)
+  expect(() => expect(instance).toHaveErrorMessage("Error isn't here")).toThrow(/Expected the instance to have error message/)
 })
 
 test('toHaveErrorMessage should fail when null is passed', async () => {

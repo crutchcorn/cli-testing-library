@@ -25,10 +25,10 @@ export function toHaveErrorMessage(testInstance, checkWith) {
                 this,
                 this.utils.matcherHint(
                     `${this.isNot ? '.not' : ''}.toHaveErrorMessage`,
-                    'element',
+                    'instance',
                     '',
                 ),
-                `Expected the element ${to} have error message`,
+                `Expected the instance ${to} have error message`,
                 this.utils.printExpected(checkWith),
                 'Received',
                 this.utils.printReceived(errormessage),
