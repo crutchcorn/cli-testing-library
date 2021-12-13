@@ -21,6 +21,12 @@ Library's,
   - [Precision](#precision)
   - [Normalization](#normalization)
     - [Normalization Examples](#normalization-examples)
+- [ByText](#bytext)
+  - [API](#api)
+  - [Options](#options)
+- [ByError](#byerror)
+  - [API](#api-1)
+  - [Options](#options-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -69,7 +75,7 @@ for a match and `false` for a mismatch.
 
 ## TextMatch Examples
 
-Given the following output line:
+Given the following output string:
 
 ```html
 Hello World
@@ -168,3 +174,73 @@ getByText('text', {
     getDefaultNormalizer({trim: false})(str).replace(/[\u200E-\u200F]*/g, ''),
 })
 ```
+
+# ByText
+
+> getByText, queryByText, findByText
+
+## API
+
+```typescript
+getByText(
+  // If you're using the return from `render`, then skip the container argument:
+  instance: TestInstance,
+  text: TextMatch,
+  options?: {
+    exact?: boolean = true,
+    normalizer?: NormalizerFn,
+  }): HTMLElement
+```
+
+This will search the instance to see if there's an `stdout` output matching the
+given [`TextMatch`](queries/about.mdx#textmatch).
+
+```html
+Input your name:
+```
+
+```jsx
+import {render} from 'cli-testing-library'
+
+const {getByText} = render('command')
+const instance = getByText(/input your name/i)
+```
+
+## Options
+
+Contains all of the [TextMatch](#textmatch) options
+
+# ByError
+
+> getByError, queryByError, findByError
+
+## API
+
+```typescript
+getByText(
+  // If you're using the return from `render`, then skip the container argument:
+  instance: TestInstance,
+  text: TextMatch,
+  options?: {
+    exact?: boolean = true,
+    normalizer?: NormalizerFn,
+  }): HTMLElement
+```
+
+This will search the instance to see if there's an `stderr` output matching the
+given [`TextMatch`](queries/about.mdx#textmatch).
+
+```html
+Could not find file
+```
+
+```jsx
+import {render} from 'cli-testing-library'
+
+const {getByError} = render('command')
+const instance = getByError(/not find file/)
+```
+
+## Options
+
+Contains all of the [TextMatch](#textmatch) options
