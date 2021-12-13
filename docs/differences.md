@@ -110,23 +110,14 @@ const {getByText} = render(/* Something */)
 expect(getByText('Hello World')).toBeInTheDocument()
 ```
 
-However, in today's version of `CLI Testing Library`, the same would look
-something like this:
+In today's version of `CLI Testing Library`, the same would look something like
+this:
 
 ```javascript
 const {getByText} = render(/* Something */)
 
-expect(getByText('Hello World')).toBeTruthy()
+expect(getByText('Hello World')).toBeInTheConsole()
 ```
-
-This is because, unlike `DOM Testing Library`, our TestInstances do not have
-parental relationships. As a result, what would be a fitting replacement for
-`document`?
-
-That said, because `toBeInTheDocument` is implemented by `jest-dom`, we can
-absolutely implement something similar in our codebase if requested. We have
-some thoughts around the technical aspects, but
-[we'd love to jump deeper into that discussion with others](https://github.com/crutchcorn/cli-testing-library/issues/2)
 
 # Similarities
 
