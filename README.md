@@ -69,27 +69,28 @@ const {resolve} = require('path')
 const {render} = require('cli-testing-library')
 
 test('Is able to make terminal input and view in-progress stdout', async () => {
-  const {cleanup, findByText, userEvent} = await render('node', [
+  const {cleanup, findByText, queryByText, userEvent} = await render('node', [
     resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
   ])
 
   const instance = await findByText('First option')
 
-  expect(instance).toBeTruthy()
+  expect(instance).toBeInTheConsole()
 
-  expect(await findByText('❯ One')).toBeTruthy()
+  expect(await findByText('❯ One')).toBeInTheConsole()
 
   cleanup()
 
   userEvent("[ArrowDown]")
 
-  expect(await findByText('❯ Two')).toBeTruthy()
+  expect(await findByText('❯ Two')).toBeInTheConsole()
 
   cleanup()
 
   userEvent.keyboard("[Enter]")
 
-  expect(await findByText('First option: Two')).toBeTruthy()
+  expect(await findByText('First option: Two')).toBeInTheConsole()
+  expect(await queryByText('First option: Three')).not.toBeInTheConsole()
 })
 ```
 
