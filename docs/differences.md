@@ -13,8 +13,8 @@ distinctions between the project's APIs.
 - [Instances](#instances)
 - [Queries](#queries)
 - [Events](#events)
-  - [FireEvent](#fireevent)
-  - [UserEvent](#userevent)
+    - [FireEvent](#fireevent)
+    - [UserEvent](#userevent)
 - [Matchers](#matchers)
 - [Similarities](#similarities)
 
