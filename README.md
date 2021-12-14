@@ -93,6 +93,9 @@ test('Is able to make terminal input and view in-progress stdout', async () => {
 })
 ```
 
+For a API reference documentation, including suggestions on how to use this library, see our 
+[documentation introduction with further reading](./docs/introduction.md).
+
 > While this library _does_ work in Windows, it does not appear to function properly in Windows CI environments, such
 > as GitHub actions. As a result, you may need to either switch CI systems or limit your CI to only run in Linux
 > 
