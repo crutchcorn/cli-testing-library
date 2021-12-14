@@ -5,40 +5,12 @@
 The library can be configured via the `configure` function, which accepts:
 
 - a plain JS object; this will be merged into the existing configuration. e.g.
-  `configure({testIdAttribute: 'not-data-testid'})`
+  `configure({asyncUtilTimeout: 800})`
 - a function; the function will be given the existing configuration, and should
   return a plain JS object which will be merged as above, e.g.
   `configure(existingConfig => ({something: [...existingConfig.something, 'extra value for the something array']}))`
 
-> **Note**
->
-> Framework-specific wrappers like React Testing Library may add more options to
-> the ones shown below.
-
-```js title="setup-tests.js"
-import {configure} from '@testing-library/react'
-
-configure({testIdAttribute: 'data-my-test-id'})
-```
-
 ## Options
-
-### `computedStyleSupportsPseudoElements`
-
-Set to `true` if `window.getComputedStyle` supports pseudo-elements i.e. a
-second argument. If you're using testing-library in a browser you almost always
-want to set this to `true`. Only very old browser don't support this property
-(such as IE 8 and earlier). However, `jsdom` does not support the second
-argument currently. This includes versions of `jsdom` prior to `16.4.0` and any
-version that logs a `not implemented` warning when calling `getComputedStyle`
-with a second argument e.g.
-`window.getComputedStyle(document.createElement('div'), '::after')`. Defaults to
-`false`
-
-### `defaultHidden`
-
-The default value for the `hidden` option used by
-[`getByRole`](queries/byrole.mdx). Defaults to `false`.
 
 ### `showOriginalStackTrace`
 
@@ -51,28 +23,34 @@ to `waitFor`.
 
 ### `throwSuggestions` (experimental)
 
-When enabled, if [better queries](queries/about.mdx#priority) are available the
+When enabled, if [better queries](./queries.md) are available the
 test will fail and provide a suggested query to use instead. Default to `false`.
 
 To disable a suggestion for a single query just add `{suggest:false}` as an
 option.
 
 ```js
-screen.getByTestId('foo', {suggest: false}) // will not throw a suggestion
+getByText('foo', {suggest: false}) // will not throw a suggestion
 ```
 
-### `testIdAttribute`
-
-The attribute used by [`getByTestId`](queries/bytestid.mdx) and related queries.
-Defaults to `data-testid`.
-
-### `getElementError`
+### `getInstanceError`
 
 A function that returns the error used when
-[get or find queries](queries/about.mdx#types-of-queries) fail. Takes the error
-message and container object as arguments.
+[get or find queries](./queries.md#types-of-queries) fail. Takes the error
+message and `TestInstance` object as arguments.
 
 ### `asyncUtilTimeout`
 
 The global timeout value in milliseconds used by `waitFor` utilities. Defaults
 to 1000ms.
+
+### `renderAwaitTime`
+
+By default, we wait for the CLI to `spawn` the command from `render`. If we immediately resolve 
+the promise to allow users to query, however, we lose the ability to `getByText` immediately after rendering.
+This [differs greatly from upstream Testing Library](./differences.md) and makes for a poor testing experience.
+
+As a result, we wait this duration before resolving the promise after the process is spawned. This gives runtimes like
+NodeJS time to spin up and execute commands.
+
+Defaults to 100ms.
