@@ -10,6 +10,8 @@ npm install --save-dev cli-testing-library
 
 - [`cli-testing-library` on GitHub](https://github.com/crutchcorn/cli-testing-library)
 
+## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -46,3 +48,14 @@ will work when a real user uses it.
 
 1. A test runner or framework
 2. Specific to a testing framework (though we recommend Jest as our preference, the library works with any framework.)
+
+# Further Reading
+
+- [API reference for `render` and friends](./api.md)
+- [Jest matchers](./matchers.md)
+- [Mock user input](./user-event.md)
+- [Manually fire input events](./fire-event.md)
+- [Output matching queries](./queries.md)
+- [Debugging "CLI Testing Library" tests](./debug.md)
+- [Configure library options](./configure.md)
+- [Differences between us and other "Testing Library" projects](./differences.md)
