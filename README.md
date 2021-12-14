@@ -1,5 +1,5 @@
 <div align="center">
-<h1>CLI Testing Library [WIP]</h1>
+<h1>CLI Testing Library</h1>
 
 <a href="https://www.joypixels.com/profiles/emoji/1f428">
   <img
