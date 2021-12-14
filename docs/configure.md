@@ -1,5 +1,18 @@
 # Configuration Options
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Introduction](#introduction)
+- [Options](#options)
+  - [`showOriginalStackTrace`](#showoriginalstacktrace)
+  - [`throwSuggestions` (experimental)](#throwsuggestions-experimental)
+  - [`getInstanceError`](#getinstanceerror)
+  - [`asyncUtilTimeout`](#asyncutiltimeout)
+  - [`renderAwaitTime`](#renderawaittime)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Introduction
 
 The library can be configured via the `configure` function, which accepts:

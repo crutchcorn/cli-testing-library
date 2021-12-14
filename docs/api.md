@@ -216,3 +216,27 @@ interface TestInstance {
 This method acts as the terminal `clear` command might on most systems. It
 allows you to clear out the buffers for `stdoutArr` and `stderrArr` - even in
 the middle of processing - in order to do more narrowed queries.
+
+# `cleanup`
+
+`SIGKILL`s processes that were spawned with render and have not halted by the end of the test.
+
+> Please note that this is done automatically if the testing framework you're using supports the `afterEach` global and it is injected to your testing environment (like mocha, Jest, and Jasmine). If not, you will need to do manual cleanups after each test.
+
+For example, if you're using the [ava](https://github.com/avajs/ava) testing framework, then you would need to use the `test.afterEach` hook like so:
+
+```javascript
+import {cleanup, render} from 'cli-testing-library'
+import test from 'ava'
+
+test.afterEach(cleanup)
+
+test('renders into document', () => {
+  render('long-running-command')
+  // ...
+})
+
+// ... more tests ...
+```
+
+Failing to call cleanup when you've called render could result in Jest failing to close due to unclosed handles and tests which are not "idempotent" (which can lead to difficult to debug errors in your tests).
