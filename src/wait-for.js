@@ -2,7 +2,7 @@
 // TODO: Migrate back to use `config.js` file
 import {getCurrentInstance, jestFakeTimersAreEnabled} from './helpers'
 import {MutationObserver} from './mutation-observer'
-import {getConfig} from "./config";
+import {getConfig} from './config'
 
 // This is so the stack trace the developer sees is one that's
 // closer to their code (because async stack traces are hard to follow).
@@ -20,9 +20,9 @@ function waitFor(
     interval = 50,
     onTimeout = error => {
       error.message = getConfig().getInstanceError(
-                error.message,
-                instance,
-            ).message
+        error.message,
+        instance,
+      ).message
       return error
     },
   },
@@ -40,7 +40,7 @@ function waitFor(
 
     const usingJestFakeTimers = jestFakeTimersAreEnabled()
     if (usingJestFakeTimers) {
-      const { unstable_advanceTimersWrapper: advanceTimersWrapper } = getConfig()
+      const {unstable_advanceTimersWrapper: advanceTimersWrapper} = getConfig()
       checkCallback()
       // this is a dangerous rule to disable because it could lead to an
       // infinite loop. However, eslint isn't smart enough to know that we're
@@ -169,9 +169,7 @@ function waitForWrapper(callback, options) {
   // create the error here so its stack trace is as close to the
   // calling code as possible
   const stackTraceError = new Error('STACK_TRACE_MESSAGE')
-  return getConfig().asyncWrapper(() =>
-        waitFor(callback, {stackTraceError, ...options}),
-    )
+  return waitFor(callback, {stackTraceError, ...options})
 }
 
 export {waitForWrapper as waitFor}
