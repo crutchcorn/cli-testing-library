@@ -1,5 +1,5 @@
 import {Config, ConfigFn} from '../types/config'
-import {TestInstance} from "../types/pure";
+import {TestInstance} from '../types/pure'
 // import {prettyDOM} from './pretty-dom'
 
 type Callback<T> = () => T
@@ -11,25 +11,14 @@ interface InternalConfig extends Config {
 // other parts of the code assume that all exports from
 // './queries' are query functions.
 let config: InternalConfig = {
-  testIdAttribute: 'data-testid',
   asyncUtilTimeout: 1000,
   // Short amount of time to wait for your process to spin up after a `spawn`. AFAIK There's unfortunately not much
   // of a better way to do this
   renderAwaitTime: 100,
   // Internal timer time to wait before attempting error recovery debounce action
   errorDebounceTimeout: 100,
-  // asyncWrapper and advanceTimersWrapper is to support React's async `act` function.
-  // forcing react-testing-library to wrap all async functions would've been
-  // a total nightmare (consider wrapping every findBy* query and then also
-  // updating `within` so those would be wrapped too. Total nightmare).
-  // so we have this config option that's really only intended for
-  // react-testing-library to use. For that reason, this feature will remain
-  // undocumented.
-  asyncWrapper: cb => cb(),
   unstable_advanceTimersWrapper: cb => cb(),
-  eventWrapper: cb => cb(),
   // default value for the `hidden` option in `ByRole` queries
-  defaultHidden: false,
   // showOriginalStackTrace flag to show the full error stack traces for async errors
   showOriginalStackTrace: false,
 
@@ -39,10 +28,7 @@ let config: InternalConfig = {
   // called when getBy* queries fail. (message, container) => Error
   getInstanceError(message, testInstance: TestInstance | undefined) {
     const error = new Error(
-      [
-        message,
-        testInstance ? `\n${testInstance.stdoutArr.join('\n')}` : '',
-      ]
+      [message, testInstance ? `\n${testInstance.stdoutArr.join('\n')}` : '']
         .filter(Boolean)
         .join('\n\n'),
     )
@@ -50,7 +36,6 @@ let config: InternalConfig = {
     return error
   },
   _disableExpensiveErrorDiagnostics: false,
-  computedStyleSupportsPseudoElements: false,
 }
 
 export function runWithExpensiveErrorDiagnosticsDisabled<T>(
