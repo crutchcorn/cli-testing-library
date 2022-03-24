@@ -5,5 +5,5 @@
     "allowJs": true,
     "downlevelIteration": true
   },
-  "include": ["./src", "./types"]
+  "include": ["./src", "./types", "extend-expect.d.ts"]
 }

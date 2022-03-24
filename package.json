@@ -36,6 +36,7 @@
     "dist",
     "types/*.d.ts",
     "extend-expect.js",
+    "extend-expect.d.ts",
     "src/user-event/**/*.ts",
     "src/user-event/*.ts"
   ],
