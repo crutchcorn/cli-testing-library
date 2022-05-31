@@ -3,7 +3,8 @@
   "compilerOptions": {
     "target": "ESNext",
     "allowJs": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "skipLibCheck": false
   },
   "include": ["./src", "./types", "extend-expect.d.ts"]
 }
