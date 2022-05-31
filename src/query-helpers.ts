@@ -7,10 +7,10 @@ import type {
   WithSuggest,
   Variant,
 } from '../types'
-import {TestInstance} from "../types/pure";
-import {getSuggestedQuery} from './suggestions'
-import {waitFor} from './wait-for'
-import {getConfig} from "./config";
+import {TestInstance} from '../types/pure.js'
+import {getSuggestedQuery} from './suggestions.js'
+import {waitFor} from './wait-for.js'
+import {getConfig} from './config.js'
 
 function getInstanceError(message: string | null, instance: TestInstance) {
   return getConfig().getInstanceError(message, instance)
@@ -84,10 +84,7 @@ const wrapSingleQueryWithSuggestion =
     ]
     if (instance && suggest) {
       const suggestion = getSuggestedQuery(instance, variant)
-      if (
-        suggestion &&
-        !queryByName.endsWith(suggestion.queryName as string)
-      ) {
+      if (suggestion && !queryByName.endsWith(suggestion.queryName as string)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         throw getSuggestionError(suggestion.toString(), container)
       }
@@ -126,11 +123,7 @@ function buildQueries(
     wrapSingleQueryWithSuggestion(getBy, queryBy.name, 'find'),
   )
 
-  return [
-    queryByWithSuggestions,
-    getByWithSuggestions,
-    findBy,
-  ]
+  return [queryByWithSuggestions, getByWithSuggestions, findBy]
 }
 
 export {

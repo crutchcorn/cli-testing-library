@@ -1,42 +1,34 @@
-import {GetErrorFunction, QueryByText} from '../../types'
+import {GetErrorFunction, QueryByText} from '../../types/index.js'
 import {
-    fuzzyMatches,
-    matches,
-    makeNormalizer,
-    buildQueries,
-} from './all-utils'
+  fuzzyMatches,
+  matches,
+  makeNormalizer,
+  buildQueries,
+} from './all-utils.js'
 
 const queryByErrorBase: QueryByText = (
-    instance,
-    text,
-    {
-        exact = false,
-        collapseWhitespace,
-        trim,
-        normalizer,
-        stripAnsi
-    } = {},
+  instance,
+  text,
+  {exact = false, collapseWhitespace, trim, normalizer, stripAnsi} = {},
 ) => {
-    const matcher = exact ? matches : fuzzyMatches
-    const matchNormalizer = makeNormalizer({
-        stripAnsi,
-        collapseWhitespace,
-        trim,
-        normalizer
-    })
-    const str = instance.stderrArr.join('\n')
-    if (matcher(str, instance, text, matchNormalizer)) return instance
-    else return null
+  const matcher = exact ? matches : fuzzyMatches
+  const matchNormalizer = makeNormalizer({
+    stripAnsi,
+    collapseWhitespace,
+    trim,
+    normalizer,
+  })
+  const str = instance.stderrArr.join('\n')
+  if (matcher(str, instance, text, matchNormalizer)) return instance
+  else return null
 }
 
 const getMissingError: GetErrorFunction<[unknown]> = (c, text) =>
-    `Unable to find an stdout line with the text: ${text}. This could be because the text is broken up by multiple lines. In this case, you can provide a function for your text matcher to make your matcher more flexible.`
+  `Unable to find an stdout line with the text: ${text}. This could be because the text is broken up by multiple lines. In this case, you can provide a function for your text matcher to make your matcher more flexible.`
 
-const [queryByErrorWithSuggestions, getByError, findByError] =
-    buildQueries(queryByErrorBase, getMissingError)
+const [queryByErrorWithSuggestions, getByError, findByError] = buildQueries(
+  queryByErrorBase,
+  getMissingError,
+)
 
-export {
-    queryByErrorWithSuggestions as queryByError,
-    getByError,
-    findByError,
-}
+export {queryByErrorWithSuggestions as queryByError, getByError, findByError}

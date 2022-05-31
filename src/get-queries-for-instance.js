@@ -1,4 +1,4 @@
-import * as defaultQueries from './queries'
+import * as defaultQueries from './queries/index.js'
 
 /**
  * @typedef {{[key: string]: Function}} FuncMap

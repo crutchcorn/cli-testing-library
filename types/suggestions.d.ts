@@ -13,14 +13,9 @@ export interface Suggestion {
   toString(): string
 }
 
-export type Variant =
-  | 'find'
-  | 'get'
-  | 'query'
+export type Variant = 'find' | 'get' | 'query'
 
-export type Method =
-  | 'Text'
-  | 'text'
+export type Method = 'Text' | 'text'
 
 export function getSuggestedQuery(
   element: HTMLElement,

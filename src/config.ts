@@ -1,6 +1,6 @@
-import {Config, ConfigFn} from '../types/config'
-import {TestInstance} from '../types/pure'
-// import {prettyDOM} from './pretty-dom'
+import {Config, ConfigFn} from '../types/config.js'
+import {TestInstance} from '../types/pure.js'
+// import {prettyDOM} from './pretty-dom.js'
 
 type Callback<T> = () => T
 interface InternalConfig extends Config {

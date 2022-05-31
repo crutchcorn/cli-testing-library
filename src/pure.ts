@@ -1,13 +1,13 @@
 import childProcess from 'child_process'
 import stripFinalNewline from 'strip-final-newline'
-import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
-import {_runObservers} from './mutation-observer'
-import {getQueriesForElement} from './get-queries-for-instance'
-import userEvent from './user-event'
-import {bindObjectFnsToInstance, setCurrentInstance} from './helpers'
-import {fireEvent} from './events'
-import {getConfig} from './config'
-import {logCLI} from './pretty-cli'
+import {RenderOptions, RenderResult, TestInstance} from '../types/pure.js'
+import {_runObservers} from './mutation-observer.js'
+import {getQueriesForElement} from './get-queries-for-instance.js'
+import userEvent from './user-event/index.js'
+import {bindObjectFnsToInstance, setCurrentInstance} from './helpers.js'
+import {fireEvent} from './events.js'
+import {getConfig} from './config.js'
+import {logCLI} from './pretty-cli.js'
 
 const mountedInstances = new Set<TestInstance>()
 

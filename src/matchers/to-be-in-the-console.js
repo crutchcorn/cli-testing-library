@@ -1,6 +1,6 @@
 /* eslint-disable @babel/no-invalid-this */
-import {getDefaultNormalizer} from '../matches'
-import {checkCliInstance, getMessage} from './utils'
+import {getDefaultNormalizer} from '../matches.js'
+import {checkCliInstance, getMessage} from './utils.js'
 
 export function toBeInTheConsole(instance) {
   if (instance !== null || !this.isNot) {

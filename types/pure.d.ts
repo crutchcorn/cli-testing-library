@@ -1,5 +1,5 @@
 import type {SpawnOptionsWithoutStdio} from 'child_process'
-import {ChildProcessWithoutNullStreams} from "child_process";
+import {ChildProcessWithoutNullStreams} from 'child_process'
 import type userEvent from '../src/user-event'
 import type {queries, BoundFunction} from './get-queries-for-instance'
 
@@ -18,7 +18,7 @@ export interface RenderOptions {
   spawnOpts: Omit<SpawnOptionsWithoutStdio, 'cwd'>
 }
 
-type UserEvent = typeof userEvent;
+type UserEvent = typeof userEvent
 
 export type RenderResult = TestInstance & {
   userEvent: {

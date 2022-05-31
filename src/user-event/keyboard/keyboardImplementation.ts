@@ -1,35 +1,29 @@
-import {fireEvent} from '../../events'
-import {wait} from '../utils'
-import {TestInstance} from "../../../types";
-import {getNextKeyDef} from './getNextKeyDef'
-import {
-    keyboardKey,
-    keyboardOptions,
-} from './types'
+import {fireEvent} from '../../events.js'
+import {wait} from '../utils.js'
+import {TestInstance} from '../../../types/index.js'
+import {getNextKeyDef} from './getNextKeyDef.js'
+import {keyboardKey, keyboardOptions} from './types.js'
 
 export async function keyboardImplementation(
-    instance: TestInstance,
-    text: string,
-    options: keyboardOptions,
+  instance: TestInstance,
+  text: string,
+  options: keyboardOptions,
 ): Promise<void> {
-    const {keyDef, consumedLength} =
-    getNextKeyDef(text, options)
+  const {keyDef, consumedLength} = getNextKeyDef(text, options)
 
-    keypress(keyDef, instance)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  keypress(keyDef, instance)
 
-    if (text.length > consumedLength) {
-        if (options.delay > 0) {
-            await wait(options.delay)
-        }
-
-        return keyboardImplementation(instance, text.slice(consumedLength), options)
+  if (text.length > consumedLength) {
+    if (options.delay > 0) {
+      await wait(options.delay)
     }
-    return void undefined
+
+    return keyboardImplementation(instance, text.slice(consumedLength), options)
+  }
+  return void undefined
 }
 
-function keypress(
-    keyDef: keyboardKey,
-    instance: TestInstance,
-) {
-    fireEvent.write(instance, {value: keyDef.hex});
+function keypress(keyDef: keyboardKey, instance: TestInstance) {
+  fireEvent.write(instance, {value: keyDef.hex})
 }

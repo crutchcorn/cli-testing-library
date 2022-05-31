@@ -1,4 +1,4 @@
-import {getDefaultNormalizer} from './matches'
+import {getDefaultNormalizer} from './matches.js'
 
 const normalize = getDefaultNormalizer()
 
@@ -14,9 +14,7 @@ function makeSuggestion(queryName, element, content, {variant, name}) {
   const warning = ''
   const queryOptions = {}
   const queryArgs = [
-    [].includes(queryName)
-      ? content
-      : getRegExpMatcher(content),
+    [].includes(queryName) ? content : getRegExpMatcher(content),
   ]
 
   if (name) {

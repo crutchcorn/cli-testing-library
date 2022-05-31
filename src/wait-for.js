@@ -1,8 +1,8 @@
 // Migrated from: https://github.com/testing-library/dom-testing-library/blob/main/src/wait-for.js
 // TODO: Migrate back to use `config.js` file
-import {getCurrentInstance, jestFakeTimersAreEnabled} from './helpers'
-import {MutationObserver} from './mutation-observer'
-import {getConfig} from './config'
+import {getCurrentInstance, jestFakeTimersAreEnabled} from './helpers.js'
+import {MutationObserver} from './mutation-observer.js'
+import {getConfig} from './config.js'
 
 // This is so the stack trace the developer sees is one that's
 // closer to their code (because async stack traces are hard to follow).

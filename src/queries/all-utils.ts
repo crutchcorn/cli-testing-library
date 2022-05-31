@@ -1,3 +1,3 @@
-export * from '../matches'
-export * from '../query-helpers'
-export * from '../config'
+export * from '../matches.js'
+export * from '../query-helpers.js'
+export * from '../config.js'

@@ -1,3 +1,3 @@
-import * as extensions from './matchers'
+import * as extensions from './matchers.js'
 
 expect.extend(extensions)

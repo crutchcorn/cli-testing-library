@@ -1,4 +1,4 @@
-import {keyboardKey} from './types'
+import {keyboardKey} from './types/index.js'
 
 /**
  * Mapping for a default US-104-QWERTY keyboard

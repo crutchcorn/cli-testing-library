@@ -77,7 +77,30 @@
       "import/no-unassigned-import": "off",
       "import/no-useless-path-segments": "off",
       "no-console": "off"
-    }
+    },
+    "overrides": [
+      {
+        "files": [
+          "src/**/*"
+        ],
+        "excludedFiles": "src/__tests__/**/*",
+        "rules": {
+          "import/extensions": [
+            "error",
+            "ignorePackages"
+          ]
+        }
+      },
+      {
+        "files": [
+          "src/**/*.js"
+        ],
+        "excludedFiles": "src/__tests__/**/*",
+        "rules": {
+          "import/no-unresolved": "off"
+        }
+      }
+    ]
   },
   "eslintIgnore": [
     "node_modules",

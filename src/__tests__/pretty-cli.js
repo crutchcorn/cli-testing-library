@@ -2,7 +2,6 @@ const {resolve} = require('path')
 const {render} = require('../pure')
 const {prettyCLI} = require('../pretty-cli')
 
-
 test('Should pretty print with ANSI codes properly', async () => {
   const instance = await render('node', [
     resolve(__dirname, './execute-scripts/log-output.js'),

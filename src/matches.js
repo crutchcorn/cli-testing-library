@@ -45,7 +45,11 @@ function matches(textToMatch, node, matcher, normalizer) {
   }
 }
 
-function getDefaultNormalizer({trim = true, collapseWhitespace = true, stripAnsi = true} = {}) {
+function getDefaultNormalizer({
+  trim = true,
+  collapseWhitespace = true,
+  stripAnsi = true,
+} = {}) {
   return text => {
     let normalizedText = text
     normalizedText = trim ? normalizedText.trim() : normalizedText

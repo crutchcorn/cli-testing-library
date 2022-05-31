@@ -8,7 +8,7 @@ test('toBeInTheConsole should pass when something is in console', async () => {
   ])
 
   await expect(
-      (async () => expect(await findByText('--version')).toBeInTheConsole())()
+    (async () => expect(await findByText('--version')).toBeInTheConsole())(),
   ).resolves.not.toThrow()
 })
 
@@ -18,7 +18,9 @@ test('toBeInTheConsole should fail when something is not console', async () => {
     '--version',
   ])
 
-  expect(() => expect(queryByText('NotHere')).toBeInTheConsole()).toThrow(/value must be a TestInstance/)
+  expect(() => expect(queryByText('NotHere')).toBeInTheConsole()).toThrow(
+    /value must be a TestInstance/,
+  )
 })
 
 test('not.toBeInTheConsole should pass something is not console', async () => {
@@ -27,7 +29,9 @@ test('not.toBeInTheConsole should pass something is not console', async () => {
     '--version',
   ])
 
-  expect(() => expect(queryByText('NotHere')).not.toBeInTheConsole()).not.toThrow()
+  expect(() =>
+    expect(queryByText('NotHere')).not.toBeInTheConsole(),
+  ).not.toThrow()
 })
 
 test('not.toBeInTheConsole should fail something is console', async () => {
@@ -36,7 +40,9 @@ test('not.toBeInTheConsole should fail something is console', async () => {
     '--version',
   ])
 
-  expect(() => expect(queryByText('--version')).not.toBeInTheConsole()).toThrow(/Expected not to find the instance in the console/)
+  expect(() => expect(queryByText('--version')).not.toBeInTheConsole()).toThrow(
+    /Expected not to find the instance in the console/,
+  )
 })
 
 test('toHaveErrorMessage should pass during stderr when no string passed', async () => {
@@ -45,7 +51,7 @@ test('toHaveErrorMessage should pass during stderr when no string passed', async
   ])
 
   await expect(
-      (async () => expect(instance).toHaveErrorMessage())()
+    (async () => expect(instance).toHaveErrorMessage())(),
   ).resolves.not.toThrow()
 })
 
@@ -55,7 +61,8 @@ test('toHaveErrorMessage should pass during stderr when string passed', async ()
   ])
 
   await expect(
-      (async () => expect(instance).toHaveErrorMessage(/Search for this error in stderr/))()
+    (async () =>
+      expect(instance).toHaveErrorMessage(/Search for this error in stderr/))(),
   ).resolves.not.toThrow()
 })
 
@@ -66,7 +73,9 @@ test('toHaveErrorMessage should fail when something is not in stderr', async () 
   ])
 
   const instance = await findByText('--version')
-  expect(() => expect(instance).toHaveErrorMessage("Error isn't here")).toThrow(/Expected the instance to have error message/)
+  expect(() => expect(instance).toHaveErrorMessage("Error isn't here")).toThrow(
+    /Expected the instance to have error message/,
+  )
 })
 
 test('toHaveErrorMessage should fail when null is passed', async () => {
@@ -75,5 +84,7 @@ test('toHaveErrorMessage should fail when null is passed', async () => {
     '--version',
   ])
 
-  expect(() => expect(queryByText('NotHere')).toHaveErrorMessage()).toThrow(/value must be a TestInstance/)
+  expect(() => expect(queryByText('NotHere')).toHaveErrorMessage()).toThrow(
+    /value must be a TestInstance/,
+  )
 })

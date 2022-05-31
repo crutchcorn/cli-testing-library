@@ -1,7 +1,7 @@
-import {TestInstance} from '../../../types'
-import {keyboardImplementation} from './keyboardImplementation'
-import {defaultKeyMap} from './keyMap'
-import {keyboardOptions, keyboardKey} from './types'
+import {TestInstance} from '../../../types/index.js'
+import {keyboardImplementation} from './keyboardImplementation.js'
+import {defaultKeyMap} from './keyMap.js'
+import {keyboardOptions, keyboardKey} from './types/index.js'
 
 export type {keyboardOptions, keyboardKey}
 

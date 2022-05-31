@@ -36,8 +36,8 @@ to `waitFor`.
 
 ### `throwSuggestions` (experimental)
 
-When enabled, if [better queries](./queries.md) are available the
-test will fail and provide a suggested query to use instead. Default to `false`.
+When enabled, if [better queries](./queries.md) are available the test will fail
+and provide a suggested query to use instead. Default to `false`.
 
 To disable a suggestion for a single query just add `{suggest:false}` as an
 option.
@@ -59,11 +59,14 @@ to 1000ms.
 
 ### `renderAwaitTime`
 
-By default, we wait for the CLI to `spawn` the command from `render`. If we immediately resolve 
-the promise to allow users to query, however, we lose the ability to `getByText` immediately after rendering.
-This [differs greatly from upstream Testing Library](./differences.md) and makes for a poor testing experience.
+By default, we wait for the CLI to `spawn` the command from `render`. If we
+immediately resolve the promise to allow users to query, however, we lose the
+ability to `getByText` immediately after rendering. This
+[differs greatly from upstream Testing Library](./differences.md) and makes for
+a poor testing experience.
 
-As a result, we wait this duration before resolving the promise after the process is spawned. This gives runtimes like
-NodeJS time to spin up and execute commands.
+As a result, we wait this duration before resolving the promise after the
+process is spawned. This gives runtimes like NodeJS time to spin up and execute
+commands.
 
 Defaults to 100ms.
