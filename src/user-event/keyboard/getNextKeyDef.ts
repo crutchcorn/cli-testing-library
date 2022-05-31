@@ -1,4 +1,4 @@
-import {keyboardKey, keyboardOptions} from './types/index.js'
+import {keyboardKey, keyboardOptions} from './types.js'
 
 enum bracketDict {
   '[' = ']',
