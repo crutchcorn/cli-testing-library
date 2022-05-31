@@ -3,6 +3,18 @@
   "version": "0.0.0-semantically-released",
   "description": "Simple and complete CLI testing utilities that encourage good testing practices.",
   "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "require": "./dist/cli-testing-library.cjs.js",
+      "import": "./dist/cli-testing-library.esm.js"
+    },
+    "./extend-expect": {
+      "types": "./extend-expect.d.ts",
+      "require": "./dist/extend-expect.js",
+      "import": "./dist/extend-expect.js"
+    }
+  },
   "types": "types/index.d.ts",
   "module": "dist/cli-testing-library.esm.js",
   "umd:main": "dist/cli-testing-library.umd.js",
