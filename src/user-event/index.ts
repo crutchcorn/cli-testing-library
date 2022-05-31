@@ -1,4 +1,4 @@
-import {keyboard} from './keyboard'
+import {keyboard} from './keyboard/index'
 
 const userEvent = {
   keyboard,
@@ -6,4 +6,4 @@ const userEvent = {
 
 export default userEvent
 
-export type {keyboardKey} from './keyboard'
+export type {keyboardKey} from './keyboard/index'
