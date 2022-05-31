@@ -1,6 +1,6 @@
 import treeKill from 'tree-kill'
-import {TestInstance} from '../types/index.js'
-import {getConfig} from './config.js'
+import { TestInstance } from '../types/index.js'
+import { getConfig } from './config.js'
 
 export const killProc = (instance: TestInstance, signal: string | undefined) =>
   new Promise<void>((resolve, reject) => {

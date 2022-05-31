@@ -1,4 +1,4 @@
-import {keyboard} from './keyboard/index.js'
+import { keyboard } from './keyboard/index.js'
 
 const userEvent = {
   keyboard,
@@ -6,4 +6,4 @@ const userEvent = {
 
 export default userEvent
 
-export type {keyboardKey} from './keyboard/index.js'
+export type { keyboardKey } from './keyboard/index.js'

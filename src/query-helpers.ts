@@ -7,17 +7,17 @@ import type {
   WithSuggest,
   Variant,
 } from '../types'
-import {TestInstance} from '../types/pure.js'
-import {getSuggestedQuery} from './suggestions.js'
-import {waitFor} from './wait-for.js'
-import {getConfig} from './config.js'
+import { TestInstance } from '../types/pure.js'
+import { getSuggestedQuery } from './suggestions.js'
+import { waitFor } from './wait-for.js'
+import { getConfig } from './config.js'
 
 function getInstanceError(message: string | null, instance: TestInstance) {
   return getConfig().getInstanceError(message, instance)
 }
 
 function getSuggestionError(
-  suggestion: {toString(): string},
+  suggestion: { toString(): string },
   container: TestInstance,
 ) {
   return getConfig().getInstanceError(
@@ -66,7 +66,7 @@ function makeFindQuery<QueryFor>(
       () => {
         return getter(container, text, options)
       },
-      {container, ...waitForOptions},
+      { container, ...waitForOptions },
     )
   }
 }
@@ -77,21 +77,21 @@ const wrapSingleQueryWithSuggestion =
     queryByName: string,
     variant: Variant,
   ) =>
-  (container: TestInstance, ...args: Arguments) => {
-    const instance = query(container, ...args)
-    const [{suggest = getConfig().throwSuggestions} = {}] = args.slice(-1) as [
-      WithSuggest,
-    ]
-    if (instance && suggest) {
-      const suggestion = getSuggestedQuery(instance, variant)
-      if (suggestion && !queryByName.endsWith(suggestion.queryName as string)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        throw getSuggestionError(suggestion.toString(), container)
+    (container: TestInstance, ...args: Arguments) => {
+      const instance = query(container, ...args)
+      const [{ suggest = getConfig().throwSuggestions } = {}] = args.slice(-1) as [
+        WithSuggest,
+      ]
+      if (instance && suggest) {
+        const suggestion = getSuggestedQuery(instance, variant)
+        if (suggestion && !queryByName.endsWith(suggestion.queryName as string)) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          throw getSuggestionError(suggestion.toString(), container)
+        }
       }
-    }
 
-    return instance
-  }
+      return instance
+    }
 
 // TODO: This deviates from the published declarations
 // However, the implementation always required a dyadic (after `container`) not variadic `queryAllBy` considering the implementation of `makeFindQuery`
