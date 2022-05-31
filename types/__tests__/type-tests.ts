@@ -1,21 +1,12 @@
-import {
-  fireEvent,
-  queries,
-  waitFor,
-  BoundFunctions
-} from 'cli-testing-library'
-import {render, TestInstance} from "../pure";
-import userEvent from "../../src/user-event";
+import {fireEvent, queries, waitFor, BoundFunctions} from 'cli-testing-library'
+import {render, TestInstance} from '../pure'
+import userEvent from '../../src/user-event'
 
-const {
-  getByText,
-  queryByText,
-  findByText,
-} = queries
+const {getByText, queryByText, findByText} = queries
 
 export async function testQueries() {
   // instance queries
-  const instance = await render('command', []);
+  const instance = await render('command', [])
   getByText(instance, 'foo')
   getByText(instance, 1)
   queryByText(instance, 'foo')
@@ -40,30 +31,28 @@ export function testBoundFunctions() {
 }
 
 export async function eventTest() {
-  const instance = await render('command', []);
+  const instance = await render('command', [])
 
   await fireEvent.sigterm(instance)
 
-  fireEvent.write(instance, {value: 'test'});
+  fireEvent.write(instance, {value: 'test'})
 }
 
 export async function keyboardTest() {
-  const instance = await render('command', []);
+  const instance = await render('command', [])
 
-  userEvent.keyboard(instance, "Test")
-  instance.userEvent.keyboard("Test")
-  await instance.userEvent.keyboard("Test", {delay: 0})
+  userEvent.keyboard(instance, 'Test')
+  instance.userEvent.keyboard('Test')
+  await instance.userEvent.keyboard('Test', {delay: 0})
 
-  fireEvent.write(instance, {value: 'test'});
+  fireEvent.write(instance, {value: 'test'})
 }
 
 export async function testWaitFors() {
-  const instance = await render('command', []);
+  const instance = await render('command', [])
 
   await waitFor(() => getByText(instance, 'apple'))
-  const result: TestInstance = await waitFor(() =>
-    getByText(instance, 'apple'),
-  )
+  const result: TestInstance = await waitFor(() => getByText(instance, 'apple'))
   if (!result) {
     // Use value
     throw new Error(`Can't find result`)

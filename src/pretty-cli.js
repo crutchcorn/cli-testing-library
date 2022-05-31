@@ -1,4 +1,4 @@
-import sliceAnsi from 'slice-ansi';
+import sliceAnsi from 'slice-ansi'
 import {getUserCodeFrame} from './get-user-code-frame'
 
 function prettyCLI(testInstance, maxLength) {
@@ -12,12 +12,10 @@ function prettyCLI(testInstance, maxLength) {
   }
 
   if (!('stdoutArr' in testInstance)) {
-    throw new TypeError(
-      `Expected an instance but got ${testInstance}`,
-    )
+    throw new TypeError(`Expected an instance but got ${testInstance}`)
   }
 
-  const outStr = testInstance.stdoutArr.join('\n');
+  const outStr = testInstance.stdoutArr.join('\n')
 
   // eslint-disable-next-line no-negated-condition
   return maxLength !== undefined && outStr.length > maxLength

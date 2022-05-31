@@ -1,11 +1,9 @@
-import {
-    keyboard
-} from './keyboard';
+import {keyboard} from './keyboard'
 
 const userEvent = {
-    keyboard
+  keyboard,
 }
 
-export default userEvent;
+export default userEvent
 
 export type {keyboardKey} from './keyboard'

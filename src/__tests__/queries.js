@@ -1,10 +1,12 @@
 const {resolve} = require('path')
 const {render} = require('../pure')
-const {waitFor} = require("../wait-for");
+const {waitFor} = require('../wait-for')
 
 test('findByError should show stderr', async () => {
-  const {findByError} = await render('node', [resolve(__dirname, './execute-scripts/throw.js')])
-  expect(findByError("Search for this error in stderr")).toBeTruthy()
+  const {findByError} = await render('node', [
+    resolve(__dirname, './execute-scripts/throw.js'),
+  ])
+  expect(findByError('Search for this error in stderr')).toBeTruthy()
 })
 
 test('findByText should find stdout', async () => {
@@ -22,7 +24,9 @@ test('findByText should throw errors', async () => {
     '--version',
   ])
 
-  await expect(() => findByText('--nothing')).rejects.toThrow('Unable to find an stdout line with the text:')
+  await expect(() => findByText('--nothing')).rejects.toThrow(
+    'Unable to find an stdout line with the text:',
+  )
 })
 
 test('queryByText should find text', async () => {
@@ -40,7 +44,7 @@ test('queryByText should not throw errors', async () => {
     '--version',
   ])
 
-  expect(await queryByText('--nothing')).toBeFalsy();
+  expect(await queryByText('--nothing')).toBeFalsy()
 })
 
 test('getByText should find text', async () => {
@@ -49,7 +53,7 @@ test('getByText should find text', async () => {
     '--version',
   ])
 
-  expect(await waitFor(() => getByText('--version'))).toBeTruthy();
+  expect(await waitFor(() => getByText('--version'))).toBeTruthy()
 })
 
 test('getByText should throw errors', async () => {
@@ -58,5 +62,7 @@ test('getByText should throw errors', async () => {
     '--version',
   ])
 
-  await expect(() => waitFor(() => getByText('--nothing'))).rejects.toThrow('Unable to find an stdout line with the text:');
+  await expect(() => waitFor(() => getByText('--nothing'))).rejects.toThrow(
+    'Unable to find an stdout line with the text:',
+  )
 })

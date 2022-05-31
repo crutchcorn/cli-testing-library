@@ -1,6 +1,6 @@
 import {MatcherOptions} from './matches'
 import {waitForOptions} from './wait-for'
-import {TestInstance} from "./pure";
+import {TestInstance} from './pure'
 
 export type WithSuggest = {suggest?: boolean}
 
@@ -33,7 +33,10 @@ export type FindAllBy<Arguments extends any[]> = QueryMethod<
   [Arguments[0], Arguments[1]?, waitForOptions?],
   Promise<TestInstance[]>
 >
-export type GetBy<Arguments extends any[]> = QueryMethod<Arguments, TestInstance>
+export type GetBy<Arguments extends any[]> = QueryMethod<
+  Arguments,
+  TestInstance
+>
 export type FindBy<Arguments extends any[]> = QueryMethod<
   [Arguments[0], Arguments[1]?, waitForOptions?],
   Promise<TestInstance>
