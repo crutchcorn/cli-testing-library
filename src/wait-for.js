@@ -122,7 +122,7 @@ function waitFor(
       if (promiseStatus === 'pending') return
       try {
         const result = callback() // runWithExpensiveErrorDiagnosticsDisabled(callback)
-        if (typeof result?.then === 'function') {
+        if (typeof (result && result.then) === 'function') {
           promiseStatus = 'pending'
           result.then(
             resolvedValue => {

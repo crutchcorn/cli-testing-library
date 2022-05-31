@@ -1,4 +1,4 @@
-import {waitFor} from '../'
+import {waitFor} from '../index'
 import {configure, getConfig} from '../config'
 // import {render} from '../pure'
 
@@ -109,6 +109,7 @@ test('throws nice error if provided callback is not a function', () => {
   )
 })
 
+// eslint-disable-next-line jest/no-commented-out-tests
 // test('timeout logs a pretty DOM', async () => {
 //   renderIntoDocument(`<div id="pretty">how pretty</div>`)
 //   const error = await waitFor(

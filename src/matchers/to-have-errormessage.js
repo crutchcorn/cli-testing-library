@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this */
+/* eslint-disable no-invalid-this */
 import {getDefaultNormalizer} from '../matches'
 import {checkCliInstance, getMessage} from './utils'
 

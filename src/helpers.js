@@ -5,7 +5,7 @@ function jestFakeTimersAreEnabled() {
       // legacy timers
       setTimeout._isMockFunction === true ||
       // modern timers
-      Object.prototype.hasOwnProperty.call(setTimeout, 'clock')
+      Object.hasOwn(setTimeout, 'clock')
     )
   }
   // istanbul ignore next
@@ -48,7 +48,7 @@ function debounce(func, timeout) {
   return (...args) => {
     clearTimeout(timer)
     timer = setTimeout(() => {
-      // eslint-disable-next-line @babel/no-invalid-this
+      // eslint-disable-next-line no-invalid-this
       func.apply(this, args)
     }, timeout)
   }

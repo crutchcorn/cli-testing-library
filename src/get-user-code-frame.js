@@ -12,7 +12,7 @@ try {
     '@babel/code-frame',
   ).codeFrameColumns
   chalk = nodeRequire.call(module, 'chalk')
-} catch {
+} catch (e) {
   // We're in a browser environment
 }
 
@@ -32,7 +32,7 @@ function getCodeFrame(frame) {
   let rawFileContents = ''
   try {
     rawFileContents = readFileSync(filename, 'utf-8')
-  } catch {
+  } catch (e) {
     return ''
   }
 
