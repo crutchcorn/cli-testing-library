@@ -1,6 +1,6 @@
 /* eslint-disable @babel/no-invalid-this */
-import {getDefaultNormalizer} from '../matches.js'
-import {checkCliInstance, getMessage} from './utils.js'
+import { getDefaultNormalizer } from '../matches.js'
+import { checkCliInstance, getMessage } from './utils.js'
 
 /**
  * @param {TestInstance} testInstance

@@ -1,4 +1,4 @@
-import {cleanup} from './pure.js'
+import { cleanup } from './pure.js'
 
 // if we're running in a test runner that supports afterEach
 // or teardown then we'll automatically run cleanup afterEach test

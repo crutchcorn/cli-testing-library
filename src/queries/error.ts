@@ -1,4 +1,4 @@
-import {GetErrorFunction, QueryByText} from '../../types/index.js'
+import { GetErrorFunction, QueryByText } from '../../types/index.js'
 import {
   fuzzyMatches,
   matches,
@@ -9,7 +9,7 @@ import {
 const queryByErrorBase: QueryByText = (
   instance,
   text,
-  {exact = false, collapseWhitespace, trim, normalizer, stripAnsi} = {},
+  { exact = false, collapseWhitespace, trim, normalizer, stripAnsi } = {},
 ) => {
   const matcher = exact ? matches : fuzzyMatches
   const matchNormalizer = makeNormalizer({
@@ -31,4 +31,4 @@ const [queryByErrorWithSuggestions, getByError, findByError] = buildQueries(
   getMissingError,
 )
 
-export {queryByErrorWithSuggestions as queryByError, getByError, findByError}
+export { queryByErrorWithSuggestions as queryByError, getByError, findByError }
