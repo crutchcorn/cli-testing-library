@@ -1,4 +1,4 @@
-import {fireEvent, queries, waitFor, BoundFunctions} from 'cli-testing-library'
+import {fireEvent, queries, waitFor, BoundFunctions} from '../index'
 import {render, TestInstance} from '../pure'
 import userEvent from '../../src/user-event'
 
@@ -33,6 +33,7 @@ export function testBoundFunctions() {
 export async function eventTest() {
   const instance = await render('command', [])
 
+  // eslint-disable-next-line @typescript-eslint/await-thenable
   await fireEvent.sigterm(instance)
 
   fireEvent.write(instance, {value: 'test'})

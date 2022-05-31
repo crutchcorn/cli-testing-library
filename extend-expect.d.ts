@@ -3,7 +3,8 @@
 /// <reference types="jest" />
 
 declare namespace jest {
-  interface Matchers<R, ignored> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface Matchers<R, T = {}> {
     /**
      * @description
      * Assert whether a query is present in the console or not.
