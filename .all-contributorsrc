@@ -29,6 +29,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "jgoux",
+      "name": "Julien Goux",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1443499?v=4",
+      "profile": "http://jgoux.dev",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
   "repoHost": "https://github.com",
