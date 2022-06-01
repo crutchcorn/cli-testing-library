@@ -22,7 +22,7 @@ class MutationObserver {
 }
 
 function _runObservers() {
-  ;[..._observers.values()].forEach(cb => cb())
+  Array.from(_observers.values()).forEach(cb => cb())
 }
 
 export {_runObservers, MutationObserver}
