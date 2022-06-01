@@ -5,7 +5,8 @@ function jestFakeTimersAreEnabled() {
       // legacy timers
       setTimeout._isMockFunction === true ||
       // modern timers
-      Object.hasOwn(setTimeout, 'clock')
+      // eslint-disable-next-line prefer-object-has-own
+      Object.prototype.hasOwnProperty.call(setTimeout, 'clock')
     )
   }
   // istanbul ignore next
