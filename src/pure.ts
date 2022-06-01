@@ -113,7 +113,7 @@ async function render(
 }
 
 function cleanup() {
-  return Promise.all([...mountedInstances].map(cleanupAtInstance))
+  return Promise.all(Array.from(mountedInstances).map(cleanupAtInstance))
 }
 
 // maybe one day we'll expose this (perhaps even as a utility returned by render).
