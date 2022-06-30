@@ -8,6 +8,7 @@ import {bindObjectFnsToInstance, setCurrentInstance} from './helpers'
 import {fireEvent} from './events'
 import {getConfig} from './config'
 import {logCLI} from './pretty-cli'
+import {performance} from 'perf_hooks'
 
 const mountedInstances = new Set<TestInstance>()
 
