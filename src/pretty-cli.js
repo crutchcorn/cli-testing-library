@@ -11,11 +11,14 @@ function prettyCLI(testInstance, maxLength) {
     return ''
   }
 
-  if (!('stdoutArr' in testInstance)) {
+  if (!('stdoutArr' in testInstance && 'stderrArr' in testInstance)) {
     throw new TypeError(`Expected an instance but got ${testInstance}`)
   }
 
-  const outStr = testInstance.stdoutArr.join('\n')
+  const outStr = testInstance.stderrArr.concat(testInstance.stdoutArr)
+      .sort((a,b) => a.timestamp - b.timestamp)
+      .map(obj => obj.contents)
+      .join('\n');
 
   // eslint-disable-next-line no-negated-condition
   return maxLength !== undefined && outStr.length > maxLength

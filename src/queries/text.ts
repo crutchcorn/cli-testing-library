@@ -13,7 +13,7 @@ const queryByTextBase: QueryByText = (
     trim,
     normalizer,
   })
-  const str = instance.stdoutArr.join('\n')
+  const str = instance.stdoutArr.map(output => output.contents).join('\n')
   if (matcher(str, instance, text, matchNormalizer)) return instance
   else return null
 }

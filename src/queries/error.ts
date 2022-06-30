@@ -13,7 +13,7 @@ const queryByErrorBase: QueryByText = (
     trim,
     normalizer,
   })
-  const str = instance.stderrArr.join('\n')
+  const str = instance.stderrArr.map(obj => obj.contents).join('\n')
   if (matcher(str, instance, text, matchNormalizer)) return instance
   else return null
 }

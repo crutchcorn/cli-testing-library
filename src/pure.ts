@@ -47,8 +47,8 @@ async function render(
     },
     // An array of strings gathered from stdout when unable to do
     // `await stdout` because of inquirer interactive prompts
-    stdoutArr: [] as Array<string | Buffer>,
-    stderrArr: [] as Array<string | Buffer>,
+    stdoutArr: [] as Array<{contents: Buffer | string, timestamp: number}>,
+    stderrArr: [] as Array<{contents: Buffer | string, timestamp: number}>,
     hasExit() {
       return this.__exitCode === null ? null : {exitCode: this.__exitCode}
     },
@@ -65,7 +65,7 @@ async function render(
     }
 
     const resStr = stripFinalNewline(result as string)
-    execOutputAPI.stdoutArr.push(resStr)
+    execOutputAPI.stdoutArr.push({contents: resStr, timestamp: Date.now()})
     _runObservers()
   })
 
@@ -76,7 +76,7 @@ async function render(
     }
 
     const resStr = stripFinalNewline(result as string)
-    execOutputAPI.stderrArr.push(resStr)
+    execOutputAPI.stderrArr.push({contents: resStr, timestamp: Date.now()})
     _runObservers()
   })
 

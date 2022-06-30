@@ -27,8 +27,18 @@ let config: InternalConfig = {
 
   // called when getBy* queries fail. (message, container) => Error
   getInstanceError(message, testInstance: TestInstance | undefined) {
+    let instanceWarning: string = "";
+    if (testInstance) {
+      const stdallArrStr = testInstance.stderrArr.concat(testInstance.stdoutArr)
+          .sort((a,b) => a.timestamp - b.timestamp)
+          .map(obj => obj.contents)
+          .join('\n');
+      instanceWarning = `\n${stdallArrStr}`
+    } else {
+      instanceWarning = "";
+    }
     const error = new Error(
-      [message, testInstance ? `\n${testInstance.stdoutArr.join('\n')}` : '']
+      [message, instanceWarning]
         .filter(Boolean)
         .join('\n\n'),
     )

@@ -7,8 +7,8 @@ import type {BoundFunction} from './get-queries-for-instance'
 export interface TestInstance {
   clear(): void
   process: ChildProcessWithoutNullStreams
-  stdoutArr: Array<string | Buffer>
-  stderrArr: Array<string | Buffer>
+  stdoutArr: Array<{contents: Buffer | string, timestamp: number}>
+  stderrArr: Array<{contents: Buffer | string, timestamp: number}>
   hasExit(): null | {exitCode: number}
   debug(maxLength?: number): void
 }

@@ -206,8 +206,8 @@ They're defined as:
 
 ```typescript
 interface TestInstance {
-  stdoutArr: Array<Buffer | string>
-  stderrArr: Array<Buffer | string>
+  stdoutArr: Array<{contents: Buffer | string, timestamp: number}>
+  stderrArr: Array<{contents: Buffer | string, timestamp: number}>
 }
 ```
 
