@@ -27,3 +27,17 @@ test('Should escape ANSI codes properly when sliced too thin', async () => {
     [34mH[39m
   `)
 })
+
+test('Should show proper stderr and stdout output', async () => {
+  const instance = await render('node', [
+    resolve(__dirname, './execute-scripts/log-err.js'),
+  ])
+
+  await instance.findByError('Error here')
+
+  expect(prettyCLI(instance, 300)).toMatchInlineSnapshot(`
+    Log here
+    Warn here
+    Error here
+  `)
+})

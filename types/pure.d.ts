@@ -9,6 +9,7 @@ export interface TestInstance {
   process: ChildProcessWithoutNullStreams
   stdoutArr: Array<{contents: Buffer | string, timestamp: number}>
   stderrArr: Array<{contents: Buffer | string, timestamp: number}>
+  getStdallStr(): string
   hasExit(): null | {exitCode: number}
   debug(maxLength?: number): void
 }

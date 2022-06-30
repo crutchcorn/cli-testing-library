@@ -29,10 +29,7 @@ let config: InternalConfig = {
   getInstanceError(message, testInstance: TestInstance | undefined) {
     let instanceWarning: string = "";
     if (testInstance) {
-      const stdallArrStr = testInstance.stderrArr.concat(testInstance.stdoutArr)
-          .sort((a,b) => a.timestamp - b.timestamp)
-          .map(obj => obj.contents)
-          .join('\n');
+      const stdallArrStr = testInstance.getStdallStr();
       instanceWarning = `\n${stdallArrStr}`
     } else {
       instanceWarning = "";

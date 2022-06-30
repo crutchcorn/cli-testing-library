@@ -65,7 +65,7 @@ async function render(
     }
 
     const resStr = stripFinalNewline(result as string)
-    execOutputAPI.stdoutArr.push({contents: resStr, timestamp: Date.now()})
+    execOutputAPI.stdoutArr.push({contents: resStr, timestamp: performance.now()})
     _runObservers()
   })
 
@@ -76,7 +76,7 @@ async function render(
     }
 
     const resStr = stripFinalNewline(result as string)
-    execOutputAPI.stderrArr.push({contents: resStr, timestamp: Date.now()})
+    execOutputAPI.stderrArr.push({contents: resStr, timestamp: performance.now()})
     _runObservers()
   })
 
@@ -103,10 +103,19 @@ async function render(
 
   await execOutputAPI._isReady
 
+
+  function getStdallStr(this: Omit<TestInstance, 'getStdallStr'>) {
+    return this.stderrArr.concat(this.stdoutArr)
+        .sort((a,b) => a.timestamp < b.timestamp ? -1 : 1)
+        .map(obj => obj.contents)
+        .join('\n');
+  }
+
   return Object.assign(
     execOutputAPI,
     {
       userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent),
+      getStdallStr: getStdallStr.bind(execOutputAPI),
     },
     getQueriesForElement(execOutputAPI),
   ) as TestInstance as RenderResult
