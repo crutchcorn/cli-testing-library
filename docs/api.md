@@ -185,7 +185,7 @@ exit code it closed with.
 ```javascript
 const instance = render('command')
 
-await waitFor(() => instance.hasExit()).toMatchObject({exitCode: 1})
+await waitFor(() => expect(instance.hasExit()).toMatchObject({ exitCode: 1 }))
 ```
 
 This method returns `null` if still running, but `{exitCode: number}` if it has
