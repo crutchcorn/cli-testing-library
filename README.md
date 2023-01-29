@@ -17,7 +17,7 @@ practices.</p>
 
 <hr />
 
-[![Build Status](https://img.shields.io/github/workflow/status/crutchcorn/cli-testing-library/validate/main.svg?style=flat-square)](https://github.com/crutchcorn/cli-testing-library/actions/workflows/validate.yml?query=branch%3Amain)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/crutchcorn/cli-testing-library/validate.yml?branch=main&style=flat-square)](https://github.com/crutchcorn/cli-testing-library/actions/workflows/validate.yml?query=branch%3Amain)
 [![version](https://img.shields.io/npm/v/cli-testing-library?style=flat-square)](https://www.npmjs.com/package/cli-testing-library)
 [![downloads](https://img.shields.io/npm/dw/cli-testing-library?style=flat-square)](https://www.npmjs.com/package/cli-testing-library)
 [![MIT License](https://img.shields.io/npm/l/cli-testing-library?style=flat-square)](./LICENSE)
