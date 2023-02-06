@@ -25,7 +25,7 @@ practices.</p>
 [![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](./CODE_OF_CONDUCT.md)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Watch on GitHub](https://img.shields.io/github/watchers/crutchcorn/cli-testing-library.svg?style=social)](https://github.com/crutchcorn/cli-testing-library/watchers)
@@ -114,11 +114,14 @@ Thanks goes to these wonderful people
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://crutchcorn.dev/"><img src="https://avatars.githubusercontent.com/u/9100169?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Corbin Crutchley</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=crutchcorn" title="Code">💻</a> <a href="https://github.com/crutchcorn/cli-testing-library/commits?author=crutchcorn" title="Documentation">📖</a> <a href="#maintenance-crutchcorn" title="Maintenance">🚧</a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/serkan-sipahi-59b20081/"><img src="https://avatars.githubusercontent.com/u/1880749?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bitcollage</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=SerkanSipahi" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://jgoux.dev"><img src="https://avatars.githubusercontent.com/u/1443499?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Julien Goux</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/issues?q=author%3Ajgoux" title="Bug reports">🐛</a> <a href="https://github.com/crutchcorn/cli-testing-library/commits?author=jgoux" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://crutchcorn.dev/"><img src="https://avatars.githubusercontent.com/u/9100169?v=4?s=100" width="100px;" alt="Corbin Crutchley"/><br /><sub><b>Corbin Crutchley</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=crutchcorn" title="Code">💻</a> <a href="https://github.com/crutchcorn/cli-testing-library/commits?author=crutchcorn" title="Documentation">📖</a> <a href="#maintenance-crutchcorn" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/serkan-sipahi-59b20081/"><img src="https://avatars.githubusercontent.com/u/1880749?v=4?s=100" width="100px;" alt="Bitcollage"/><br /><sub><b>Bitcollage</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=SerkanSipahi" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://jgoux.dev"><img src="https://avatars.githubusercontent.com/u/1443499?v=4?s=100" width="100px;" alt="Julien Goux"/><br /><sub><b>Julien Goux</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/issues?q=author%3Ajgoux" title="Bug reports">🐛</a> <a href="https://github.com/crutchcorn/cli-testing-library/commits?author=jgoux" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://coryforsyth.com/"><img src="https://avatars.githubusercontent.com/u/2023?v=4?s=100" width="100px;" alt="Cory Forsyth"/><br /><sub><b>Cory Forsyth</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=bantic" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
