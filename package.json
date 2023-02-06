@@ -88,7 +88,8 @@
       "import/prefer-default-export": "off",
       "import/no-unassigned-import": "off",
       "import/no-useless-path-segments": "off",
-      "no-console": "off"
+      "no-console": "off",
+      "import/consistent-type-specifier-style": "off"
     }
   },
   "eslintIgnore": [

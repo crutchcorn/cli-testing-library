@@ -7,6 +7,7 @@ const {
 
 module.exports = {
   collectCoverageFrom,
+  passWithNoTests: true,
   coveragePathIgnorePatterns: [
     ...coveragePathIgnorePatterns,
     '/__tests__/',
