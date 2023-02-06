@@ -39,6 +39,15 @@
         "bug",
         "code"
       ]
+    },
+    {
+      "login": "bantic",
+      "name": "Cory Forsyth",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2023?v=4",
+      "profile": "http://coryforsyth.com/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "repoHost": "https://github.com",
