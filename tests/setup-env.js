@@ -1,7 +1,7 @@
 import '../src/extend-expect'
-import {configure, getConfig} from '../src/config'
 import hasAnsi from 'has-ansi'
 import stripAnsi from 'strip-ansi'
+import {configure, getConfig} from '../src/config'
 
 /**
  * We have instances where we need to disable this serializer to test for ANSI codes

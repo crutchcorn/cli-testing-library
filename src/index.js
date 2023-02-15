@@ -4,7 +4,10 @@ import {cleanup} from './pure'
 // or teardown then we'll automatically run cleanup afterEach test
 // this ensures that tests run in isolation from each other
 // if you don't like this then set the CTL_SKIP_AUTO_CLEANUP env variable to 'true'.
-if (typeof process === 'undefined' || !(process.env && process.env.CTL_SKIP_AUTO_CLEANUP)) {
+if (
+  typeof process === 'undefined' ||
+  !(process.env && process.env.CTL_SKIP_AUTO_CLEANUP)
+) {
   // ignore teardown() in code coverage because Jest does not support it
   /* istanbul ignore else */
   if (typeof afterEach === 'function') {

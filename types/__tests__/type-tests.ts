@@ -42,8 +42,8 @@ export async function eventTest() {
 export async function keyboardTest() {
   const instance = await render('command', [])
 
-  userEvent.keyboard(instance, 'Test')
-  instance.userEvent.keyboard('Test')
+  await userEvent.keyboard(instance, 'Test')
+  await instance.userEvent.keyboard('Test')
   await instance.userEvent.keyboard('Test', {delay: 0})
 
   fireEvent.write(instance, {value: 'test'})
