@@ -1,4 +1,4 @@
-import type {eventMap} from '../src/event-map'
+import type {eventMap} from './event-map'
 import {TestInstance} from './pure'
 
 type EventMap = typeof eventMap
