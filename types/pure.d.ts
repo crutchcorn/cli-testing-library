@@ -1,14 +1,14 @@
 import type {SpawnOptionsWithoutStdio} from 'child_process'
 import {ChildProcessWithoutNullStreams} from 'child_process'
-import type userEvent from '../src/user-event/index'
+import type userEvent from './user-event/index'
 import * as queries from './queries'
 import type {BoundFunction} from './get-queries-for-instance'
 
 export interface TestInstance {
   clear(): void
   process: ChildProcessWithoutNullStreams
-  stdoutArr: Array<{contents: Buffer | string, timestamp: number}>
-  stderrArr: Array<{contents: Buffer | string, timestamp: number}>
+  stdoutArr: Array<{contents: Buffer | string; timestamp: number}>
+  stderrArr: Array<{contents: Buffer | string; timestamp: number}>
   getStdallStr(): string
   hasExit(): null | {exitCode: number}
   debug(maxLength?: number): void

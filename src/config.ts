@@ -27,17 +27,15 @@ let config: InternalConfig = {
 
   // called when getBy* queries fail. (message, container) => Error
   getInstanceError(message, testInstance: TestInstance | undefined) {
-    let instanceWarning: string = "";
+    let instanceWarning: string = ''
     if (testInstance) {
-      const stdallArrStr = testInstance.getStdallStr();
+      const stdallArrStr = testInstance.getStdallStr()
       instanceWarning = `\n${stdallArrStr}`
     } else {
-      instanceWarning = "";
+      instanceWarning = ''
     }
     const error = new Error(
-      [message, instanceWarning]
-        .filter(Boolean)
-        .join('\n\n'),
+      [message, instanceWarning].filter(Boolean).join('\n\n'),
     )
     error.name = 'TestingLibraryElementError'
     return error

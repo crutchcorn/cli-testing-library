@@ -11,7 +11,9 @@ export function toHaveErrorMessage(testInstance, checkWith) {
 
   const expectsErrorMessage = checkWith !== undefined
 
-  const errormessage = getDefaultNormalizer()(testInstance.stderrArr.map(obj => obj.contents).join('\n'))
+  const errormessage = getDefaultNormalizer()(
+    testInstance.stderrArr.map(obj => obj.contents).join('\n'),
+  )
 
   return {
     pass: expectsErrorMessage

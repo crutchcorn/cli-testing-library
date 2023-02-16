@@ -8,7 +8,9 @@ export function toBeInTheConsole(instance) {
   }
 
   const errormessage = instance
-    ? getDefaultNormalizer()(instance.stdoutArr.map(obj => obj.contents).join('\n'))
+    ? getDefaultNormalizer()(
+        instance.stdoutArr.map(obj => obj.contents).join('\n'),
+      )
     : null
 
   return {

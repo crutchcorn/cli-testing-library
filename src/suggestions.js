@@ -61,7 +61,9 @@ function canSuggest(currentMethod, requestedMethod, data) {
 }
 
 export function getSuggestedQuery(instance, variant = 'get', method) {
-  const textContent = normalize(instance.stdoutArr.map(obj => obj.contents).join('\n'))
+  const textContent = normalize(
+    instance.stdoutArr.map(obj => obj.contents).join('\n'),
+  )
   if (canSuggest('Text', method, textContent)) {
     return makeSuggestion('Text', instance, textContent, {variant})
   }

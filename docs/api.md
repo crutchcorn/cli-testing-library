@@ -185,7 +185,7 @@ exit code it closed with.
 ```javascript
 const instance = render('command')
 
-await waitFor(() => expect(instance.hasExit()).toMatchObject({ exitCode: 1 }))
+await waitFor(() => expect(instance.hasExit()).toMatchObject({exitCode: 1}))
 ```
 
 This method returns `null` if still running, but `{exitCode: number}` if it has
@@ -206,8 +206,8 @@ They're defined as:
 
 ```typescript
 interface TestInstance {
-  stdoutArr: Array<{contents: Buffer | string, timestamp: number}>
-  stderrArr: Array<{contents: Buffer | string, timestamp: number}>
+  stdoutArr: Array<{contents: Buffer | string; timestamp: number}>
+  stderrArr: Array<{contents: Buffer | string; timestamp: number}>
 }
 ```
 

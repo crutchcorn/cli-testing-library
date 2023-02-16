@@ -1,4 +1,5 @@
 import childProcess from 'child_process'
+import {performance} from 'perf_hooks'
 import stripFinalNewline from 'strip-final-newline'
 import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
@@ -8,7 +9,6 @@ import {bindObjectFnsToInstance, setCurrentInstance} from './helpers'
 import {fireEvent} from './events'
 import {getConfig} from './config'
 import {logCLI} from './pretty-cli'
-import {performance} from 'perf_hooks'
 
 const mountedInstances = new Set<TestInstance>()
 
@@ -48,8 +48,8 @@ async function render(
     },
     // An array of strings gathered from stdout when unable to do
     // `await stdout` because of inquirer interactive prompts
-    stdoutArr: [] as Array<{contents: Buffer | string, timestamp: number}>,
-    stderrArr: [] as Array<{contents: Buffer | string, timestamp: number}>,
+    stdoutArr: [] as Array<{contents: Buffer | string; timestamp: number}>,
+    stderrArr: [] as Array<{contents: Buffer | string; timestamp: number}>,
     hasExit() {
       return this.__exitCode === null ? null : {exitCode: this.__exitCode}
     },
@@ -66,7 +66,10 @@ async function render(
     }
 
     const resStr = stripFinalNewline(result as string)
-    execOutputAPI.stdoutArr.push({contents: resStr, timestamp: performance.now()})
+    execOutputAPI.stdoutArr.push({
+      contents: resStr,
+      timestamp: performance.now(),
+    })
     _runObservers()
   })
 
@@ -77,7 +80,10 @@ async function render(
     }
 
     const resStr = stripFinalNewline(result as string)
-    execOutputAPI.stderrArr.push({contents: resStr, timestamp: performance.now()})
+    execOutputAPI.stderrArr.push({
+      contents: resStr,
+      timestamp: performance.now(),
+    })
     _runObservers()
   })
 
@@ -104,12 +110,12 @@ async function render(
 
   await execOutputAPI._isReady
 
-
   function getStdallStr(this: Omit<TestInstance, 'getStdallStr'>) {
-    return this.stderrArr.concat(this.stdoutArr)
-        .sort((a,b) => a.timestamp < b.timestamp ? -1 : 1)
-        .map(obj => obj.contents)
-        .join('\n');
+    return this.stderrArr
+      .concat(this.stdoutArr)
+      .sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1))
+      .map(obj => obj.contents)
+      .join('\n')
   }
 
   return Object.assign(

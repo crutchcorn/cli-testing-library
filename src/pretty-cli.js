@@ -15,7 +15,7 @@ function prettyCLI(testInstance, maxLength) {
     throw new TypeError(`Expected an instance but got ${testInstance}`)
   }
 
-  const outStr = testInstance.getStdallStr();
+  const outStr = testInstance.getStdallStr()
 
   // eslint-disable-next-line no-negated-condition
   return maxLength !== undefined && outStr.length > maxLength
