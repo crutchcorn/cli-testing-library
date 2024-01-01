@@ -12,7 +12,7 @@ Thanks for being willing to contribute!
 > requests from branches on your fork. To do this, run:
 >
 > ```
-> git remote add upstream https://github.com/testing-library/dom-testing-library.git
+> git remote add upstream https://github.com/crutchcorn/cli-testing-library.git
 > git fetch upstream
 > git branch --set-upstream-to=upstream/main main
 > ```
