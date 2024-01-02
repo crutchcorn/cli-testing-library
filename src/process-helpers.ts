@@ -21,8 +21,15 @@ export const killProc = (instance: TestInstance, signal: string | undefined) =>
           }
           if (
             err.message.includes('could not be terminated') &&
-            err.message.includes('There is no running instance of the task.')
+            err.message.includes('There is no running instance of the task.') &&
+            instance.hasExit()
           ) {
+            resolve()
+            return
+          }
+          const isOperationNotSupported = err.message.includes('The operation attempted is not supported.');
+          const isAccessDenied = err.message.includes('Access is denied.');
+          if (err.message.includes('could not be terminated') && (isOperationNotSupported || isAccessDenied)) {
             const sleep = (t: number) => new Promise(r => setTimeout(r, t))
             await sleep(getConfig().errorDebounceTimeout)
             if (instance.hasExit()) {
