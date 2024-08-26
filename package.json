@@ -47,6 +47,7 @@
   "files": [
     "dist",
     "types/*.d.ts",
+    "types/user-event/**/*.d.ts",
     "extend-expect.js",
     "extend-expect.d.ts",
     "src/user-event/**/*.ts",
