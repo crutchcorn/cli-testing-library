@@ -7,8 +7,8 @@ function deferred() {
   let resolve!: (...props: unknown[]) => void;
   let reject!: (...props: unknown[]) => void;
   const promise = new Promise<void>((res, rej) => {
-    resolve = res
-    reject = rej
+    resolve = res as never
+    reject = rej as never
   })
   return {promise, resolve, reject}
 }
@@ -151,7 +151,7 @@ test('should delegate to config.getInstanceError', async () => {
   ).catch(e => e)
 
   expect(getInstanceError).toBeCalledTimes(1)
-  expect(error.message).toMatchInlineSnapshot(`Custom instance error`)
+  expect(error.message).toMatchInlineSnapshot(`"Custom instance error"`)
   configure(originalConfig)
 })
 
@@ -184,7 +184,7 @@ test('when a promise is returned, if that is not resolved within the timeout, th
   await sleep(5)
 
   expect((await waitForError as {message: string}).message).toMatchInlineSnapshot(
-    `Timed out in waitFor.`,
+    `"Timed out in waitFor."`,
   )
 })
 
