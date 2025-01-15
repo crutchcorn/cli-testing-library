@@ -1,9 +1,13 @@
+import {TestInstance} from "./types";
+
 function jestFakeTimersAreEnabled() {
   /* istanbul ignore else */
   if (typeof jest !== 'undefined' && jest !== null) {
     return (
       // legacy timers
-      setTimeout._isMockFunction === true ||
+      (setTimeout as unknown as {
+        _isMockFunction: boolean
+      })._isMockFunction === true ||
       // modern timers
       // eslint-disable-next-line prefer-object-has-own
       Object.prototype.hasOwnProperty.call(setTimeout, 'clock')
@@ -13,7 +17,7 @@ function jestFakeTimersAreEnabled() {
   return false
 }
 
-const instanceRef = {current: undefined}
+const instanceRef = {current: undefined as TestInstance | undefined}
 
 if (typeof afterEach === 'function') {
   afterEach(() => {
@@ -40,30 +44,31 @@ function getCurrentInstance() {
 // TODO: Does this need to be namespaced for each test that runs?
 //  That way, we don't end up with a "singleton" that ends up wiped between
 //  parallel tests.
-function setCurrentInstance(newInstance) {
+function setCurrentInstance(newInstance: TestInstance) {
   instanceRef.current = newInstance
 }
 
-function debounce(func, timeout) {
-  let timer
-  return (...args) => {
-    clearTimeout(timer)
+function debounce<T extends (...args: any[]) => void>(func: T, timeout: number): (...args: Parameters<T>) => void {
+  let timer: ReturnType<typeof setTimeout>;
+
+  return (...args: Parameters<T>) => {
+    clearTimeout(timer);
     timer = setTimeout(() => {
-      // eslint-disable-next-line no-invalid-this
-      func.apply(this, args)
-    }, timeout)
-  }
+      // @ts-ignore
+      func.apply(this, args);
+    }, timeout);
+  };
 }
 
 /**
  * This is used to bind a series of functions where `instance` is the first argument
  * to an instance, removing the implicit first argument.
  */
-function bindObjectFnsToInstance(instance, object) {
+function bindObjectFnsToInstance(instance: TestInstance, object: Record<string, (...props: unknown[]) => unknown>) {
   return Object.entries(object).reduce((prev, [key, fn]) => {
-    prev[key] = (...props) => fn(instance, ...props)
+    prev[key] = (...props: unknown[]) => fn(instance, ...props)
     return prev
-  }, {})
+  }, {} as typeof object)
 }
 
 export {
