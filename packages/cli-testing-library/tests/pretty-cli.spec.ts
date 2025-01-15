@@ -1,6 +1,6 @@
 import {resolve} from 'path';
-import {render} from '../pure';
-import {prettyCLI} from '../pretty-cli';
+import {render} from '../src/pure';
+import {prettyCLI} from '../src/pretty-cli';
 import {test, expect} from 'vitest';
 
 test('Should pretty print with ANSI codes properly', async () => {
@@ -11,8 +11,8 @@ test('Should pretty print with ANSI codes properly', async () => {
   await instance.findByText('Hello')
 
   expect(prettyCLI(instance, 9000)).toMatchInlineSnapshot(`
-    __disable_ansi_serialization
-    [34mHello[39m World[31m![39m
+    "__disable_ansi_serialization
+    [34mHello[39m World[31m![39m"
   `)
 })
 
@@ -24,8 +24,8 @@ test('Should escape ANSI codes properly when sliced too thin', async () => {
   await instance.findByText('Hello')
 
   expect(prettyCLI(instance, 30)).toMatchInlineSnapshot(`
-    __disable_ansi_serialization
-    [34mH[39m
+    "__disable_ansi_serialization
+    [34mH[39m"
   `)
 })
 
@@ -37,8 +37,8 @@ test('Should show proper stderr and stdout output', async () => {
   await instance.findByError('Error here')
 
   expect(prettyCLI(instance, 300)).toMatchInlineSnapshot(`
-    Log here
+    "Log here
     Warn here
-    Error here
+    Error here"
   `)
 })
