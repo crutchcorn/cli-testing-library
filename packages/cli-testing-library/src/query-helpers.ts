@@ -1,13 +1,25 @@
-import type {
-  GetErrorFunction,
-  QueryMethod,
-  WithSuggest,
-} from '../types'
 import {getSuggestedQuery, Variant} from './suggestions'
 import {waitFor, waitForOptions as WaitForOptions} from './wait-for'
 import {getConfig} from './config'
 import {TestInstance} from "./types";
 import {Matcher, MatcherOptions} from "./matches";
+
+export type WithSuggest = {suggest?: boolean}
+
+export type GetErrorFunction<Arguments extends any[] = [string]> = (
+  c: TestInstance | null,
+  ...args: Arguments
+) => string
+
+export interface SelectorMatcherOptions extends MatcherOptions {
+  selector?: string
+  ignore?: boolean | string
+}
+
+export type QueryMethod<Arguments extends any[], Return> = (
+  container: TestInstance,
+  ...args: Arguments
+) => Return
 
 function getInstanceError(message: string | null, instance: TestInstance) {
   return getConfig().getInstanceError(message, instance)
@@ -90,9 +102,6 @@ const wrapSingleQueryWithSuggestion =
     return instance as T
   })
 
-// TODO: This deviates from the published declarations
-// However, the implementation always required a dyadic (after `container`) not variadic `queryAllBy` considering the implementation of `makeFindQuery`
-// This is at least statically true and can be verified by accepting `QueryMethod<Arguments, TestInstance[]>`
 function buildQueries(
   queryBy: QueryMethod<
     [matcher: Matcher, options?: MatcherOptions],

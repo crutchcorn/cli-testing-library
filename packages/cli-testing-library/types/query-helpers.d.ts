@@ -2,18 +2,6 @@ import {MatcherOptions} from './matches'
 import {waitForOptions} from './wait-for'
 import {TestInstance} from './pure'
 
-export type WithSuggest = {suggest?: boolean}
-
-export type GetErrorFunction<Arguments extends any[] = [string]> = (
-  c: TestInstance | null,
-  ...args: Arguments
-) => string
-
-export interface SelectorMatcherOptions extends MatcherOptions {
-  selector?: string
-  ignore?: boolean | string
-}
-
 /**
  * query methods have a common call signature. Only the return type differs.
  */
