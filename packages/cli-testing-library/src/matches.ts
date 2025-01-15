@@ -1,8 +1,9 @@
 import stripAnsiFn from 'strip-ansi'
+import {TestInstance} from "./types";
 
 export type MatcherFunction = (
   content: string,
-  element: Element | null,
+  element: TestInstance | null,
 ) => boolean
 
 export type Matcher = MatcherFunction | RegExp | number | string
@@ -28,7 +29,7 @@ export interface MatcherOptions {
 
 export type Match = (
   textToMatch: string,
-  node: HTMLElement | null,
+  node: TestInstance | null,
   matcher: Matcher,
   options?: MatcherOptions,
 ) => boolean
@@ -51,7 +52,7 @@ function assertNotNullOrUndefined(matcher: Matcher) {
 /**
  * @private
  */
-function fuzzyMatches(textToMatch: string, node: Element | null, matcher: Matcher, normalizer: NormalizerFn) {
+function fuzzyMatches(textToMatch: string, node: TestInstance | null, matcher: Matcher, normalizer: NormalizerFn) {
   if (typeof textToMatch !== 'string') {
     return false
   }
@@ -73,7 +74,7 @@ function fuzzyMatches(textToMatch: string, node: Element | null, matcher: Matche
 /**
  * @private
  */
-function matches(textToMatch: string, node: HTMLElement | null, matcher: Matcher, normalizer: NormalizerFn): boolean {
+function matches(textToMatch: string, node: TestInstance | null, matcher: Matcher, normalizer: NormalizerFn): boolean {
   if (typeof textToMatch !== 'string') {
     return false
   }

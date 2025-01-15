@@ -1,4 +1,25 @@
 import {getDefaultNormalizer} from './matches'
+import {TestInstance} from "./types";
+
+export interface QueryOptions {
+  [key: string]: RegExp | boolean
+}
+
+export type QueryArgs = [string, QueryOptions?]
+
+export interface Suggestion {
+  queryName: string
+  queryMethod: string
+  queryArgs: QueryArgs
+  variant: string
+  warning?: string
+  toString(): string
+}
+
+export type Variant = 'find' | 'get' | 'query'
+
+export type Method = 'Text' | 'text'
+
 
 const normalize = getDefaultNormalizer()
 
@@ -10,12 +31,15 @@ function getRegExpMatcher(string: string) {
   return new RegExp(escapeRegExp(string.toLowerCase()), 'i')
 }
 
-function makeSuggestion(queryName: string, element, content, {variant, name}) {
+function makeSuggestion(queryName: string, _instance: TestInstance, content: string, {variant, name}: {
+  variant: Variant
+  name?: string
+}): Suggestion | undefined {
   const warning = ''
-  const queryOptions = {}
+  const queryOptions = {} as QueryOptions
   const queryArgs = [
-    [].includes(queryName) ? content : getRegExpMatcher(content),
-  ]
+    [].includes(queryName as never) ? content : getRegExpMatcher(content),
+  ] as QueryArgs
 
   if (name) {
     queryOptions.name = getRegExpMatcher(name)
@@ -37,22 +61,22 @@ function makeSuggestion(queryName: string, element, content, {variant, name}) {
       if (warning) {
         console.warn(warning)
       }
-      let [text, options] = queryArgs
+      const [text, options] = queryArgs
 
-      text = typeof text === 'string' ? `'${text}'` : text
+      const newText = typeof text === 'string' ? `'${text}'` : text
 
-      options = options
+      const newOptions = options
         ? `, { ${Object.entries(options)
             .map(([k, v]) => `${k}: ${v}`)
             .join(', ')} }`
         : ''
 
-      return `${queryMethod}(${text}${options})`
+      return `${queryMethod}(${newText}${newOptions})`
     },
   }
 }
 
-function canSuggest(currentMethod: string, requestedMethod: string, data) {
+function canSuggest(currentMethod: Method, requestedMethod: Method | undefined, data: unknown) {
   return (
     data &&
     (!requestedMethod ||
@@ -60,7 +84,7 @@ function canSuggest(currentMethod: string, requestedMethod: string, data) {
   )
 }
 
-export function getSuggestedQuery(instance, variant = 'get', method) {
+export function getSuggestedQuery(instance: TestInstance, variant: Variant = 'get', method?: Method): Suggestion | undefined {
   const textContent = normalize(
     instance.stdoutArr.map(obj => obj.contents).join('\n'),
   )
