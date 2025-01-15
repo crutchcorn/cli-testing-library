@@ -1,10 +1,15 @@
 import { beforeEach, afterEach, test, expect, vi } from 'vitest'
 import fs from 'node:fs'
-import { getUserCodeFrame } from '../get-user-code-frame'
+import { getUserCodeFrame } from '../src/get-user-code-frame'
 
-vi.mock('fs', () => ({
-  readFileSync: vi.fn(
-    () => `
+vi.mock(import('fs'), async (importOriginal) => {
+  const actual = await importOriginal()
+  return ({
+    ...actual,
+    default: {
+      ...actual.default,
+      readFileSync: vi.fn(
+        () => `
     import {screen} from '@testing-library/dom'
     it('renders', () => {
       document.body.appendChild(
@@ -13,9 +18,11 @@ vi.mock('fs', () => ({
       screen.debug()
       expect(screen.getByText('Hello world')).toBeInTheDocument()
     })
-  `,
-  ),
-}))
+    `,
+      ),
+    }
+  });
+})
 
 const userStackFrame = 'at somethingWrong (/sample-error/error-example.js:7:14)'
 
@@ -35,15 +42,15 @@ test('it returns only user code frame when code frames from node_modules are fir
       ${userStackFrame}
   `
   globalErrorMock.mockImplementationOnce(() => ({stack}))
-  const userTrace = getUserCodeFrame(stack)
+  const userTrace = getUserCodeFrame()
 
   expect(userTrace).toMatchInlineSnapshot(`
-    /sample-error/error-example.js:7:14
-      5 |         document.createTextNode('Hello world')
-      6 |       )
-    > 7 |       screen.debug()
-        |              ^
-    
+    "/sample-error/error-example.js:7:14
+    [0m [90m 5 |[39m         document[33m.[39mcreateTextNode([32m'Hello world'[39m)
+     [90m 6 |[39m       )
+    [31m[1m>[22m[39m[90m 7 |[39m       screen[33m.[39mdebug()
+     [90m   |[39m              [31m[1m^[22m[39m[0m
+    "
   `)
 })
 
@@ -58,17 +65,17 @@ test('it returns only user code frame when node code frames are present afterwar
   const userTrace = getUserCodeFrame()
 
   expect(userTrace).toMatchInlineSnapshot(`
-    /sample-error/error-example.js:7:14
-      5 |         document.createTextNode('Hello world')
-      6 |       )
-    > 7 |       screen.debug()
-        |              ^
-    
+    "/sample-error/error-example.js:7:14
+    [0m [90m 5 |[39m         document[33m.[39mcreateTextNode([32m'Hello world'[39m)
+     [90m 6 |[39m       )
+    [31m[1m>[22m[39m[90m 7 |[39m       screen[33m.[39mdebug()
+     [90m   |[39m              [31m[1m^[22m[39m[0m
+    "
   `)
 })
 
 test("it returns empty string if file from code frame can't be read", () => {
-  fs.readFileSync.mockImplementationOnce(() => {
+  (fs.readFileSync as ReturnType<typeof vi.fn>).mockImplementationOnce(() => {
     throw Error()
   })
   const stack = `Error: Kaboom
