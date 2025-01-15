@@ -1,8 +1,8 @@
 import {fireEvent} from '../../events'
 import {wait} from '../utils'
-import {TestInstance} from '../../../types'
 import {getNextKeyDef} from './getNextKeyDef'
 import {keyboardKey, keyboardOptions} from './types'
+import {TestInstance} from "../../types";
 
 export async function keyboardImplementation(
   instance: TestInstance,
@@ -24,5 +24,5 @@ export async function keyboardImplementation(
 }
 
 function keypress(keyDef: keyboardKey, instance: TestInstance) {
-  fireEvent.write(instance, {value: keyDef.hex})
+  fireEvent.write(instance, {value: keyDef.hex!})
 }

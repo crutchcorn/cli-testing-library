@@ -39,7 +39,7 @@ export function getNextKeyDef(
 function readNextDescriptor(text: string) {
   let pos = 0
   const startBracket =
-    text[pos] in bracketDict ? (text[pos] as keyof typeof bracketDict) : ''
+    text[pos]! in bracketDict ? (text[pos] as keyof typeof bracketDict) : ''
 
   pos += startBracket.length
 

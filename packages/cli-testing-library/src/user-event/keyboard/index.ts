@@ -1,7 +1,7 @@
-import {TestInstance} from '../../../types'
 import {keyboardImplementation} from './keyboardImplementation'
 import {defaultKeyMap} from './keyMap'
 import {keyboardOptions, keyboardKey} from './types'
+import {TestInstance} from "../../types";
 
 export type {keyboardOptions, keyboardKey}
 
@@ -24,7 +24,9 @@ export function keyboardImplementationWrapper(
   instance: TestInstance,
   text: string,
   config: Partial<keyboardOptions> = {},
-) {
+): {
+  promise: Promise<void>
+} {
   const {delay = 0, keyboardMap = defaultKeyMap} = config
   const options = {
     delay,

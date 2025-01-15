@@ -31,7 +31,7 @@ function waitFor<T>(
     onTimeout = error => {
       error.message = getConfig().getInstanceError(
         error.message,
-        instance,
+        instance!,
       ).message
       return error
     },

@@ -8,13 +8,13 @@ export type FireFunction = <K extends EventType>(
   instance: TestInstance,
   event: K,
   options?: Parameters<EventMap[K]>[1],
-) => boolean
+) => boolean | Promise<void>
 
 export type FireObject = {
   [K in EventType]: (
     instance: TestInstance,
     options?: Parameters<EventMap[K]>[1],
-  ) => boolean
+  ) => boolean | Promise<void>
 }
 
 const fireEvent: FireFunction & FireObject = ((instance, event, props = undefined) => {
