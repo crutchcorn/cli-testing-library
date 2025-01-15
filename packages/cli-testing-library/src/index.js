@@ -26,7 +26,7 @@ if (
 
 export * from './config'
 export * from './helpers'
-export * from './events'
+export * from './events.js'
 export * from './get-queries-for-instance.js'
 export * from './matches'
 export * from './pure'
