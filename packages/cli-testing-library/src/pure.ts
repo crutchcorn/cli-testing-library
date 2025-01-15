@@ -10,6 +10,22 @@ import {getConfig} from './config'
 import {logCLI} from './pretty-cli'
 import type {SpawnOptionsWithoutStdio} from 'child_process'
 import {TestInstance} from "./types";
+import * as queries from './queries'
+import type {BoundFunction} from './get-queries-for-instance'
+
+export interface RenderOptions {
+  cwd: string
+  debug: boolean
+  spawnOpts: Omit<SpawnOptionsWithoutStdio, 'cwd'>
+}
+
+type UserEvent = typeof userEvent
+
+export type RenderResult = TestInstance & {
+  userEvent: {
+    [P in keyof UserEvent]: BoundFunction<UserEvent[P]>
+  }
+} & {[P in keyof typeof queries]: BoundFunction<typeof queries[P]>}
 
 const mountedInstances = new Set<TestInstance>()
 
@@ -54,6 +70,17 @@ async function render(
     hasExit() {
       return this.__exitCode === null ? null : {exitCode: this.__exitCode}
     },
+    getStdallStr(): string {
+      return this.stderrArr
+        .concat(this.stdoutArr)
+        .sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1))
+        .map(obj => obj.contents)
+        .join('\n')
+    }
+  } as TestInstance & {
+    __exitCode: null | number
+    _isOutputAPI: true
+    _isReady: Promise<void>
   }
 
   mountedInstances.add(execOutputAPI as unknown as TestInstance)
@@ -122,7 +149,7 @@ async function render(
   return Object.assign(
     execOutputAPI,
     {
-      userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent),
+      userEvent: bindObjectFnsToInstance(execOutputAPI, userEvent as never),
       getStdallStr: getStdallStr.bind(execOutputAPI),
     },
     getQueriesForElement(execOutputAPI),

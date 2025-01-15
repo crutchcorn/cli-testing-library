@@ -2,10 +2,10 @@ import sliceAnsi from 'slice-ansi'
 import {getUserCodeFrame} from './get-user-code-frame.js'
 import {TestInstance} from "./types";
 
-function prettyCLI(testInstance: TestInstance, maxLength: number | string) {
+function prettyCLI(testInstance: TestInstance, maxLength?: number) {
   if (typeof maxLength !== 'number') {
     maxLength =
-      (typeof process !== 'undefined' && process.env.DEBUG_PRINT_LIMIT) || 7000
+      (typeof process !== 'undefined' && Number(process.env.DEBUG_PRINT_LIMIT)) || 7000
   }
 
   if (maxLength === 0) {
@@ -19,8 +19,8 @@ function prettyCLI(testInstance: TestInstance, maxLength: number | string) {
   const outStr = testInstance.getStdallStr()
 
   // eslint-disable-next-line no-negated-condition
-  return maxLength !== undefined && outStr.length > Number(maxLength)
-    ? sliceAnsi(outStr, 0, Number(maxLength))
+  return maxLength !== undefined && outStr.length > maxLength
+    ? sliceAnsi(outStr, 0, maxLength)
     : outStr
 }
 

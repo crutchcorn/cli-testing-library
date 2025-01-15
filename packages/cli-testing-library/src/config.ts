@@ -1,6 +1,25 @@
-import {Config, ConfigFn} from '../types/config'
-import {TestInstance} from '../types/pure'
+import {TestInstance} from "./types";
+
 // import {prettyDOM} from './pretty-dom'
+
+export interface Config {
+  /**
+   * WARNING: `unstable` prefix means this API may change in patch and minor releases.
+   * @param cb
+   */
+  unstable_advanceTimersWrapper(cb: (...args: unknown[]) => unknown): unknown
+  asyncUtilTimeout: number
+  renderAwaitTime: number
+  errorDebounceTimeout: number
+  showOriginalStackTrace: boolean
+  throwSuggestions: boolean
+  getInstanceError: (message: string | null, container: TestInstance) => Error
+}
+
+export interface ConfigFn {
+  (existingConfig: Config): Partial<Config>
+}
+
 
 type Callback<T> = () => T
 interface InternalConfig extends Config {
@@ -54,7 +73,7 @@ export function runWithExpensiveErrorDiagnosticsDisabled<T>(
   }
 }
 
-export function configure(newConfig: ConfigFn | Partial<Config>) {
+export function configure(newConfig: ConfigFn | Partial<Config>): void {
   if (typeof newConfig === 'function') {
     // Pass the existing config out to the provided function
     // and accept a delta in return
