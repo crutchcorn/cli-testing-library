@@ -1,6 +1,7 @@
-const {resolve} = require('path')
-const {render} = require('../pure')
-const {prettyCLI} = require('../pretty-cli')
+import {resolve} from 'path';
+import {render} from '../pure';
+import {prettyCLI} from '../pretty-cli';
+import {test, expect} from 'vitest';
 
 test('Should pretty print with ANSI codes properly', async () => {
   const instance = await render('node', [

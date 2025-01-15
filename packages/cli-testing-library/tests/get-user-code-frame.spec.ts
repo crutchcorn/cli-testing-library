@@ -1,9 +1,9 @@
-import fs from 'fs'
-import {getUserCodeFrame} from '../get-user-code-frame'
+import { beforeEach, afterEach, test, expect, vi } from 'vitest'
+import fs from 'node:fs'
+import { getUserCodeFrame } from '../get-user-code-frame'
 
-jest.mock('fs', () => ({
-  // We setup the contents of a sample file
-  readFileSync: jest.fn(
+vi.mock('fs', () => ({
+  readFileSync: vi.fn(
     () => `
     import {screen} from '@testing-library/dom'
     it('renders', () => {
@@ -19,15 +19,14 @@ jest.mock('fs', () => ({
 
 const userStackFrame = 'at somethingWrong (/sample-error/error-example.js:7:14)'
 
-let globalErrorMock
+let globalErrorMock!: ReturnType<typeof vi.spyOn>
 
 beforeEach(() => {
-  // Mock global.Error so we can setup our own stack messages
-  globalErrorMock = jest.spyOn(global, 'Error')
+  globalErrorMock = vi.spyOn(global, 'Error') as never
 })
 
 afterEach(() => {
-  global.Error.mockRestore()
+  vi.mocked(global.Error).mockRestore()
 })
 
 test('it returns only user code frame when code frames from node_modules are first', () => {
@@ -69,7 +68,6 @@ test('it returns only user code frame when node code frames are present afterwar
 })
 
 test("it returns empty string if file from code frame can't be read", () => {
-  // Make fire read purposely fail
   fs.readFileSync.mockImplementationOnce(() => {
     throw Error()
   })

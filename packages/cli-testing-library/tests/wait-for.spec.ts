@@ -1,6 +1,7 @@
 import {waitFor} from '../index'
 import {configure, getConfig} from '../config'
 // import {render} from '../pure'
+import {test, expect, vi} from 'vitest'
 
 function deferred() {
   let resolve, reject
@@ -12,7 +13,7 @@ function deferred() {
 }
 
 test('waits callback to not throw an error', async () => {
-  const spy = jest.fn()
+  const spy = vi.fn()
   // we are using random timeout here to simulate a real-time example
   // of an async operation calling a callback at a non-deterministic time
   const randomTimeout = Math.floor(Math.random() * 60)
@@ -138,7 +139,7 @@ test('throws nice error if provided callback is not a function', () => {
 test('should delegate to config.getInstanceError', async () => {
   const originalConfig = getConfig()
   const elementError = new Error('Custom instance error')
-  const getInstanceError = jest.fn().mockImplementation(() => elementError)
+  const getInstanceError = vi.fn().mockImplementation(() => elementError)
   configure({getInstanceError})
 
   const error = await waitFor(
@@ -156,7 +157,7 @@ test('should delegate to config.getInstanceError', async () => {
 test('when a promise is returned, it does not call the callback again until that promise rejects', async () => {
   const sleep = t => new Promise(r => setTimeout(r, t))
   const p1 = deferred()
-  const waitForCb = jest.fn(() => p1.promise)
+  const waitForCb = vi.fn(() => p1.promise)
   const waitForPromise = waitFor(waitForCb, {interval: 1})
   expect(waitForCb).toHaveBeenCalledTimes(1)
   waitForCb.mockClear()
@@ -187,13 +188,13 @@ test('when a promise is returned, if that is not resolved within the timeout, th
 })
 
 test('if you switch from fake timers to real timers during the wait period you get an error', async () => {
-  jest.useFakeTimers()
+  vi.useFakeTimers()
   const waitForError = waitFor(() => {
     throw new Error('this error message does not matter...')
   }).catch(e => e)
 
   // this is the problem...
-  jest.useRealTimers()
+  vi.useRealTimers()
 
   const error = await waitForError
 
@@ -210,7 +211,7 @@ test('if you switch from real timers to fake timers during the wait period you g
   }).catch(e => e)
 
   // this is the problem...
-  jest.useFakeTimers()
+  vi.useFakeTimers()
   const error = await waitForError
 
   expect(error.message).toMatchInlineSnapshot(
@@ -221,7 +222,7 @@ test('if you switch from real timers to fake timers during the wait period you g
 })
 
 test('the fake timers => real timers error shows the original stack trace when configured to do so', async () => {
-  jest.useFakeTimers()
+  vi.useFakeTimers()
   const waitForError = waitFor(
     () => {
       throw new Error('this error message does not matter...')
@@ -229,7 +230,7 @@ test('the fake timers => real timers error shows the original stack trace when c
     {showOriginalStackTrace: true},
   ).catch(e => e)
 
-  jest.useRealTimers()
+  vi.useRealTimers()
 
   expect((await waitForError).stack).not.toMatch(__dirname)
 })
@@ -242,7 +243,7 @@ test('the real timers => fake timers error shows the original stack trace when c
     {showOriginalStackTrace: true},
   ).catch(e => e)
 
-  jest.useFakeTimers()
+  vi.useFakeTimers()
 
   expect((await waitForError).stack).not.toMatch(__dirname)
 })

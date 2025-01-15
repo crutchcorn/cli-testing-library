@@ -1,6 +1,7 @@
-const {resolve} = require('path')
-const {render} = require('../pure')
-const {fireEvent} = require('../events')
+import {resolve} from 'path';
+import {render} from '../pure';
+import {fireEvent} from '../events';
+import {test, expect} from 'vitest';
 
 test('Should render { and } in user keyboard', async () => {
   const {findByText, userEvent: userEventLocal} = await render('node', [

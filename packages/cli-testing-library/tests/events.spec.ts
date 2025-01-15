@@ -1,8 +1,9 @@
-const {resolve} = require('path')
-const {render, cleanup} = require('../pure')
-const {fireEvent} = require('../events')
-const {waitFor} = require('../wait-for')
-const {default: userEvent} = require('../user-event')
+import { resolve } from 'path'
+import { render, cleanup } from '../pure'
+import { fireEvent } from '../events'
+import { waitFor } from '../wait-for'
+import userEvent from '../user-event'
+import { test, expect, afterEach } from 'vitest'
 
 afterEach(async () => {
   await cleanup()

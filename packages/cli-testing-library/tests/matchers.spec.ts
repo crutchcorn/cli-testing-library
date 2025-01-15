@@ -1,5 +1,6 @@
-const {resolve} = require('path')
-const {render} = require('../pure')
+import { resolve } from 'path'
+import { render } from '../pure'
+import { test, expect } from 'vitest'
 
 test('toBeInTheConsole should pass when something is in console', async () => {
   const {findByText} = await render('node', [

@@ -1,6 +1,7 @@
-const {resolve} = require('path')
-const {render} = require('../pure')
-const {waitFor} = require('../wait-for')
+import {resolve} from 'path';
+import {render} from '../pure';
+import {waitFor} from '../wait-for';
+import {test, expect} from 'vitest';
 
 test('findByError should show stderr', async () => {
   const {findByError} = await render('node', [

@@ -16,13 +16,13 @@ export async function testQueries() {
 
 export function testBoundFunctions() {
   const boundfunctions = {} as BoundFunctions<{
-    customQueryOne: (instance: TestInstance, text: string) => HTMLElement
+    customQueryOne: (instance: TestInstance, text: string) => TestInstance
     customQueryTwo: (
       instance: TestInstance,
       text: string,
       text2: string,
-    ) => HTMLElement
-    customQueryThree: (instance: TestInstance, number: number) => HTMLElement
+    ) => TestInstance
+    customQueryThree: (instance: TestInstance, number: number) => TestInstance
   }>
 
   boundfunctions.customQueryOne('one')
