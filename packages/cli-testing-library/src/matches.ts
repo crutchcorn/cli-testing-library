@@ -1,6 +1,45 @@
 import stripAnsiFn from 'strip-ansi'
 
-function assertNotNullOrUndefined(matcher) {
+export type MatcherFunction = (
+  content: string,
+  element: Element | null,
+) => boolean
+
+export type Matcher = MatcherFunction | RegExp | number | string
+
+export type NormalizerFn = (text: string) => string
+
+export interface NormalizerOptions extends DefaultNormalizerOptions {
+  normalizer?: NormalizerFn
+}
+
+export interface MatcherOptions {
+  exact?: boolean
+  /** Use normalizer with getDefaultNormalizer instead */
+  trim?: boolean
+  /** Use normalizer with getDefaultNormalizer instead */
+  stripAnsi?: boolean
+  /** Use normalizer with getDefaultNormalizer instead */
+  collapseWhitespace?: boolean
+  normalizer?: NormalizerFn
+  /** suppress suggestions for a specific query */
+  suggest?: boolean
+}
+
+export type Match = (
+  textToMatch: string,
+  node: HTMLElement | null,
+  matcher: Matcher,
+  options?: MatcherOptions,
+) => boolean
+
+export interface DefaultNormalizerOptions {
+  trim?: boolean
+  collapseWhitespace?: boolean
+  stripAnsi?: boolean
+}
+
+function assertNotNullOrUndefined(matcher: Matcher) {
   if (matcher === null || matcher === undefined) {
     throw new Error(
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- implicitly converting `T` to `string`
@@ -9,7 +48,10 @@ function assertNotNullOrUndefined(matcher) {
   }
 }
 
-function fuzzyMatches(textToMatch, node, matcher, normalizer) {
+/**
+ * @private
+ */
+function fuzzyMatches(textToMatch: string, node: Element | null, matcher: Matcher, normalizer: NormalizerFn) {
   if (typeof textToMatch !== 'string') {
     return false
   }
@@ -28,7 +70,10 @@ function fuzzyMatches(textToMatch, node, matcher, normalizer) {
   }
 }
 
-function matches(textToMatch, node, matcher, normalizer) {
+/**
+ * @private
+ */
+function matches(textToMatch: string, node: HTMLElement | null, matcher: Matcher, normalizer: NormalizerFn): boolean {
   if (typeof textToMatch !== 'string') {
     return false
   }
@@ -49,8 +94,8 @@ function getDefaultNormalizer({
   trim = true,
   collapseWhitespace = true,
   stripAnsi = true,
-} = {}) {
-  return text => {
+}: DefaultNormalizerOptions = {}): NormalizerFn {
+  return (text: string) => {
     let normalizedText = text
     normalizedText = trim ? normalizedText.trim() : normalizedText
     normalizedText = collapseWhitespace
@@ -73,8 +118,7 @@ function getDefaultNormalizer({
  * @param {Function|undefined} props.normalizer The user-specified normalizer
  * @returns {Function} A normalizer
  */
-
-function makeNormalizer({trim, stripAnsi, collapseWhitespace, normalizer}) {
+function makeNormalizer({trim, stripAnsi, collapseWhitespace, normalizer}: NormalizerOptions): NormalizerFn {
   if (normalizer) {
     // User has specified a custom normalizer
     if (

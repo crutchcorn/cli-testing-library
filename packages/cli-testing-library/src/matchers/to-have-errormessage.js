@@ -1,5 +1,5 @@
 /* eslint-disable no-invalid-this */
-import {getDefaultNormalizer} from '../matches'
+import {getDefaultNormalizer} from '../matches.js'
 import {checkCliInstance, getMessage} from './utils'
 
 /**

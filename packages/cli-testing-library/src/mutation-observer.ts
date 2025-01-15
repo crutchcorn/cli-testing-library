@@ -7,7 +7,10 @@ const _observers = new Map()
 let mutId = 0
 
 class MutationObserver {
-  constructor(cb) {
+  _cb: () => void;
+  _id: number;
+
+  constructor(cb: () => void) {
     this._id = ++mutId
     this._cb = cb
   }
