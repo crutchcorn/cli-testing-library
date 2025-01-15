@@ -7,10 +7,10 @@ import type {
   WithSuggest,
   Variant,
 } from '../types'
-import {TestInstance} from '../types/pure'
 import {getSuggestedQuery} from './suggestions'
 import {waitFor} from './wait-for'
 import {getConfig} from './config'
+import {TestInstance} from "./types";
 
 function getInstanceError(message: string | null, instance: TestInstance) {
   return getConfig().getInstanceError(message, instance)
@@ -34,7 +34,7 @@ function makeGetQuery<Arguments extends unknown[]>(
   queryBy: (instance: TestInstance, ...args: Arguments) => TestInstance | null,
   getMissingError: GetErrorFunction<Arguments>,
 ) {
-  return (instance: TestInstance, ...args: Arguments) => {
+  return <T extends TestInstance = TestInstance>(instance: TestInstance, ...args: Arguments): T => {
     const el = queryBy(instance, ...args)
     if (!el) {
       throw getConfig().getInstanceError(
@@ -43,7 +43,7 @@ function makeGetQuery<Arguments extends unknown[]>(
       )
     }
 
-    return el
+    return el as T
   }
 }
 
@@ -53,15 +53,15 @@ function makeFindQuery<QueryFor>(
   getter: (
     container: TestInstance,
     text: Matcher,
-    options: MatcherOptions,
+    options?: MatcherOptions,
   ) => QueryFor,
 ) {
-  return (
+  return <T extends TestInstance = TestInstance>(
     container: TestInstance,
     text: Matcher,
-    options: MatcherOptions,
-    waitForOptions: WaitForOptions,
-  ) => {
+    options?: MatcherOptions,
+    waitForOptions?: WaitForOptions,
+  ): Promise<T> => {
     return waitFor(
       () => {
         return getter(container, text, options)
@@ -72,12 +72,12 @@ function makeFindQuery<QueryFor>(
 }
 
 const wrapSingleQueryWithSuggestion =
-  <Arguments extends [...unknown[], WithSuggest]>(
+  <Arguments extends unknown[]>(
     query: (container: TestInstance, ...args: Arguments) => TestInstance | null,
     queryByName: string,
     variant: Variant,
   ) =>
-  (container: TestInstance, ...args: Arguments) => {
+  (<T extends TestInstance = TestInstance>(container: TestInstance, ...args: Arguments): T => {
     const instance = query(container, ...args)
     const [{suggest = getConfig().throwSuggestions} = {}] = args.slice(-1) as [
       WithSuggest,
@@ -90,19 +90,19 @@ const wrapSingleQueryWithSuggestion =
       }
     }
 
-    return instance
-  }
+    return instance as T
+  })
 
 // TODO: This deviates from the published declarations
 // However, the implementation always required a dyadic (after `container`) not variadic `queryAllBy` considering the implementation of `makeFindQuery`
 // This is at least statically true and can be verified by accepting `QueryMethod<Arguments, TestInstance[]>`
 function buildQueries(
   queryBy: QueryMethod<
-    [matcher: Matcher, options: MatcherOptions],
+    [matcher: Matcher, options?: MatcherOptions],
     TestInstance | null
   >,
   getMissingError: GetErrorFunction<
-    [matcher: Matcher, options: MatcherOptions]
+    [matcher: Matcher, options?: MatcherOptions]
   >,
 ) {
   const getBy = makeGetQuery(queryBy, getMissingError)
@@ -123,7 +123,7 @@ function buildQueries(
     wrapSingleQueryWithSuggestion(getBy, queryBy.name, 'find'),
   )
 
-  return [queryByWithSuggestions, getByWithSuggestions, findBy]
+  return [queryByWithSuggestions, getByWithSuggestions, findBy] as const;
 }
 
 export {

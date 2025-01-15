@@ -1,7 +1,6 @@
 import childProcess from 'child_process'
 import {performance} from 'perf_hooks'
 import stripFinalNewline from 'strip-final-newline'
-import {RenderOptions, RenderResult, TestInstance} from '../types/pure'
 import {_runObservers} from './mutation-observer'
 import {getQueriesForElement} from './get-queries-for-instance'
 import userEvent from './user-event/index'
@@ -9,6 +8,8 @@ import {bindObjectFnsToInstance, setCurrentInstance} from './helpers'
 import {fireEvent} from './events'
 import {getConfig} from './config'
 import {logCLI} from './pretty-cli'
+import type {SpawnOptionsWithoutStdio} from 'child_process'
+import {TestInstance} from "./types";
 
 const mountedInstances = new Set<TestInstance>()
 

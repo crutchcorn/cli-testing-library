@@ -1,5 +1,25 @@
-import {GetErrorFunction, QueryByText} from '../../types'
+import {GetErrorFunction, Matcher, SelectorMatcherOptions, waitForOptions} from '../../types'
+import { TestInstance } from '../types'
 import {fuzzyMatches, matches, makeNormalizer, buildQueries} from './all-utils'
+
+export type QueryByText<T extends TestInstance = TestInstance> = (
+  instance: TestInstance,
+  id: Matcher,
+  options?: SelectorMatcherOptions,
+) => T | null
+
+export type GetByText<T extends TestInstance = TestInstance> = (
+  instance: TestInstance,
+  id: Matcher,
+  options?: SelectorMatcherOptions,
+) => T
+
+export type FindByText<T extends TestInstance = TestInstance> = (
+  instance: TestInstance,
+  id: Matcher,
+  options?: SelectorMatcherOptions,
+  waitForElementOptions?: waitForOptions,
+) => Promise<T>
 
 const queryByTextBase: QueryByText = (
   instance,
@@ -18,12 +38,26 @@ const queryByTextBase: QueryByText = (
   else return null
 }
 
-const getMissingError: GetErrorFunction<[unknown]> = (c, text) =>
+const getMissingError: GetErrorFunction<[unknown]> = (_c, text) =>
   `Unable to find an stdout line with the text: ${text}. This could be because the text is broken up by multiple lines. In this case, you can provide a function for your text matcher to make your matcher more flexible.`
 
-const [queryByTextWithSuggestions, getByText, findByText] = buildQueries(
+const [_queryByTextWithSuggestions, _getByText, _findByText] = buildQueries(
   queryByTextBase,
   getMissingError,
 )
 
-export {queryByTextWithSuggestions as queryByText, getByText, findByText}
+export function getByText<T extends TestInstance = TestInstance>(
+  ...args: Parameters<GetByText<T>>
+): ReturnType<GetByText<T>> {
+  return _getByText<T>(...args);
+}
+export function queryByText<T extends TestInstance = TestInstance>(
+  ...args: Parameters<QueryByText<T>>
+): ReturnType<QueryByText<T>> {
+  return _queryByTextWithSuggestions<T>(...args);
+}
+export function findByText<T extends TestInstance = TestInstance>(
+  ...args: Parameters<FindByText<T>>
+): ReturnType<FindByText<T>> {
+  return _findByText(...args);
+}
