@@ -46,10 +46,10 @@ test('it returns only user code frame when code frames from node_modules are fir
 
   expect(userTrace).toMatchInlineSnapshot(`
     "/sample-error/error-example.js:7:14
-    [0m [90m 5 |[39m         document[33m.[39mcreateTextNode([32m'Hello world'[39m)
-     [90m 6 |[39m       )
-    [31m[1m>[22m[39m[90m 7 |[39m       screen[33m.[39mdebug()
-     [90m   |[39m              [31m[1m^[22m[39m[0m
+      5 |         document.createTextNode('Hello world')
+      6 |       )
+    > 7 |       screen.debug()
+        |              ^
     "
   `)
 })
@@ -66,10 +66,10 @@ test('it returns only user code frame when node code frames are present afterwar
 
   expect(userTrace).toMatchInlineSnapshot(`
     "/sample-error/error-example.js:7:14
-    [0m [90m 5 |[39m         document[33m.[39mcreateTextNode([32m'Hello world'[39m)
-     [90m 6 |[39m       )
-    [31m[1m>[22m[39m[90m 7 |[39m       screen[33m.[39mdebug()
-     [90m   |[39m              [31m[1m^[22m[39m[0m
+      5 |         document.createTextNode('Hello world')
+      6 |       )
+    > 7 |       screen.debug()
+        |              ^
     "
   `)
 })

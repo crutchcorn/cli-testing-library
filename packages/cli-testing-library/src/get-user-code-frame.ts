@@ -31,7 +31,7 @@ function getCodeFrame(frame: string) {
       start: {line, column},
     },
     {
-      highlightCode: true,
+      highlightCode: false,
       linesBelow: 0,
     },
   )
