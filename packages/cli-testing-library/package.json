@@ -1,0 +1,89 @@
+{
+  "name": "cli-testing-library",
+  "version": "2.0.2",
+  "description": "Simple and complete CLI testing utilities that encourage good testing practices.",
+  "keywords": [
+    "testing",
+    "cli",
+    "unit",
+    "integration",
+    "functional",
+    "end-to-end",
+    "e2e"
+  ],
+  "author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crutchcorn/cli-testing-library",
+    "directory": "packages/cli-testing-library"
+  },
+  "bugs": {
+    "url": "https://github.com/crutchcorn/cli-testing-library/issues"
+  },
+  "homepage": "https://github.com/crutchcorn/cli-testing-library#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/crutchcorn"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "clean": "premove ./dist ./coverage",
+    "test:eslint": "eslint ./src ./tests",
+    "test:types": "pnpm run \"/^test:types:ts[0-9]{2}$/\"",
+    "test:types:ts51": "node ../../node_modules/typescript51/lib/tsc.js",
+    "test:types:ts52": "node ../../node_modules/typescript52/lib/tsc.js",
+    "test:types:ts53": "node ../../node_modules/typescript53/lib/tsc.js",
+    "test:types:ts54": "node ../../node_modules/typescript54/lib/tsc.js",
+    "test:types:ts55": "node ../../node_modules/typescript55/lib/tsc.js",
+    "test:types:ts56": "tsc",
+    "test:lib": "vitest",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "vite build"
+  },
+  "type": "module",
+  "types": "dist/esm/index.d.ts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "@babel/code-frame": "^7.10.4",
+    "@babel/runtime": "^7.12.5",
+    "jest-matcher-utils": "^27.4.2",
+    "lz-string": "^1.4.4",
+    "pretty-format": "^27.0.2",
+    "redent": "^3.0.0",
+    "slice-ansi": "^4.0.0",
+    "strip-ansi": "^6.0.1",
+    "strip-final-newline": "^2.0.0",
+    "tree-kill": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/lz-string": "^1.3.34",
+    "@types/strip-final-newline": "^3.0.0",
+    "chalk": "^4.1.2",
+    "has-ansi": "^3.0.0",
+    "inquirer": "^8.2.0",
+    "typescript": "^4.7.2"
+  }
+}

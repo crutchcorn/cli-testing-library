@@ -11,25 +11,6 @@ While our APIs [differ slightly](./differences.md) from upstream Testing
 Library's,
 [their "About Queries" page summarizes the goals and intentions of this project's queries quite well](https://testing-library.com/docs/queries/about/).
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Example](#example)
-- [Types of Queries](#types-of-queries)
-- [`TextMatch`](#textmatch)
-  - [TextMatch Examples](#textmatch-examples)
-  - [Precision](#precision)
-  - [Normalization](#normalization)
-    - [Normalization Examples](#normalization-examples)
-- [ByText](#bytext)
-  - [API](#api)
-  - [Options](#options)
-- [ByError](#byerror)
-  - [API](#api-1)
-  - [Options](#options-1)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Example
 
 ```javascript

@@ -6,7 +6,7 @@
     height="80"
     width="80"
     alt="koala"
-    src="./other/koala.png"
+    src="https://raw.githubusercontent.com/crutchcorn/cli-testing-library/refs/heads/main/media/koala.png"
   />
 </a>
 
@@ -106,32 +106,3 @@ library, see our
 >
 > If you know how to fix this, please let us know in
 > [this tracking issue](https://github.com/crutchcorn/cli-testing-library/issues/3)
-
-## Contributors ✨
-
-Thanks goes to these wonderful people
-([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://crutchcorn.dev/"><img src="https://avatars.githubusercontent.com/u/9100169?v=4?s=100" width="100px;" alt="Corbin Crutchley"/><br /><sub><b>Corbin Crutchley</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=crutchcorn" title="Code">💻</a> <a href="https://github.com/crutchcorn/cli-testing-library/commits?author=crutchcorn" title="Documentation">📖</a> <a href="#maintenance-crutchcorn" title="Maintenance">🚧</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/serkan-sipahi-59b20081/"><img src="https://avatars.githubusercontent.com/u/1880749?v=4?s=100" width="100px;" alt="Bitcollage"/><br /><sub><b>Bitcollage</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=SerkanSipahi" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://jgoux.dev"><img src="https://avatars.githubusercontent.com/u/1443499?v=4?s=100" width="100px;" alt="Julien Goux"/><br /><sub><b>Julien Goux</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/issues?q=author%3Ajgoux" title="Bug reports">🐛</a> <a href="https://github.com/crutchcorn/cli-testing-library/commits?author=jgoux" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://coryforsyth.com/"><img src="https://avatars.githubusercontent.com/u/2023?v=4?s=100" width="100px;" alt="Cory Forsyth"/><br /><sub><b>Cory Forsyth</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=bantic" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/eran-cohen"><img src="https://avatars.githubusercontent.com/u/105227395?v=4?s=100" width="100px;" alt="eran-cohen"/><br /><sub><b>eran-cohen</b></sub></a><br /><a href="https://github.com/crutchcorn/cli-testing-library/commits?author=eran-cohen" title="Documentation">📖</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the
-[all-contributors](https://github.com/all-contributors/all-contributors)
-specification. Contributions of any kind welcome!

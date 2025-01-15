@@ -1,6 +1,6 @@
-// TypeScript Version: 3.8
+import * as extensions from './matchers'
 
-/// <reference types="jest" />
+expect.extend(extensions)
 
 declare namespace jest {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

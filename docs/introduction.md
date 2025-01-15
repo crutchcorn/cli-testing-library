@@ -13,16 +13,6 @@ npm install --save-dev cli-testing-library
 
 - [`cli-testing-library` on GitHub](https://github.com/crutchcorn/cli-testing-library)
 
-## Table of Contents
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [The problem](#the-problem)
-- [This solution](#this-solution)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # The problem
 
 You want to write maintainable tests for your CLI applications. As a part of

@@ -7,19 +7,6 @@ and
 and try to do our best to align as much as possible, there are some major
 distinctions between the project's APIs.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Instances](#instances)
-- [Queries](#queries)
-- [Events](#events)
-  - [FireEvent](#fireevent)
-  - [UserEvent](#userevent)
-- [Matchers](#matchers)
-- [Similarities](#similarities)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Instances
 
 While the `DOM Testing Library` and it's descendants have a concept of both a

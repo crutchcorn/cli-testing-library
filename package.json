@@ -1,109 +1,59 @@
 {
-  "name": "cli-testing-library",
-  "version": "0.0.0-semantically-released",
-  "description": "Simple and complete CLI testing utilities that encourage good testing practices.",
-  "main": "dist/index.js",
-  "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "require": "./dist/cli-testing-library.cjs.js",
-      "import": "./dist/cli-testing-library.esm.js"
-    },
-    "./extend-expect": {
-      "types": "./extend-expect.d.ts",
-      "require": "./dist/extend-expect.js",
-      "import": "./dist/extend-expect.js"
-    }
-  },
-  "types": "types/index.d.ts",
-  "module": "dist/cli-testing-library.esm.js",
-  "umd:main": "dist/cli-testing-library.umd.js",
-  "source": "src/index.js",
-  "keywords": [
-    "testing",
-    "cli",
-    "unit",
-    "integration",
-    "functional",
-    "end-to-end",
-    "e2e"
-  ],
-  "author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.com)",
-  "license": "MIT",
-  "engines": {
-    "node": ">=12"
-  },
-  "scripts": {
-    "build": "kcd-scripts build  --no-ts-defs --ignore \"**/__tests__/**,**/__node_tests__/**,**/__mocks__/**\" && kcd-scripts build --no-ts-defs --bundle --no-clean",
-    "format": "kcd-scripts format",
-    "lint": "kcd-scripts lint",
-    "setup": "npm install && npm run validate -s",
-    "test": "kcd-scripts test",
-    "test:debug": "node --inspect-brk ./node_modules/.bin/jest --watch --runInBand",
-    "test:update": "npm test -- --updateSnapshot --coverage",
-    "validate": "kcd-scripts validate",
-    "typecheck": "kcd-scripts typecheck --build types"
-  },
-  "files": [
-    "dist",
-    "types/*.d.ts",
-    "types/user-event/**/*.d.ts",
-    "extend-expect.js",
-    "extend-expect.d.ts",
-    "src/user-event/**/*.ts",
-    "src/user-event/*.ts"
-  ],
-  "dependencies": {
-    "@babel/code-frame": "^7.10.4",
-    "@babel/runtime": "^7.12.5",
-    "jest-matcher-utils": "^27.4.2",
-    "lz-string": "^1.4.4",
-    "pretty-format": "^27.0.2",
-    "redent": "^3.0.0",
-    "slice-ansi": "^4.0.0",
-    "strip-ansi": "^6.0.1",
-    "strip-final-newline": "^2.0.0",
-    "tree-kill": "^1.2.2"
-  },
-  "devDependencies": {
-    "@types/lz-string": "^1.3.34",
-    "@types/strip-final-newline": "^3.0.0",
-    "chalk": "^4.1.2",
-    "has-ansi": "^3.0.0",
-    "inquirer": "^8.2.0",
-    "jest-in-case": "^1.0.2",
-    "jest-watch-select-projects": "^2.0.0",
-    "kcd-scripts": "^12.2.0",
-    "typescript": "^4.7.2"
-  },
-  "eslintConfig": {
-    "extends": [
-      "./node_modules/kcd-scripts/eslint.js",
-      "plugin:import/typescript"
-    ],
-    "rules": {
-      "@typescript-eslint/prefer-includes": "off",
-      "@typescript-eslint/no-unsafe-call": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "import/prefer-default-export": "off",
-      "import/no-unassigned-import": "off",
-      "import/no-useless-path-segments": "off",
-      "no-console": "off",
-      "import/consistent-type-specifier-style": "off"
-    }
-  },
-  "eslintIgnore": [
-    "node_modules",
-    "coverage",
-    "dist"
-  ],
+  "name": "root",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/crutchcorn/cli-testing-library"
   },
-  "bugs": {
-    "url": "https://github.com/crutchcorn/cli-testing-library/issues"
+  "packageManager": "pnpm@9.14.4",
+  "type": "module",
+  "scripts": {
+    "clean": "pnpm --filter \"./packages/**\" run clean",
+    "preinstall": "node -e \"if(process.env.CI == 'true') {console.log('Skipping preinstall...')} else {process.exit(1)}\" || npx -y only-allow pnpm",
+    "test": "pnpm run test:ci",
+    "test:pr": "nx affected --targets=test:sherif,test:knip,test:eslint,test:lib,test:types,test:build,build",
+    "test:ci": "nx run-many --targets=test:sherif,test:knip,test:eslint,test:lib,test:types,test:build,build",
+    "test:eslint": "nx affected --target=test:eslint",
+    "test:format": "pnpm run prettier --check",
+    "test:sherif": "sherif",
+    "test:lib": "nx affected --target=test:lib --exclude=examples/**",
+    "test:lib:dev": "pnpm run test:lib && nx watch --all -- pnpm run test:lib",
+    "test:build": "nx affected --target=test:build --exclude=examples/**",
+    "test:types": "nx affected --target=test:types --exclude=examples/**",
+    "test:knip": "knip",
+    "build": "nx affected --target=build --exclude=examples/**",
+    "build:all": "nx run-many --target=build --exclude=examples/**",
+    "watch": "pnpm run build:all && nx watch --all -- pnpm run build:all",
+    "dev": "pnpm run watch",
+    "prettier": "prettier --ignore-unknown .",
+    "prettier:write": "pnpm run prettier --write",
+    "docs:generate": "node scripts/generateDocs.js",
+    "cipublish": "node scripts/publish.js",
+    "cipublishforce": "CI=true pnpm cipublish"
   },
-  "homepage": "https://github.com/crutchcorn/cli-testing-library#readme"
+  "nx": {
+    "includedScripts": [
+      "test:knip",
+      "test:sherif"
+    ]
+  },
+  "devDependencies": {
+    "@tanstack/config": "^0.16.0",
+    "@types/node": "^22.10.1",
+    "eslint": "9.16.0",
+    "knip": "^5.39.2",
+    "nx": "^20.3.1",
+    "premove": "^4.0.0",
+    "prettier": "^3.4.2",
+    "publint": "^0.3.2",
+    "sherif": "^1.0.2",
+    "typescript": "5.6.3",
+    "typescript51": "npm:typescript@5.1",
+    "typescript52": "npm:typescript@5.2",
+    "typescript53": "npm:typescript@5.3",
+    "typescript54": "npm:typescript@5.4",
+    "typescript55": "npm:typescript@5.5",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
 }

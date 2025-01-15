@@ -1,12 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Firing Events](#firing-events)
-  - [`fireEvent`](#fireevent)
-  - [`fireEvent[eventName]`](#fireeventeventname)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Firing Events
 
 > **Note**

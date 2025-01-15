@@ -4,21 +4,6 @@ The `cli-testing-library` provides a set of custom jest matchers that you can
 use to extend jest. These will make your tests more declarative, clear to read
 and to maintain.
 
-## Table of Contents
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Usage](#usage)
-  - [With TypeScript](#with-typescript)
-- [Custom matchers](#custom-matchers)
-  - [`toBeInTheConsole`](#tobeintheconsole)
-    - [Examples](#examples)
-  - [`toHaveErrorMessage`](#tohaveerrormessage)
-    - [Examples](#examples-1)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Usage
 
 Import `cli-testing-library/extend-expect` once (for instance in your

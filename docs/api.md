@@ -14,25 +14,6 @@ them.
 
 Instead, the following API is what `CLI Testing Library` provides the following.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [`render`](#render)
-- [`render` Options](#render-options)
-  - [`cwd`](#cwd)
-  - [`spawnOpts`](#spawnopts)
-- [`render` Result](#render-result)
-  - [`...queries`](#queries)
-    - [ByText](#bytext)
-  - [`userEvent[eventName]`](#usereventeventname)
-  - [`debug`](#debug)
-  - [`hasExit`](#hasexit)
-  - [`process`](#process)
-  - [`stdoutArr`/`stderrArr`](#stdoutarrstderrarr)
-  - [`clear`](#clear)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # `render`
 
 ```typescript
