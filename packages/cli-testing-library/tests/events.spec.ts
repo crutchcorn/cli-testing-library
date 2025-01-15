@@ -1,8 +1,8 @@
 import { resolve } from 'path'
-import { render, cleanup } from '../pure'
-import { fireEvent } from '../events'
-import { waitFor } from '../wait-for'
-import userEvent from '../user-event'
+import { render, cleanup } from '../src/pure'
+import { fireEvent } from '../src/events'
+import { waitFor } from '../src/wait-for'
+import userEvent from '../src/user-event'
 import { test, expect, afterEach } from 'vitest'
 
 afterEach(async () => {
