@@ -1,6 +1,7 @@
-import {fireEvent, queries, waitFor, BoundFunctions} from '../index'
-import {render, TestInstance} from '../pure'
-import userEvent from '../../src/user-event'
+import {fireEvent, queries, waitFor, BoundFunctions} from '../src/index'
+import {render} from '../src/pure'
+import userEvent from '../src/user-event'
+import {TestInstance} from "../src/types";
 
 const {getByText, queryByText, findByText} = queries
 
@@ -61,9 +62,3 @@ export async function testWaitFors() {
 
   await waitFor(async () => {})
 }
-
-/*
-eslint
-  @typescript-eslint/no-unnecessary-condition: "off",
-  import/no-extraneous-dependencies: "off"
-*/

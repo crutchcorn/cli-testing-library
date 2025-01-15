@@ -1,6 +1,6 @@
 import {resolve} from 'path';
-import {render} from '../pure';
-import {fireEvent} from '../events';
+import {render} from '../src/pure';
+import {fireEvent} from '../src/events';
 import {test, expect} from 'vitest';
 
 test('Should render { and } in user keyboard', async () => {

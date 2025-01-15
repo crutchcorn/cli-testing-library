@@ -1,6 +1,6 @@
 import {resolve} from 'path';
-import {render} from '../pure';
-import {waitFor} from '../wait-for';
+import {render} from '../src/pure';
+import {waitFor} from '../src/wait-for';
 import {test, expect} from 'vitest';
 
 test('Should expect error codes when intended', async () => {

@@ -1,11 +1,12 @@
-import {waitFor} from '../index'
-import {configure, getConfig} from '../config'
+import {waitFor} from '../src/index'
+import {configure, getConfig} from '../src/config'
 // import {render} from '../pure'
 import {test, expect, vi} from 'vitest'
 
 function deferred() {
-  let resolve, reject
-  const promise = new Promise((res, rej) => {
+  let resolve!: (...props: unknown[]) => void;
+  let reject!: (...props: unknown[]) => void;
+  const promise = new Promise<void>((res, rej) => {
     resolve = res
     reject = rej
   })
@@ -105,7 +106,7 @@ test('provides an improved stack trace if the thrown error is a TestingLibraryEl
 
 test('throws nice error if provided callback is not a function', () => {
   const someElement = 'Hello'
-  expect(() => waitFor(someElement)).toThrow(
+  expect(() => waitFor(someElement as never)).toThrow(
     'Received `callback` arg must be a function',
   )
 })
@@ -155,7 +156,7 @@ test('should delegate to config.getInstanceError', async () => {
 })
 
 test('when a promise is returned, it does not call the callback again until that promise rejects', async () => {
-  const sleep = t => new Promise(r => setTimeout(r, t))
+  const sleep = (t: number) => new Promise(r => setTimeout(r, t))
   const p1 = deferred()
   const waitForCb = vi.fn(() => p1.promise)
   const waitForPromise = waitFor(waitForCb, {interval: 1})
@@ -177,12 +178,12 @@ test('when a promise is returned, it does not call the callback again until that
 })
 
 test('when a promise is returned, if that is not resolved within the timeout, then waitFor is rejected', async () => {
-  const sleep = t => new Promise(r => setTimeout(r, t))
+  const sleep = (t: number) => new Promise(r => setTimeout(r, t))
   const {promise} = deferred()
   const waitForError = waitFor(() => promise, {timeout: 1}).catch(e => e)
   await sleep(5)
 
-  expect((await waitForError).message).toMatchInlineSnapshot(
+  expect((await waitForError as {message: string}).message).toMatchInlineSnapshot(
     `Timed out in waitFor.`,
   )
 })
