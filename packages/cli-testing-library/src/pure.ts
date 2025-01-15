@@ -12,6 +12,10 @@ import type {SpawnOptionsWithoutStdio} from 'child_process'
 import {TestInstance} from "./types";
 import * as queries from './queries'
 import type {BoundFunction} from './get-queries-for-instance'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export interface RenderOptions {
   cwd: string
