@@ -1,5 +1,5 @@
 import sliceAnsi from 'slice-ansi'
-import {getUserCodeFrame} from './get-user-code-frame'
+import {getUserCodeFrame} from './get-user-code-frame.js'
 
 function prettyCLI(testInstance, maxLength) {
   if (typeof maxLength !== 'number') {

@@ -1,32 +1,21 @@
 // We try to load node dependencies
-let chalk = null
-let readFileSync = null
-let codeFrameColumns = null
+import chalk from 'chalk'
+import fs from 'fs'
+import {codeFrameColumns} from '@babel/code-frame'
 
-try {
-  const nodeRequire = module && module.require
-
-  readFileSync = nodeRequire.call(module, 'fs').readFileSync
-  codeFrameColumns = nodeRequire.call(
-    module,
-    '@babel/code-frame',
-  ).codeFrameColumns
-  chalk = nodeRequire.call(module, 'chalk')
-} catch (e) {
-  // We're in a browser environment
-}
+const readFileSync = fs.readFileSync
 
 // frame has the form "at myMethod (location/to/my/file.js:10:2)"
-function getCodeFrame(frame) {
+function getCodeFrame(frame: string) {
   const locationStart = frame.indexOf('(') + 1
   const locationEnd = frame.indexOf(')')
   const frameLocation = frame.slice(locationStart, locationEnd)
 
   const frameLocationElements = frameLocation.split(':')
   const [filename, line, column] = [
-    frameLocationElements[0],
-    parseInt(frameLocationElements[1], 10),
-    parseInt(frameLocationElements[2], 10),
+    frameLocationElements[0]!,
+    parseInt(frameLocationElements[1]!, 10),
+    parseInt(frameLocationElements[2]!, 10),
   ]
 
   let rawFileContents = ''
@@ -57,11 +46,11 @@ function getUserCodeFrame() {
   }
   const err = new Error()
   const firstClientCodeFrame = err.stack
-    .split('\n')
+    ?.split('\n')
     .slice(1) // Remove first line which has the form "Error: TypeError"
     .find(frame => !frame.includes('node_modules/')) // Ignore frames from 3rd party libraries
 
-  return getCodeFrame(firstClientCodeFrame)
+  return getCodeFrame(firstClientCodeFrame!)
 }
 
 export {getUserCodeFrame}
