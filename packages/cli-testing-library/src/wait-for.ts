@@ -3,15 +3,24 @@
 import {getCurrentInstance, jestFakeTimersAreEnabled} from './helpers'
 import {MutationObserver} from './mutation-observer'
 import {getConfig} from './config'
+import {TestInstance} from './types'
 
 // This is so the stack trace the developer sees is one that's
 // closer to their code (because async stack traces are hard to follow).
-function copyStackTrace(target, source) {
-  target.stack = source.stack.replace(source.message, target.message)
+function copyStackTrace(target: Error, source: Error) {
+  target.stack = source.stack!.replace(source.message, target.message)
 }
 
-function waitFor(
-  callback,
+export interface waitForOptions {
+  instance?: TestInstance
+  showOriginalStackTrace?: boolean
+  timeout?: number
+  interval?: number
+  onTimeout?: (error: Error) => Error
+}
+
+function waitFor<T>(
+  callback: () => Promise<T> | T,
   {
     instance = getCurrentInstance(),
     timeout = getConfig().asyncUtilTimeout,
@@ -25,14 +34,20 @@ function waitFor(
       ).message
       return error
     },
+  }: waitForOptions & {
+    stackTraceError: Error
+  } = {
+    stackTraceError: new Error('STACK_TRACE_MESSAGE'),
   },
-) {
+):  Promise<T> {
   if (typeof callback !== 'function') {
     throw new TypeError('Received `callback` arg must be a function')
   }
 
   return new Promise(async (resolve, reject) => {
-    let lastError, intervalId, observer
+    let lastError: Error | null = null
+    let intervalId!: NodeJS.Timeout
+    let observer: MutationObserver
     let finished = false
     let promiseStatus = 'idle'
 
@@ -90,7 +105,9 @@ function waitFor(
       checkCallback()
     }
 
-    function onDone(error, result) {
+    function onDone(error: null, result: T): void;
+    function onDone(error: Error, result: null): void;
+    function onDone(error: Error | null, result: T | null) {
       finished = true
       clearTimeout(overallTimeoutTimer)
 
@@ -102,7 +119,7 @@ function waitFor(
       if (error) {
         reject(error)
       } else {
-        resolve(result)
+        resolve(result!)
       }
     }
 
@@ -122,7 +139,9 @@ function waitFor(
       if (promiseStatus === 'pending') return
       try {
         const result = callback() // runWithExpensiveErrorDiagnosticsDisabled(callback)
-        if (typeof (result && result.then) === 'function') {
+        const isPromise = (r: unknown): r is Promise<T> =>
+          !!r && typeof (r as Promise<T>).then === 'function'
+        if (isPromise(result)) {
           promiseStatus = 'pending'
           result.then(
             resolvedValue => {
@@ -140,7 +159,7 @@ function waitFor(
         // If `callback` throws, wait for the next mutation, interval, or timeout.
       } catch (error) {
         // Save the most recent callback error to reject the promise with it in the event of a timeout
-        lastError = error
+        lastError = error as Error
       }
     }
 
@@ -165,7 +184,7 @@ function waitFor(
   })
 }
 
-function waitForWrapper(callback, options) {
+function waitForWrapper<T>(callback: () => Promise<T> | T, options?: waitForOptions): Promise<T> {
   // create the error here so its stack trace is as close to the
   // calling code as possible
   const stackTraceError = new Error('STACK_TRACE_MESSAGE')
@@ -173,8 +192,3 @@ function waitForWrapper(callback, options) {
 }
 
 export {waitForWrapper as waitFor}
-
-/*
-eslint
-  max-lines-per-function: ["error", {"max": 200}],
-*/
