@@ -1,16 +1,13 @@
 import type {
   GetErrorFunction,
-  Matcher,
-  MatcherOptions,
   QueryMethod,
-  waitForOptions as WaitForOptions,
   WithSuggest,
-  Variant,
 } from '../types'
-import {getSuggestedQuery} from './suggestions'
-import {waitFor} from './wait-for'
+import {getSuggestedQuery, Variant} from './suggestions'
+import {waitFor, waitForOptions as WaitForOptions} from './wait-for'
 import {getConfig} from './config'
 import {TestInstance} from "./types";
+import {Matcher, MatcherOptions} from "./matches";
 
 function getInstanceError(message: string | null, instance: TestInstance) {
   return getConfig().getInstanceError(message, instance)
@@ -57,16 +54,16 @@ function makeFindQuery<QueryFor>(
   ) => QueryFor,
 ) {
   return <T extends TestInstance = TestInstance>(
-    container: TestInstance,
+    instance: TestInstance,
     text: Matcher,
     options?: MatcherOptions,
     waitForOptions?: WaitForOptions,
   ): Promise<T> => {
     return waitFor(
       () => {
-        return getter(container, text, options)
+        return getter(instance, text, options) as unknown as T
       },
-      {container, ...waitForOptions},
+      {instance, ...waitForOptions},
     )
   }
 }

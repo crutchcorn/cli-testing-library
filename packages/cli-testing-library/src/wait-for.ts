@@ -17,6 +17,7 @@ export interface waitForOptions {
   timeout?: number
   interval?: number
   onTimeout?: (error: Error) => Error
+  stackTraceError?: Error
 }
 
 function waitFor<T>(
@@ -34,7 +35,7 @@ function waitFor<T>(
       ).message
       return error
     },
-  }: waitForOptions & {
+  }: Omit<waitForOptions, "stackTraceError"> & {
     stackTraceError: Error
   } = {
     stackTraceError: new Error('STACK_TRACE_MESSAGE'),
