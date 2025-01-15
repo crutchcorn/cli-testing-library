@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { fuzzyMatches, matches } from '../matches'
+import { fuzzyMatches, matches } from '../src/matches'
 
 // unit tests for text match utils
 
@@ -24,19 +24,19 @@ test('matchers accept functions', () => {
 })
 
 test('matchers return false if text to match is not a string', () => {
-  expect(matches(null, node, 'ABC', normalizer)).toBe(false)
-  expect(fuzzyMatches(null, node, 'ABC', normalizer)).toBe(false)
+  expect(matches(null as never, node, 'ABC', normalizer)).toBe(false)
+  expect(fuzzyMatches(null as never, node, 'ABC', normalizer)).toBe(false)
 })
 
 test('matchers throw on invalid matcher inputs', () => {
   expect(() =>
-    matches('ABC', node, null, normalizer),
+    matches('ABC', node, null as never, normalizer),
   ).toThrowErrorMatchingInlineSnapshot(
-    `It looks like null was passed instead of a matcher. Did you do something like getByText(null)?`,
+    `[Error: It looks like null was passed instead of a matcher. Did you do something like getByText(null)?]`,
   )
   expect(() =>
-    fuzzyMatches('ABC', node, undefined, normalizer),
+    fuzzyMatches('ABC', node, undefined as never, normalizer),
   ).toThrowErrorMatchingInlineSnapshot(
-    `It looks like undefined was passed instead of a matcher. Did you do something like getByText(undefined)?`,
+    `[Error: It looks like undefined was passed instead of a matcher. Did you do something like getByText(undefined)?]`,
   )
 })

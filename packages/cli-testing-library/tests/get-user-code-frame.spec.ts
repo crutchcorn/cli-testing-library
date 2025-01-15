@@ -83,5 +83,5 @@ test("it returns empty string if file from code frame can't be read", () => {
   `
   globalErrorMock.mockImplementationOnce(() => ({stack}))
 
-  expect(getUserCodeFrame(stack)).toEqual('')
+  expect(getUserCodeFrame()).toEqual('')
 })
