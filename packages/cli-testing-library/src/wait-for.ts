@@ -78,7 +78,11 @@ function waitFor<T>(
         // the user's timer's don't get a chance to resolve. So we'll advance
         // by an interval instead. (We have a test for this case).
         advanceTimersWrapper(() => {
-          jest.advanceTimersByTime(interval)
+          if (typeof jest !== 'undefined') {
+            jest.advanceTimersByTime(interval)
+          } else if (typeof vi !== 'undefined') {
+            vi.advanceTimersByTime(interval)
+          }
         })
 
         // It's really important that checkCallback is run *before* we flush
@@ -95,7 +99,8 @@ function waitFor<T>(
         await advanceTimersWrapper(async () => {
           await new Promise(r => {
             setTimeout(r, 0)
-            jest.advanceTimersByTime(0)
+            if (typeof jest !== 'undefined') jest.advanceTimersByTime(0)
+            else if (typeof vi !== 'undefined') vi.advanceTimersByTime(0)
           })
         })
       }

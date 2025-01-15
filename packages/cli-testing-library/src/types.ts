@@ -12,6 +12,7 @@ export interface TestInstance {
 
 declare global {
   const jest: undefined | any
+  const vi: undefined | any
   const afterEach: undefined | ((fn: () => void) => void)
   const teardown: undefined | ((fn: () => void) => void)
   const expect: undefined | any

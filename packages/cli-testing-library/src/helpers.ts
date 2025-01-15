@@ -2,7 +2,7 @@ import {TestInstance} from "./types";
 
 function jestFakeTimersAreEnabled() {
   /* istanbul ignore else */
-  if (typeof jest !== 'undefined' && jest !== null) {
+  if ((typeof vi !== 'undefined' && vi.isFakeTimers && vi.isFakeTimers()) || (typeof jest !== 'undefined' && jest !== null)) {
     return (
       // legacy timers
       (setTimeout as unknown as {
