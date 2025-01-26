@@ -11,7 +11,7 @@ title: findByText
 function findByText<T>(...args): ReturnType<FindByText<T>>
 ```
 
-Defined in: [queries/text.ts:67](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L67)
+Defined in: [queries/text.ts:69](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L69)
 
 ## Type Parameters
 

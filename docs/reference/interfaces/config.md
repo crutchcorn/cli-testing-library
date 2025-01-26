@@ -17,7 +17,7 @@ Defined in: [config.ts:5](https://github.com/crutchcorn/cli-testing-library/blob
 asyncUtilTimeout: number;
 ```
 
-Defined in: [config.ts:11](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L11)
+Defined in: [config.ts:13](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L13)
 
 ***
 
@@ -27,7 +27,7 @@ Defined in: [config.ts:11](https://github.com/crutchcorn/cli-testing-library/blo
 errorDebounceTimeout: number;
 ```
 
-Defined in: [config.ts:13](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L13)
+Defined in: [config.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L15)
 
 ***
 
@@ -37,7 +37,7 @@ Defined in: [config.ts:13](https://github.com/crutchcorn/cli-testing-library/blo
 getInstanceError: (message, container) => Error;
 ```
 
-Defined in: [config.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L16)
+Defined in: [config.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L18)
 
 #### Parameters
 
@@ -61,7 +61,7 @@ Defined in: [config.ts:16](https://github.com/crutchcorn/cli-testing-library/blo
 renderAwaitTime: number;
 ```
 
-Defined in: [config.ts:12](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L12)
+Defined in: [config.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L14)
 
 ***
 
@@ -71,7 +71,7 @@ Defined in: [config.ts:12](https://github.com/crutchcorn/cli-testing-library/blo
 showOriginalStackTrace: boolean;
 ```
 
-Defined in: [config.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L14)
+Defined in: [config.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L16)
 
 ***
 
@@ -81,14 +81,14 @@ Defined in: [config.ts:14](https://github.com/crutchcorn/cli-testing-library/blo
 throwSuggestions: boolean;
 ```
 
-Defined in: [config.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L15)
+Defined in: [config.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L17)
 
-## Methods
+***
 
 ### unstable\_advanceTimersWrapper()
 
 ```ts
-unstable_advanceTimersWrapper(cb): unknown
+unstable_advanceTimersWrapper: (cb) => unknown;
 ```
 
 Defined in: [config.ts:10](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L10)

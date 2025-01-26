@@ -11,7 +11,7 @@ title: configure
 function configure(newConfig): void
 ```
 
-Defined in: [config.ts:75](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L75)
+Defined in: [config.ts:77](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L77)
 
 ## Parameters
 

@@ -7,7 +7,7 @@ title: SelectorMatcherOptions
 
 # Interface: SelectorMatcherOptions
 
-Defined in: [query-helpers.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L14)
+Defined in: [query-helpers.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L16)
 
 ## Extends
 
@@ -51,7 +51,7 @@ Defined in: [matches.ts:18](https://github.com/crutchcorn/cli-testing-library/bl
 optional ignore: string | boolean;
 ```
 
-Defined in: [query-helpers.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L16)
+Defined in: [query-helpers.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L18)
 
 ***
 
@@ -75,7 +75,7 @@ Defined in: [matches.ts:25](https://github.com/crutchcorn/cli-testing-library/bl
 optional selector: string;
 ```
 
-Defined in: [query-helpers.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L15)
+Defined in: [query-helpers.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L17)
 
 ***
 

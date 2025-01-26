@@ -11,7 +11,7 @@ title: getByError
 function getByError<T>(...args): ReturnType<GetByError<T>>
 ```
 
-Defined in: [queries/error.ts:57](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L57)
+Defined in: [queries/error.ts:59](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L59)
 
 ## Type Parameters
 

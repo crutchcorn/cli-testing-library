@@ -1,6 +1,14 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
   "ignore": ["**/tests/execute-scripts/*", "website/src/components/*"],
-  "ignoreDependencies": ["sharp", "@babel/runtime", "@jest/expect", "inquirer", "@types/inquirer", "@jest/globals", "vitest"],
+  "ignoreDependencies": [
+    "sharp",
+    "@babel/runtime",
+    "@jest/expect",
+    "inquirer",
+    "@types/inquirer",
+    "@jest/globals",
+    "vitest"
+  ],
   "ignoreExportsUsedInFile": true
 }

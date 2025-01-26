@@ -8,7 +8,7 @@ export const killProc = (instance: TestInstance, signal: string | undefined) =>
       resolve();
       return;
     }
-     
+
     treeKill(instance.process.pid, signal, async (err) => {
       try {
         if (err) {
