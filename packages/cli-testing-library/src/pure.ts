@@ -15,9 +15,9 @@ import type { BoundFunction } from "./get-queries-for-instance";
 import path from "path";
 import { fileURLToPath } from "url";
 
-// @ts-ignore
 const __curDir =
   typeof __dirname === "undefined"
+    // @ts-ignore
     ? path.dirname(fileURLToPath(import.meta.url))
     : __dirname;
 
