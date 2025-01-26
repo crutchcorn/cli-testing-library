@@ -11,7 +11,7 @@ title: GetByError
 type GetByError<T> = (instance, id, options?) => T;
 ```
 
-Defined in: [queries/error.ts:19](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L19)
+Defined in: [queries/error.ts:21](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L21)
 
 ## Type Parameters
 

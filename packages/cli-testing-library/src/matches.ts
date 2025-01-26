@@ -44,7 +44,6 @@ function assertNotNullOrUndefined(matcher: Matcher) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (matcher === null || matcher === undefined) {
     throw new Error(
-
       `It looks like ${matcher} was passed instead of a matcher. Did you do something like getByText(${matcher})?`,
     );
   }

@@ -8,17 +8,17 @@ title: wrapSingleQueryWithSuggestion
 # Function: wrapSingleQueryWithSuggestion()
 
 ```ts
-function wrapSingleQueryWithSuggestion<Arguments>(
+function wrapSingleQueryWithSuggestion<TArguments>(
    query, 
    queryByName, 
    variant): <T>(container, ...args) => T
 ```
 
-Defined in: [query-helpers.ts:87](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L87)
+Defined in: [query-helpers.ts:89](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L89)
 
 ## Type Parameters
 
-• **Arguments** *extends* `unknown`[]
+• **TArguments** *extends* `unknown`[]
 
 ## Parameters
 
@@ -50,7 +50,7 @@ Defined in: [query-helpers.ts:87](https://github.com/crutchcorn/cli-testing-libr
 
 #### args
 
-...`Arguments`
+...`TArguments`
 
 ### Returns
 

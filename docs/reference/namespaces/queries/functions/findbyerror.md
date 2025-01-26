@@ -11,7 +11,7 @@ title: findByError
 function findByError<T>(...args): ReturnType<FindByError<T>>
 ```
 
-Defined in: [queries/error.ts:69](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L69)
+Defined in: [queries/error.ts:71](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L71)
 
 ## Type Parameters
 

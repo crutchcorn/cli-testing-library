@@ -8,7 +8,7 @@ title: fireEvent
 # Function: fireEvent()
 
 ```ts
-function fireEvent<K>(
+function fireEvent<TEventType>(
    instance, 
    event, 
 options?): boolean | Promise<void>
@@ -18,7 +18,7 @@ Defined in: [events.ts:20](https://github.com/crutchcorn/cli-testing-library/blo
 
 ## Type Parameters
 
-• **K** *extends* `"sigterm"` \| `"sigkill"` \| `"write"`
+• **TEventType** *extends* `"sigterm"` \| `"sigkill"` \| `"write"`
 
 ## Parameters
 
@@ -28,11 +28,11 @@ Defined in: [events.ts:20](https://github.com/crutchcorn/cli-testing-library/blo
 
 ### event
 
-`K`
+`TEventType`
 
 ### options?
 
-`Parameters`\<`object`\[`K`\]\>\[`1`\]
+`Parameters`\<`object`\[`TEventType`\]\>\[`1`\]
 
 ## Returns
 

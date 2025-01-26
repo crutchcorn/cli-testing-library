@@ -44,7 +44,6 @@ async function render(
 ): Promise<RenderResult> {
   const { cwd = __curDir, spawnOpts = {} } = opts;
 
-
   const exec = childProcess.spawn(command, args, {
     ...spawnOpts,
     cwd,

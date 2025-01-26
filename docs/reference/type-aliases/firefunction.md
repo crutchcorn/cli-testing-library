@@ -8,14 +8,14 @@ title: FireFunction
 # Type Alias: FireFunction()
 
 ```ts
-type FireFunction = <K>(instance, event, options?) => boolean | Promise<void>;
+type FireFunction = <TEventType>(instance, event, options?) => boolean | Promise<void>;
 ```
 
 Defined in: [events.ts:7](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/events.ts#L7)
 
 ## Type Parameters
 
-• **K** *extends* [`EventType`](eventtype.md)
+• **TEventType** *extends* [`EventType`](eventtype.md)
 
 ## Parameters
 
@@ -25,11 +25,11 @@ Defined in: [events.ts:7](https://github.com/crutchcorn/cli-testing-library/blob
 
 ### event
 
-`K`
+`TEventType`
 
 ### options?
 
-`Parameters`\<`EventMap`\[`K`\]\>\[`1`\]
+`Parameters`\<`EventMap`\[`TEventType`\]\>\[`1`\]
 
 ## Returns
 

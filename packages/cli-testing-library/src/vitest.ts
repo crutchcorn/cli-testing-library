@@ -2,7 +2,7 @@
 
 import { expect } from "vitest";
 import * as extensions from "./matchers/index";
-import type {CLITestingLibraryMatchers} from "./matchers/types";
+import type { CLITestingLibraryMatchers } from "./matchers/types";
 
 expect.extend(extensions);
 

@@ -11,7 +11,7 @@ title: waitFor
 function waitFor<T>(callback, options?): Promise<T>
 ```
 
-Defined in: [wait-for.ts:194](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L194)
+Defined in: [wait-for.ts:196](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L196)
 
 ## Type Parameters
 

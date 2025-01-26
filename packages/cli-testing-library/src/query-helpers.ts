@@ -87,7 +87,10 @@ function makeFindQuery<TQueryFor>(
 
 const wrapSingleQueryWithSuggestion =
   <TArguments extends Array<unknown>>(
-    query: (container: TestInstance, ...args: TArguments) => TestInstance | null,
+    query: (
+      container: TestInstance,
+      ...args: TArguments
+    ) => TestInstance | null,
     queryByName: string,
     variant: Variant,
   ) =>
@@ -102,7 +105,6 @@ const wrapSingleQueryWithSuggestion =
     if (instance && suggest) {
       const suggestion = getSuggestedQuery(instance, variant);
       if (suggestion && !queryByName.endsWith(suggestion.queryName)) {
-
         throw getSuggestionError(suggestion.toString(), container);
       }
     }
