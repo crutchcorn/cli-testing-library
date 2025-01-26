@@ -1,13 +1,10 @@
-import * as extensions from './matchers/index'
-import {type CLITestingLibraryMatchers} from './matchers/types'
+import * as extensions from "./matchers/index";
+import { type CLITestingLibraryMatchers } from "./matchers/types";
 
-expect.extend(extensions)
+expect.extend(extensions);
 
 declare global {
   namespace jest {
-    interface Matchers<R = void, T = {}>
-      extends CLITestingLibraryMatchers<
-        R
-      > {}
+    interface Matchers<R = void, T = {}> extends CLITestingLibraryMatchers<R> {}
   }
 }

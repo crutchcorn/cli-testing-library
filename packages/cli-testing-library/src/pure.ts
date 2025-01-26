@@ -1,154 +1,157 @@
-import childProcess from 'child_process'
-import {performance} from 'perf_hooks'
-import stripFinalNewline from 'strip-final-newline'
-import {_runObservers} from './mutation-observer'
-import {getQueriesForElement} from './get-queries-for-instance'
-import userEvent from './user-event/index'
-import {bindObjectFnsToInstance, setCurrentInstance} from './helpers'
-import {fireEvent} from './events'
-import {getConfig} from './config'
-import {logCLI} from './pretty-cli'
-import type {SpawnOptionsWithoutStdio} from 'child_process'
-import {TestInstance} from "./types";
-import * as queries from './queries/index'
-import type {BoundFunction} from './get-queries-for-instance'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import childProcess from "child_process";
+import { performance } from "perf_hooks";
+import stripFinalNewline from "strip-final-newline";
+import { _runObservers } from "./mutation-observer";
+import { getQueriesForElement } from "./get-queries-for-instance";
+import userEvent from "./user-event/index";
+import { bindObjectFnsToInstance, setCurrentInstance } from "./helpers";
+import { fireEvent } from "./events";
+import { getConfig } from "./config";
+import { logCLI } from "./pretty-cli";
+import type { SpawnOptionsWithoutStdio } from "child_process";
+import { TestInstance } from "./types";
+import * as queries from "./queries/index";
+import type { BoundFunction } from "./get-queries-for-instance";
+import path from "path";
+import { fileURLToPath } from "url";
 
 // @ts-ignore
-const __curDir = typeof __dirname === "undefined" ? path.dirname(fileURLToPath((import.meta.url))) : __dirname;
+const __curDir =
+  typeof __dirname === "undefined"
+    ? path.dirname(fileURLToPath(import.meta.url))
+    : __dirname;
 
 export interface RenderOptions {
-  cwd: string
-  debug: boolean
-  spawnOpts: Omit<SpawnOptionsWithoutStdio, 'cwd'>
+  cwd: string;
+  debug: boolean;
+  spawnOpts: Omit<SpawnOptionsWithoutStdio, "cwd">;
 }
 
-type UserEvent = typeof userEvent
+type UserEvent = typeof userEvent;
 
 export type RenderResult = TestInstance & {
   userEvent: {
-    [P in keyof UserEvent]: BoundFunction<UserEvent[P]>
-  }
-} & {[P in keyof typeof queries]: BoundFunction<typeof queries[P]>}
+    [P in keyof UserEvent]: BoundFunction<UserEvent[P]>;
+  };
+} & { [P in keyof typeof queries]: BoundFunction<(typeof queries)[P]> };
 
-const mountedInstances = new Set<TestInstance>()
+const mountedInstances = new Set<TestInstance>();
 
 async function render(
   command: string,
   args: string[] = [],
   opts: Partial<RenderOptions> = {},
 ): Promise<RenderResult> {
-  const {cwd = __curDir, spawnOpts = {}} = opts
+  const { cwd = __curDir, spawnOpts = {} } = opts;
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const exec = childProcess.spawn(command, args, {
     ...spawnOpts,
     cwd,
     shell: true,
-  })
+  });
 
-  let _readyPromiseInternals: null | {resolve: Function; reject: Function} =
-    null
+  let _readyPromiseInternals: null | { resolve: Function; reject: Function } =
+    null;
 
-  let _resolved = false
+  let _resolved = false;
 
   const execOutputAPI = {
     __exitCode: null as null | number,
     _isOutputAPI: true,
     _isReady: new Promise(
-      (resolve, reject) => (_readyPromiseInternals = {resolve, reject}),
+      (resolve, reject) => (_readyPromiseInternals = { resolve, reject }),
     ),
     process: exec,
     // Clear buffer of stdout to do more accurate `t.regex` checks
     clear() {
-      execOutputAPI.stdoutArr = []
-      execOutputAPI.stderrArr = []
+      execOutputAPI.stdoutArr = [];
+      execOutputAPI.stderrArr = [];
     },
     debug(maxLength?: number) {
-      logCLI(execOutputAPI, maxLength)
+      logCLI(execOutputAPI, maxLength);
     },
     // An array of strings gathered from stdout when unable to do
     // `await stdout` because of inquirer interactive prompts
-    stdoutArr: [] as Array<{contents: Buffer | string; timestamp: number}>,
-    stderrArr: [] as Array<{contents: Buffer | string; timestamp: number}>,
+    stdoutArr: [] as Array<{ contents: Buffer | string; timestamp: number }>,
+    stderrArr: [] as Array<{ contents: Buffer | string; timestamp: number }>,
     hasExit() {
-      return this.__exitCode === null ? null : {exitCode: this.__exitCode}
+      return this.__exitCode === null ? null : { exitCode: this.__exitCode };
     },
     getStdallStr(): string {
       return this.stderrArr
         .concat(this.stdoutArr)
         .sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1))
-        .map(obj => obj.contents)
-        .join('\n')
-    }
+        .map((obj) => obj.contents)
+        .join("\n");
+    },
   } as TestInstance & {
-    __exitCode: null | number
-    _isOutputAPI: true
-    _isReady: Promise<void>
-  }
+    __exitCode: null | number;
+    _isOutputAPI: true;
+    _isReady: Promise<void>;
+  };
 
-  mountedInstances.add(execOutputAPI as unknown as TestInstance)
+  mountedInstances.add(execOutputAPI as unknown as TestInstance);
 
-  exec.stdout.on('data', (result: string | Buffer) => {
+  exec.stdout.on("data", (result: string | Buffer) => {
     // `on('spawn') doesn't work the same way in Node12.
     // Instead, we have to rely on this working as-expected.
     if (_readyPromiseInternals && !_resolved) {
-      _readyPromiseInternals.resolve()
-      _resolved = true
+      _readyPromiseInternals.resolve();
+      _resolved = true;
     }
 
-    const resStr = stripFinalNewline(result as string)
+    const resStr = stripFinalNewline(result as string);
     execOutputAPI.stdoutArr.push({
       contents: resStr,
       timestamp: performance.now(),
-    })
-    _runObservers()
-  })
+    });
+    _runObservers();
+  });
 
-  exec.stderr.on('data', (result: string | Buffer) => {
+  exec.stderr.on("data", (result: string | Buffer) => {
     if (_readyPromiseInternals && !_resolved) {
-      _readyPromiseInternals.resolve()
-      _resolved = true
+      _readyPromiseInternals.resolve();
+      _resolved = true;
     }
 
-    const resStr = stripFinalNewline(result as string)
+    const resStr = stripFinalNewline(result as string);
     execOutputAPI.stderrArr.push({
       contents: resStr,
       timestamp: performance.now(),
-    })
-    _runObservers()
-  })
+    });
+    _runObservers();
+  });
 
-  exec.on('error', result => {
+  exec.on("error", (result) => {
     if (_readyPromiseInternals) {
-      _readyPromiseInternals.reject(result)
+      _readyPromiseInternals.reject(result);
     }
-  })
+  });
 
-  exec.on('spawn', () => {
+  exec.on("spawn", () => {
     setTimeout(() => {
       if (_readyPromiseInternals && !_resolved) {
-        _readyPromiseInternals.resolve()
-        _resolved = true
+        _readyPromiseInternals.resolve();
+        _resolved = true;
       }
-    }, getConfig().renderAwaitTime)
-  })
+    }, getConfig().renderAwaitTime);
+  });
 
-  exec.on('exit', code => {
-    execOutputAPI.__exitCode = code ?? 0
-  })
+  exec.on("exit", (code) => {
+    execOutputAPI.__exitCode = code ?? 0;
+  });
 
-  setCurrentInstance(execOutputAPI)
+  setCurrentInstance(execOutputAPI);
 
-  await execOutputAPI._isReady
+  await execOutputAPI._isReady;
 
-  function getStdallStr(this: Omit<TestInstance, 'getStdallStr'>) {
+  function getStdallStr(this: Omit<TestInstance, "getStdallStr">) {
     return this.stderrArr
       .concat(this.stdoutArr)
       .sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1))
-      .map(obj => obj.contents)
-      .join('\n')
+      .map((obj) => obj.contents)
+      .join("\n");
   }
 
   return Object.assign(
@@ -158,19 +161,19 @@ async function render(
       getStdallStr: getStdallStr.bind(execOutputAPI),
     },
     getQueriesForElement(execOutputAPI),
-  ) as TestInstance as RenderResult
+  ) as TestInstance as RenderResult;
 }
 
 function cleanup() {
-  return Promise.all(Array.from(mountedInstances).map(cleanupAtInstance))
+  return Promise.all(Array.from(mountedInstances).map(cleanupAtInstance));
 }
 
 // maybe one day we'll expose this (perhaps even as a utility returned by render).
 // but let's wait until someone asks for it.
 async function cleanupAtInstance(instance: TestInstance) {
-  await fireEvent.sigkill(instance)
+  await fireEvent.sigkill(instance);
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  mountedInstances.delete(instance)
+  mountedInstances.delete(instance);
 }
 
-export {render, cleanup}
+export { render, cleanup };

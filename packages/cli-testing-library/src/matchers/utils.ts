@@ -1,38 +1,43 @@
-import redent from 'redent'
-import {TestInstance} from "../types";
+import redent from "redent";
+import { TestInstance } from "../types";
 
 class GenericTypeError extends Error {
-  constructor(expectedString: string, received: any, matcherFn: Function, context: any) {
-    super()
+  constructor(
+    expectedString: string,
+    received: any,
+    matcherFn: Function,
+    context: any,
+  ) {
+    super();
 
     /* istanbul ignore next */
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, matcherFn)
+      Error.captureStackTrace(this, matcherFn);
     }
-    let withType = ''
+    let withType = "";
     try {
       withType = context.utils.printWithType(
-        'Received',
+        "Received",
         received,
         context.utils.printReceived,
-      )
+      );
     } catch (e) {
       // Can throw for Document:
       // https://github.com/jsdom/jsdom/issues/2304
     }
     this.message = [
       context.utils.matcherHint(
-        `${context.isNot ? '.not' : ''}.${matcherFn.name}`,
-        'received',
-        '',
+        `${context.isNot ? ".not" : ""}.${matcherFn.name}`,
+        "received",
+        "",
       ),
-      '',
+      "",
       // eslint-disable-next-line new-cap
       `${context.utils.RECEIVED_COLOR(
-        'received',
+        "received",
       )} value must ${expectedString}.`,
       withType,
-    ].join('\n')
+    ].join("\n");
   }
 }
 
@@ -42,20 +47,25 @@ type AllButFirst<T> = T extends [infer _First, ...infer Rest] ? Rest : never;
 
 class CliInstanceTypeError extends GenericTypeError {
   constructor(...args: AllButFirst<GenericTypeErrorArgs>) {
-    super('be a TestInstance', ...args)
+    super("be a TestInstance", ...args);
   }
 }
 
-type CliInstanceTypeErrorArgs = ConstructorParameters<typeof CliInstanceTypeError>;
+type CliInstanceTypeErrorArgs = ConstructorParameters<
+  typeof CliInstanceTypeError
+>;
 
-function checkCliInstance(cliInstance: TestInstance, ...args: AllButFirst<CliInstanceTypeErrorArgs>) {
+function checkCliInstance(
+  cliInstance: TestInstance,
+  ...args: AllButFirst<CliInstanceTypeErrorArgs>
+) {
   if (!(cliInstance && cliInstance.process && cliInstance.process.stdout)) {
-    throw new CliInstanceTypeError(cliInstance, ...args)
+    throw new CliInstanceTypeError(cliInstance, ...args);
   }
 }
 
 function display(context: any, value: any) {
-  return typeof value === 'string' ? value : context.utils.stringify(value)
+  return typeof value === "string" ? value : context.utils.stringify(value);
 }
 
 function getMessage(
@@ -74,7 +84,7 @@ function getMessage(
     `${receivedLabel}:\n${context.utils.RECEIVED_COLOR(
       redent(display(context, receivedValue), 2),
     )}`,
-  ].join('\n')
+  ].join("\n");
 }
 
-export {CliInstanceTypeError, checkCliInstance, getMessage}
+export { CliInstanceTypeError, checkCliInstance, getMessage };

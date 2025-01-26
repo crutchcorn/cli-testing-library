@@ -59,7 +59,6 @@
         "default": "./dist/cjs/index.cjs"
       }
     },
-
     "./jest": {
       "import": {
         "types": "./dist/esm/jest.d.ts",

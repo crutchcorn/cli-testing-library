@@ -1,25 +1,25 @@
 {
-	"name": "cli-testing-library-vitest",
-	"version": "2.0.2",
-	"description": "",
-	"type": "module",
-	"module": "./../dist/esm/vitest.js",
-	"main": "./../dist/cjs/vitest.cjs",
-	"types": "./../dist/cjs/vitest.d.cts",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./../dist/esm/vitest.d.ts",
-				"default": "./../dist/esm/vitest.js"
-			},
-			"require": {
-				"types": "./../dist/cjs/vitest.d.cts",
-				"default": "./../dist/cjs/vitest.cjs"
-			}
-		}
-	},
-	"author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
-	"license": "MIT",
-	"sideEffects": true
+  "name": "cli-testing-library-vitest",
+  "version": "2.0.2",
+  "description": "",
+  "type": "module",
+  "module": "./../dist/esm/vitest.js",
+  "main": "./../dist/cjs/vitest.cjs",
+  "types": "./../dist/cjs/vitest.d.cts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./../dist/esm/vitest.d.ts",
+        "default": "./../dist/esm/vitest.js"
+      },
+      "require": {
+        "types": "./../dist/cjs/vitest.d.cts",
+        "default": "./../dist/cjs/vitest.cjs"
+      }
+    }
+  },
+  "author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
+  "license": "MIT",
+  "sideEffects": true
 }

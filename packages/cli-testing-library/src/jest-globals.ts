@@ -1,12 +1,10 @@
-import globals from '@jest/globals';
-import * as extensions from './matchers/index';
-import {type CLITestingLibraryMatchers} from './matchers/types'
+import globals from "@jest/globals";
+import * as extensions from "./matchers/index";
+import { type CLITestingLibraryMatchers } from "./matchers/types";
 
-globals.expect.extend(extensions)
+globals.expect.extend(extensions);
 
-declare module '@jest/expect' {
+declare module "@jest/expect" {
   export interface Matchers<R extends void | Promise<void>>
-    extends CLITestingLibraryMatchers<
-      R
-    > {}
+    extends CLITestingLibraryMatchers<R> {}
 }

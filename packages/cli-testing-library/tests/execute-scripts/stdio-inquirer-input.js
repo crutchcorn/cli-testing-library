@@ -1,9 +1,9 @@
-import inquirer from 'inquirer'
+import inquirer from "inquirer";
 
 inquirer.prompt([
   {
-    type: 'input',
-    name: 'name',
-    message: 'What is your name?',
+    type: "input",
+    name: "name",
+    message: "What is your name?",
   },
-])
+]);

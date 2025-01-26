@@ -1,15 +1,19 @@
-import {getDefaultNormalizer} from '../matches'
-import {checkCliInstance, getMessage} from './utils'
-import {TestInstance} from "../types";
+import { getDefaultNormalizer } from "../matches";
+import { checkCliInstance, getMessage } from "./utils";
+import { TestInstance } from "../types";
 
-export function toHaveErrorMessage(this: any, testInstance: TestInstance, checkWith: string | RegExp) {
-  checkCliInstance(testInstance, toHaveErrorMessage, this)
+export function toHaveErrorMessage(
+  this: any,
+  testInstance: TestInstance,
+  checkWith: string | RegExp,
+) {
+  checkCliInstance(testInstance, toHaveErrorMessage, this);
 
-  const expectsErrorMessage = checkWith !== undefined
+  const expectsErrorMessage = checkWith !== undefined;
 
   const errormessage = getDefaultNormalizer()(
-    testInstance.stderrArr.map(obj => obj.contents).join('\n'),
-  )
+    testInstance.stderrArr.map((obj) => obj.contents).join("\n"),
+  );
 
   return {
     pass: expectsErrorMessage
@@ -18,19 +22,19 @@ export function toHaveErrorMessage(this: any, testInstance: TestInstance, checkW
         : this.equals(errormessage, checkWith)
       : Boolean(testInstance.stderrArr.length),
     message: () => {
-      const to = this.isNot ? 'not to' : 'to'
+      const to = this.isNot ? "not to" : "to";
       return getMessage(
         this,
         this.utils.matcherHint(
-          `${this.isNot ? '.not' : ''}.toHaveErrorMessage`,
-          'instance',
-          '',
+          `${this.isNot ? ".not" : ""}.toHaveErrorMessage`,
+          "instance",
+          "",
         ),
         `Expected the instance ${to} have error message`,
         this.utils.printExpected(checkWith),
-        'Received',
+        "Received",
         this.utils.printReceived(errormessage),
-      )
+      );
     },
-  }
+  };
 }

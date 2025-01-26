@@ -5,7 +5,7 @@ export interface CLITestingLibraryMatchers<R> {
    * @example
    * expect(queryByText('Hello world')).toBeInTheDocument()
    */
-  toBeInTheConsole(): R
+  toBeInTheConsole(): R;
 
   /**
    * @description
@@ -13,5 +13,5 @@ export interface CLITestingLibraryMatchers<R> {
    * @example
    * expect(instance).toHaveErrorMessage(/command could not be found/i) // to partially match
    */
-  toHaveErrorMessage(): R
+  toHaveErrorMessage(): R;
 }

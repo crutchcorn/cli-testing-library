@@ -1,4 +1,4 @@
-import {TestInstance} from "./types";
+import { TestInstance } from "./types";
 
 // import {prettyDOM} from './pretty-dom'
 
@@ -7,23 +7,22 @@ export interface Config {
    * WARNING: `unstable` prefix means this API may change in patch and minor releases.
    * @param cb
    */
-  unstable_advanceTimersWrapper(cb: (...args: unknown[]) => unknown): unknown
-  asyncUtilTimeout: number
-  renderAwaitTime: number
-  errorDebounceTimeout: number
-  showOriginalStackTrace: boolean
-  throwSuggestions: boolean
-  getInstanceError: (message: string | null, container: TestInstance) => Error
+  unstable_advanceTimersWrapper(cb: (...args: unknown[]) => unknown): unknown;
+  asyncUtilTimeout: number;
+  renderAwaitTime: number;
+  errorDebounceTimeout: number;
+  showOriginalStackTrace: boolean;
+  throwSuggestions: boolean;
+  getInstanceError: (message: string | null, container: TestInstance) => Error;
 }
 
 export interface ConfigFn {
-  (existingConfig: Config): Partial<Config>
+  (existingConfig: Config): Partial<Config>;
 }
 
-
-type Callback<T> = () => T
+type Callback<T> = () => T;
 interface InternalConfig extends Config {
-  _disableExpensiveErrorDiagnostics: boolean
+  _disableExpensiveErrorDiagnostics: boolean;
 }
 
 // It would be cleaner for this to live inside './queries', but
@@ -36,7 +35,7 @@ let config: InternalConfig = {
   renderAwaitTime: 100,
   // Internal timer time to wait before attempting error recovery debounce action
   errorDebounceTimeout: 100,
-  unstable_advanceTimersWrapper: cb => cb(),
+  unstable_advanceTimersWrapper: (cb) => cb(),
   // default value for the `hidden` option in `ByRole` queries
   // showOriginalStackTrace flag to show the full error stack traces for async errors
   showOriginalStackTrace: false,
@@ -46,47 +45,47 @@ let config: InternalConfig = {
 
   // called when getBy* queries fail. (message, container) => Error
   getInstanceError(message, testInstance: TestInstance | undefined) {
-    let instanceWarning: string = ''
+    let instanceWarning: string = "";
     if (testInstance) {
-      const stdallArrStr = testInstance.getStdallStr()
-      instanceWarning = `\n${stdallArrStr}`
+      const stdallArrStr = testInstance.getStdallStr();
+      instanceWarning = `\n${stdallArrStr}`;
     } else {
-      instanceWarning = ''
+      instanceWarning = "";
     }
     const error = new Error(
-      [message, instanceWarning].filter(Boolean).join('\n\n'),
-    )
-    error.name = 'TestingLibraryElementError'
-    return error
+      [message, instanceWarning].filter(Boolean).join("\n\n"),
+    );
+    error.name = "TestingLibraryElementError";
+    return error;
   },
   _disableExpensiveErrorDiagnostics: false,
-}
+};
 
 export function runWithExpensiveErrorDiagnosticsDisabled<T>(
   callback: Callback<T>,
 ) {
   try {
-    config._disableExpensiveErrorDiagnostics = true
-    return callback()
+    config._disableExpensiveErrorDiagnostics = true;
+    return callback();
   } finally {
-    config._disableExpensiveErrorDiagnostics = false
+    config._disableExpensiveErrorDiagnostics = false;
   }
 }
 
 export function configure(newConfig: ConfigFn | Partial<Config>): void {
-  if (typeof newConfig === 'function') {
+  if (typeof newConfig === "function") {
     // Pass the existing config out to the provided function
     // and accept a delta in return
-    newConfig = newConfig(config)
+    newConfig = newConfig(config);
   }
 
   // Merge the incoming config delta
   config = {
     ...config,
     ...newConfig,
-  }
+  };
 }
 
 export function getConfig(): Config {
-  return config
+  return config;
 }

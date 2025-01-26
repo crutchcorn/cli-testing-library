@@ -67,33 +67,33 @@ npm install --save-dev cli-testing-library
 Usage example:
 
 ```javascript
-const {resolve} = require('path')
-const {render} = require('cli-testing-library')
+const { resolve } = require("path");
+const { render } = require("cli-testing-library");
 
-test('Is able to make terminal input and view in-progress stdout', async () => {
-  const {clear, findByText, queryByText, userEvent} = await render('node', [
-    resolve(__dirname, './execute-scripts/stdio-inquirer.js'),
-  ])
+test("Is able to make terminal input and view in-progress stdout", async () => {
+  const { clear, findByText, queryByText, userEvent } = await render("node", [
+    resolve(__dirname, "./execute-scripts/stdio-inquirer.js"),
+  ]);
 
-  const instance = await findByText('First option')
+  const instance = await findByText("First option");
 
-  expect(instance).toBeInTheConsole()
+  expect(instance).toBeInTheConsole();
 
-  expect(await findByText('❯ One')).toBeInTheConsole()
+  expect(await findByText("❯ One")).toBeInTheConsole();
 
-  clear()
+  clear();
 
-  userEvent('[ArrowDown]')
+  userEvent("[ArrowDown]");
 
-  expect(await findByText('❯ Two')).toBeInTheConsole()
+  expect(await findByText("❯ Two")).toBeInTheConsole();
 
-  clear()
+  clear();
 
-  userEvent.keyboard('[Enter]')
+  userEvent.keyboard("[Enter]");
 
-  expect(await findByText('First option: Two')).toBeInTheConsole()
-  expect(await queryByText('First option: Three')).not.toBeInTheConsole()
-})
+  expect(await findByText("First option: Two")).toBeInTheConsole();
+  expect(await queryByText("First option: Three")).not.toBeInTheConsole();
+});
 ```
 
 For a API reference documentation, including suggestions on how to use this

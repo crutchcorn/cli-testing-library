@@ -1,28 +1,33 @@
-import {TestInstance} from "./types";
+import { TestInstance } from "./types";
 
 function jestFakeTimersAreEnabled() {
   /* istanbul ignore else */
-  if ((typeof vi !== 'undefined' && vi.isFakeTimers && vi.isFakeTimers()) || (typeof jest !== 'undefined' && jest !== null)) {
+  if (
+    (typeof vi !== "undefined" && vi.isFakeTimers && vi.isFakeTimers()) ||
+    (typeof jest !== "undefined" && jest !== null)
+  ) {
     return (
       // legacy timers
-      (setTimeout as unknown as {
-        _isMockFunction: boolean
-      })._isMockFunction === true ||
+      (
+        setTimeout as unknown as {
+          _isMockFunction: boolean;
+        }
+      )._isMockFunction === true ||
       // modern timers
       // eslint-disable-next-line prefer-object-has-own
-      Object.prototype.hasOwnProperty.call(setTimeout, 'clock')
-    )
+      Object.prototype.hasOwnProperty.call(setTimeout, "clock")
+    );
   }
   // istanbul ignore next
-  return false
+  return false;
 }
 
-const instanceRef = {current: undefined as TestInstance | undefined}
+const instanceRef = { current: undefined as TestInstance | undefined };
 
-if (typeof afterEach === 'function') {
+if (typeof afterEach === "function") {
   afterEach(() => {
-    instanceRef.current = undefined
-  })
+    instanceRef.current = undefined;
+  });
 }
 
 function getCurrentInstance() {
@@ -38,17 +43,20 @@ function getCurrentInstance() {
    * Have ideas how to solve? Please let us know:
    * https://github.com/crutchcorn/cli-testing-library/issues/
    */
-  return instanceRef.current
+  return instanceRef.current;
 }
 
 // TODO: Does this need to be namespaced for each test that runs?
 //  That way, we don't end up with a "singleton" that ends up wiped between
 //  parallel tests.
 function setCurrentInstance(newInstance: TestInstance) {
-  instanceRef.current = newInstance
+  instanceRef.current = newInstance;
 }
 
-function debounce<T extends (...args: any[]) => void>(func: T, timeout: number): (...args: Parameters<T>) => void {
+function debounce<T extends (...args: any[]) => void>(
+  func: T,
+  timeout: number,
+): (...args: Parameters<T>) => void {
   let timer: ReturnType<typeof setTimeout>;
 
   return (...args: Parameters<T>) => {
@@ -64,11 +72,17 @@ function debounce<T extends (...args: any[]) => void>(func: T, timeout: number):
  * This is used to bind a series of functions where `instance` is the first argument
  * to an instance, removing the implicit first argument.
  */
-function bindObjectFnsToInstance(instance: TestInstance, object: Record<string, (...props: unknown[]) => unknown>) {
-  return Object.entries(object).reduce((prev, [key, fn]) => {
-    prev[key] = (...props: unknown[]) => fn(instance, ...props)
-    return prev
-  }, {} as typeof object)
+function bindObjectFnsToInstance(
+  instance: TestInstance,
+  object: Record<string, (...props: unknown[]) => unknown>,
+) {
+  return Object.entries(object).reduce(
+    (prev, [key, fn]) => {
+      prev[key] = (...props: unknown[]) => fn(instance, ...props);
+      return prev;
+    },
+    {} as typeof object,
+  );
 }
 
 export {
@@ -77,4 +91,4 @@ export {
   getCurrentInstance,
   debounce,
   bindObjectFnsToInstance,
-}
+};

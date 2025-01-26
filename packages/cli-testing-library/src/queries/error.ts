@@ -5,54 +5,54 @@ import {
   buildQueries,
   SelectorMatcherOptions,
   Matcher,
-  GetErrorFunction
-} from './all-utils'
-import {TestInstance} from "../types";
-import {waitForOptions} from "../wait-for";
+  GetErrorFunction,
+} from "./all-utils";
+import { TestInstance } from "../types";
+import { waitForOptions } from "../wait-for";
 
 export type QueryByError<T extends TestInstance = TestInstance> = (
   instance: TestInstance,
   id: Matcher,
   options?: SelectorMatcherOptions,
-) => T | null
+) => T | null;
 
 export type GetByError<T extends TestInstance = TestInstance> = (
   instance: TestInstance,
   id: Matcher,
   options?: SelectorMatcherOptions,
-) => T
+) => T;
 
 export type FindByError<T extends TestInstance = TestInstance> = (
   instance: TestInstance,
   id: Matcher,
   options?: SelectorMatcherOptions,
   waitForElementOptions?: waitForOptions,
-) => Promise<T>
+) => Promise<T>;
 
 const queryByErrorBase: QueryByError = (
   instance,
   text,
-  {exact = false, collapseWhitespace, trim, normalizer, stripAnsi} = {},
+  { exact = false, collapseWhitespace, trim, normalizer, stripAnsi } = {},
 ) => {
-  const matcher = exact ? matches : fuzzyMatches
+  const matcher = exact ? matches : fuzzyMatches;
   const matchNormalizer = makeNormalizer({
     stripAnsi,
     collapseWhitespace,
     trim,
     normalizer,
-  })
-  const str = instance.stderrArr.map(obj => obj.contents).join('\n')
-  if (matcher(str, instance, text, matchNormalizer)) return instance
-  else return null
-}
+  });
+  const str = instance.stderrArr.map((obj) => obj.contents).join("\n");
+  if (matcher(str, instance, text, matchNormalizer)) return instance;
+  else return null;
+};
 
 const getMissingError: GetErrorFunction<[unknown]> = (_c, text) =>
-  `Unable to find an stdout line with the text: ${text}. This could be because the text is broken up by multiple lines. In this case, you can provide a function for your text matcher to make your matcher more flexible.`
+  `Unable to find an stdout line with the text: ${text}. This could be because the text is broken up by multiple lines. In this case, you can provide a function for your text matcher to make your matcher more flexible.`;
 
 const [_queryByErrorWithSuggestions, _getByError, _findByError] = buildQueries(
   queryByErrorBase,
   getMissingError,
-)
+);
 
 export function getByError<T extends TestInstance = TestInstance>(
   ...args: Parameters<GetByError<T>>

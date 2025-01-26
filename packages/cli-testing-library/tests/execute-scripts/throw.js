@@ -1,1 +1,1 @@
-throw new Error('Search for this error in stderr')
+throw new Error("Search for this error in stderr");

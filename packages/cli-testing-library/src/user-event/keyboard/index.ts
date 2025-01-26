@@ -1,22 +1,22 @@
-import {keyboardImplementation} from './keyboardImplementation'
-import {defaultKeyMap} from './keyMap'
-import {keyboardOptions, keyboardKey} from './types'
-import {TestInstance} from "../../types";
+import { keyboardImplementation } from "./keyboardImplementation";
+import { defaultKeyMap } from "./keyMap";
+import { keyboardOptions, keyboardKey } from "./types";
+import { TestInstance } from "../../types";
 
-export type {keyboardOptions, keyboardKey}
+export type { keyboardOptions, keyboardKey };
 
 export function keyboard(
   instance: TestInstance,
   text: string,
-  options?: Partial<keyboardOptions & {delay: number}>,
+  options?: Partial<keyboardOptions & { delay: number }>,
 ): void | Promise<void> {
-  const {promise} = keyboardImplementationWrapper(instance, text, options)
+  const { promise } = keyboardImplementationWrapper(instance, text, options);
 
   if ((options?.delay ?? 0) > 0) {
-    return promise
+    return promise;
   } else {
     // prevent users from dealing with UnhandledPromiseRejectionWarning in sync call
-    promise.catch(console.error)
+    promise.catch(console.error);
   }
 }
 
@@ -25,15 +25,15 @@ export function keyboardImplementationWrapper(
   text: string,
   config: Partial<keyboardOptions> = {},
 ): {
-  promise: Promise<void>
+  promise: Promise<void>;
 } {
-  const {delay = 0, keyboardMap = defaultKeyMap} = config
+  const { delay = 0, keyboardMap = defaultKeyMap } = config;
   const options = {
     delay,
     keyboardMap,
-  }
+  };
 
   return {
     promise: keyboardImplementation(instance, text, options),
-  }
+  };
 }

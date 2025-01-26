@@ -1,25 +1,25 @@
 {
-	"name": "cli-testing-library-jest-globals",
-	"version": "2.0.2",
-	"description": "",
-	"type": "module",
-	"module": "./../dist/esm/jest-globals.js",
-	"main": "./../dist/cjs/jest-globals.cjs",
-	"types": "./../dist/cjs/jest-globals.d.cts",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": {
-				"types": "./../dist/esm/jest-globals.d.ts",
-				"default": "./../dist/esm/jest-globals.js"
-			},
-			"require": {
-				"types": "./../dist/cjs/jest-globals.d.cts",
-				"default": "./../dist/cjs/jest-globals.cjs"
-			}
-		}
-	},
-	"author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
-	"license": "MIT",
-	"sideEffects": true
+  "name": "cli-testing-library-jest-globals",
+  "version": "2.0.2",
+  "description": "",
+  "type": "module",
+  "module": "./../dist/esm/jest-globals.js",
+  "main": "./../dist/cjs/jest-globals.cjs",
+  "types": "./../dist/cjs/jest-globals.d.cts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./../dist/esm/jest-globals.d.ts",
+        "default": "./../dist/esm/jest-globals.js"
+      },
+      "require": {
+        "types": "./../dist/cjs/jest-globals.d.cts",
+        "default": "./../dist/cjs/jest-globals.cjs"
+      }
+    }
+  },
+  "author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
+  "license": "MIT",
+  "sideEffects": true
 }

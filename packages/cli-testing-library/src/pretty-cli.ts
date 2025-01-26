@@ -1,36 +1,38 @@
-import sliceAnsi from 'slice-ansi'
-import {getUserCodeFrame} from './get-user-code-frame'
-import {TestInstance} from "./types";
+import sliceAnsi from "slice-ansi";
+import { getUserCodeFrame } from "./get-user-code-frame";
+import { TestInstance } from "./types";
 
 function prettyCLI(testInstance: TestInstance, maxLength?: number) {
-  if (typeof maxLength !== 'number') {
+  if (typeof maxLength !== "number") {
     maxLength =
-      (typeof process !== 'undefined' && Number(process.env.DEBUG_PRINT_LIMIT)) || 7000
+      (typeof process !== "undefined" &&
+        Number(process.env.DEBUG_PRINT_LIMIT)) ||
+      7000;
   }
 
   if (maxLength === 0) {
-    return ''
+    return "";
   }
 
-  if (!('stdoutArr' in testInstance && 'stderrArr' in testInstance)) {
-    throw new TypeError(`Expected an instance but got ${testInstance}`)
+  if (!("stdoutArr" in testInstance && "stderrArr" in testInstance)) {
+    throw new TypeError(`Expected an instance but got ${testInstance}`);
   }
 
-  const outStr = testInstance.getStdallStr()
+  const outStr = testInstance.getStdallStr();
 
   // eslint-disable-next-line no-negated-condition
   return maxLength !== undefined && outStr.length > maxLength
     ? sliceAnsi(outStr, 0, maxLength)
-    : outStr
+    : outStr;
 }
 
 const logCLI = (...args: Parameters<typeof prettyCLI>) => {
-  const userCodeFrame = getUserCodeFrame()
+  const userCodeFrame = getUserCodeFrame();
   if (userCodeFrame) {
-    process.stdout.write(`${prettyCLI(...args)}\n\n${userCodeFrame}`)
+    process.stdout.write(`${prettyCLI(...args)}\n\n${userCodeFrame}`);
   } else {
-    process.stdout.write(prettyCLI(...args))
+    process.stdout.write(prettyCLI(...args));
   }
-}
+};
 
-export {prettyCLI, logCLI}
+export { prettyCLI, logCLI };
