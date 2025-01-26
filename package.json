@@ -38,7 +38,7 @@
     ]
   },
   "devDependencies": {
-    "@tanstack/config": "^0.16.0",
+    "@tanstack/config": "^0.16.1",
     "@types/node": "^22.10.10",
     "eslint": "9.19.0",
     "knip": "^5.43.3",
