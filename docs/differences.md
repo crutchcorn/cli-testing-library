@@ -1,4 +1,6 @@
-# Differences Between `cli-testing-library` & Testing Library
+---
+title: "Differences Between CLI Testing Library & Testing Library"
+---
 
 While we clearly take inspiration from
 [`DOM Testing Library`](https://github.com/testing-library/dom-testing-library)

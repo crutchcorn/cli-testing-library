@@ -1,4 +1,6 @@
-# Firing Events
+---
+title: "Firing Events"
+---
 
 > **Note**
 >

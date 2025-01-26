@@ -1,4 +1,6 @@
-# Configuration Options
+---
+title: "Configuration Options"
+---
 
 ## Introduction
 
@@ -23,7 +25,7 @@ to `waitFor`.
 
 ### `throwSuggestions` (experimental)
 
-When enabled, if [better queries](./queries.md) are available the test will fail
+When enabled, if [better queries](./queries) are available the test will fail
 and provide a suggested query to use instead. Default to `false`.
 
 To disable a suggestion for a single query just add `{suggest:false}` as an
@@ -49,7 +51,7 @@ to 1000ms.
 By default, we wait for the CLI to `spawn` the command from `render`. If we
 immediately resolve the promise to allow users to query, however, we lose the
 ability to `getByText` immediately after rendering. This
-[differs greatly from upstream Testing Library](./differences.md) and makes for
+[differs greatly from upstream Testing Library](./differences) and makes for
 a poor testing experience.
 
 As a result, we wait this duration before resolving the promise after the

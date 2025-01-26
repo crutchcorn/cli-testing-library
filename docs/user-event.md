@@ -1,3 +1,7 @@
+---
+title: "User Event"
+---
+
 [`user-event`][gh] is a helper that provides more advanced simulation of CLI
 interactions than the [`fireEvent`](./fire-event) method.
 

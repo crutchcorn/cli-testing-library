@@ -1,4 +1,6 @@
-# About Queries
+---
+title: "About Queries"
+---
 
 Queries are the methods that the CLI Testing Library gives you to find processes
 in the command line. There are several types of queries ("get", "find",
@@ -7,7 +9,7 @@ if no CLI instance is found or if it will return a Promise and retry. Depending
 on what app content you are selecting, different queries may be more or less
 appropriate.
 
-While our APIs [differ slightly](./differences.md) from upstream Testing
+While our APIs [differ slightly](./differences) from upstream Testing
 Library's,
 [their "About Queries" page summarizes the goals and intentions of this project's queries quite well](https://testing-library.com/docs/queries/about/).
 

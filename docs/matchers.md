@@ -1,4 +1,6 @@
-# Matchers
+---
+title: "Matchers"
+---
 
 The `cli-testing-library` provides a set of custom Jest and Vitest matchers that you can
 use to extend Jest or Vitest. These will make your tests more declarative, clear to read
