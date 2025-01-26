@@ -1,4 +1,6 @@
-# Differences Between `cli-testing-library` & Testing Library
+---
+title: "Differences Between CLI Testing Library & Testing Library"
+---
 
 While we clearly take inspiration from
 [`DOM Testing Library`](https://github.com/testing-library/dom-testing-library)
@@ -6,19 +8,6 @@ and
 [`React Testing Library`](https://github.com/testing-library/react-testing-library),
 and try to do our best to align as much as possible, there are some major
 distinctions between the project's APIs.
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Instances](#instances)
-- [Queries](#queries)
-- [Events](#events)
-  - [FireEvent](#fireevent)
-  - [UserEvent](#userevent)
-- [Matchers](#matchers)
-- [Similarities](#similarities)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Instances
 

@@ -1,10 +1,27 @@
 {
-  "extends": "./node_modules/kcd-scripts/shared-tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "ESNext",
     "allowJs": true,
-    "downlevelIteration": true,
-    "skipLibCheck": false
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "checkJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "lib": ["ES2022"],
+    "module": "ES2022",
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": false, // TODO enable
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2020"
   },
-  "include": ["./src", "./types", "extend-expect.d.ts"]
+  "include": ["eslint.config.js", "prettier.config.js"]
 }

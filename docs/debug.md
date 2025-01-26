@@ -1,12 +1,6 @@
-# Debug
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Automatic Logging](#automatic-logging)
-- [`prettyCLI`](#prettycli)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+---
+title: "Debug"
+---
 
 ## Automatic Logging
 

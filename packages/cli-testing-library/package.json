@@ -1,0 +1,136 @@
+{
+  "name": "cli-testing-library",
+  "version": "3.0.0",
+  "description": "Simple and complete CLI testing utilities that encourage good testing practices.",
+  "keywords": [
+    "testing",
+    "cli",
+    "unit",
+    "integration",
+    "functional",
+    "end-to-end",
+    "e2e"
+  ],
+  "author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crutchcorn/cli-testing-library",
+    "directory": "packages/cli-testing-library"
+  },
+  "bugs": {
+    "url": "https://github.com/crutchcorn/cli-testing-library/issues"
+  },
+  "homepage": "https://github.com/crutchcorn/cli-testing-library#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/crutchcorn"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "clean": "premove ./dist ./coverage",
+    "test:eslint": "eslint ./src ./tests",
+    "test:types": "pnpm run \"/^test:types:ts[0-9]{2}$/\"",
+    "test:types:ts51": "node ../../node_modules/typescript51/lib/tsc.js",
+    "test:types:ts52": "node ../../node_modules/typescript52/lib/tsc.js",
+    "test:types:ts53": "node ../../node_modules/typescript53/lib/tsc.js",
+    "test:types:ts54": "node ../../node_modules/typescript54/lib/tsc.js",
+    "test:types:ts55": "node ../../node_modules/typescript55/lib/tsc.js",
+    "test:types:ts56": "tsc",
+    "test:lib": "vitest",
+    "test:lib:dev": "pnpm run test:lib --watch",
+    "test:build": "publint --strict",
+    "build": "vite build"
+  },
+  "type": "module",
+  "types": "dist/esm/index.d.ts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.cts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./jest": {
+      "import": {
+        "types": "./dist/esm/jest.d.ts",
+        "default": "./dist/esm/jest.js"
+      },
+      "require": {
+        "types": "./dist/cjs/jest.d.cts",
+        "default": "./dist/cjs/jest.cjs"
+      }
+    },
+    "./jest-globals": {
+      "import": {
+        "types": "./dist/esm/jest-globals.d.ts",
+        "default": "./dist/esm/jest-globals.js"
+      },
+      "require": {
+        "types": "./dist/cjs/jest-globals.d.cts",
+        "default": "./dist/cjs/jest-globals.cjs"
+      }
+    },
+    "./vitest": {
+      "import": {
+        "types": "./dist/esm/vitest.d.ts",
+        "default": "./dist/esm/vitest.js"
+      },
+      "require": {
+        "types": "./dist/cjs/vitest.d.cts",
+        "default": "./dist/cjs/vitest.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src",
+    "vitest",
+    "jest",
+    "jest-globals"
+  ],
+  "dependencies": {
+    "@babel/code-frame": "^7.10.4",
+    "@babel/runtime": "^7.12.5",
+    "picocolors": "^1.1.1",
+    "redent": "^4.0.0",
+    "slice-ansi": "^7.1.0",
+    "strip-ansi": "^7.1.0",
+    "strip-final-newline": "^4.0.0",
+    "tree-kill": "^1.2.2"
+  },
+  "devDependencies": {
+    "@jest/expect": "^29.7.0",
+    "@jest/globals": "^29.7.0",
+    "@types/babel__code-frame": "^7.0.6",
+    "@types/inquirer": "^9.0.7",
+    "@vitest/coverage-istanbul": "3.0.4",
+    "inquirer": "^12.3.2"
+  },
+  "peerDependencies": {
+    "@jest/expect": "^29.0.0",
+    "@jest/globals": "^29.0.0",
+    "vitest": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@jest/globals": {
+      "optional": true
+    },
+    "@jest/expect": {
+      "optional": true
+    },
+    "vitest": {
+      "optional": true
+    }
+  }
+}

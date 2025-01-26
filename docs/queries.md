@@ -1,4 +1,6 @@
-# About Queries
+---
+title: "About Queries"
+---
 
 Queries are the methods that the CLI Testing Library gives you to find processes
 in the command line. There are several types of queries ("get", "find",
@@ -7,28 +9,9 @@ if no CLI instance is found or if it will return a Promise and retry. Depending
 on what app content you are selecting, different queries may be more or less
 appropriate.
 
-While our APIs [differ slightly](./differences.md) from upstream Testing
+While our APIs [differ slightly](./differences) from upstream Testing
 Library's,
 [their "About Queries" page summarizes the goals and intentions of this project's queries quite well](https://testing-library.com/docs/queries/about/).
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Example](#example)
-- [Types of Queries](#types-of-queries)
-- [`TextMatch`](#textmatch)
-  - [TextMatch Examples](#textmatch-examples)
-  - [Precision](#precision)
-  - [Normalization](#normalization)
-    - [Normalization Examples](#normalization-examples)
-- [ByText](#bytext)
-  - [API](#api)
-  - [Options](#options)
-- [ByError](#byerror)
-  - [API](#api-1)
-  - [Options](#options-1)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Example
 

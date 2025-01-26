@@ -1,15 +1,9 @@
+---
+title: "User Event"
+---
+
 [`user-event`][gh] is a helper that provides more advanced simulation of CLI
 interactions than the [`fireEvent`](./fire-event) method.
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Import](#import)
-- [API](#api)
-  - [`keyboard(instance, text, [options])`](#keyboardinstance-text-options)
-    - [Special characters](#special-characters)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Import
 
