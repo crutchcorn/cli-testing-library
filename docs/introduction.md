@@ -51,11 +51,12 @@ will work when a real user uses it.
 
 # Further Reading
 
-- [API reference for `render` and friends](./api)
-- [Jest and Vitest matchers](./matchers)
-- [Mock user input](./user-event)
-- [Manually fire input events](./fire-event)
-- [Output matching queries](./queries)
-- [Debugging "CLI Testing Library" tests](./debug)
-- [Configure library options](./configure)
-- [Differences between us and other "Testing Library" projects](./differences)
+- [API reference for `render` and friends](./api.md)
+- [Jest and Vitest matchers](./matchers.md)
+- [Mock user input](./user-event.md)
+- [Manually fire input events](./fire-event.md)
+- [Output matching queries](./queries.md)
+- [Debugging "CLI Testing Library" tests](./debug.md)
+- [Configure library options](./configure.md)
+- [Differences between us and other "Testing Library" projects](./differences.md)
+
