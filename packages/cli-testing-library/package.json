@@ -1,6 +1,6 @@
 {
   "name": "cli-testing-library",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Simple and complete CLI testing utilities that encourage good testing practices.",
   "keywords": [
     "testing",
