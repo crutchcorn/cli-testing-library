@@ -22,6 +22,7 @@
     "test:types": "nx affected --target=test:types --exclude=examples/**",
     "test:knip": "knip",
     "build": "nx affected --target=build --exclude=examples/**",
+    "build:website": "nx run-many --target=build --projects=website",
     "build:all": "nx run-many --target=build --exclude=examples/**",
     "watch": "pnpm run build:all && nx watch --all -- pnpm run build:all",
     "dev": "pnpm run watch",
