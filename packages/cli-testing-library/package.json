@@ -59,6 +59,37 @@
         "default": "./dist/cjs/index.cjs"
       }
     },
+
+    "./jest": {
+      "import": {
+        "types": "./dist/esm/jest.d.ts",
+        "default": "./dist/esm/jest.js"
+      },
+      "require": {
+        "types": "./dist/cjs/jest.d.cts",
+        "default": "./dist/cjs/jest.cjs"
+      }
+    },
+    "./jest-globals": {
+      "import": {
+        "types": "./dist/esm/jest-globals.d.ts",
+        "default": "./dist/esm/jest-globals.js"
+      },
+      "require": {
+        "types": "./dist/cjs/jest-globals.d.cts",
+        "default": "./dist/cjs/jest-globals.cjs"
+      }
+    },
+    "./vitest": {
+      "import": {
+        "types": "./dist/esm/vitest.d.ts",
+        "default": "./dist/esm/vitest.js"
+      },
+      "require": {
+        "types": "./dist/cjs/vitest.d.cts",
+        "default": "./dist/cjs/vitest.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "sideEffects": false,

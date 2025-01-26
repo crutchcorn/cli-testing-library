@@ -1,4 +1,4 @@
-import {getDefaultNormalizer} from '../matches.js'
+import {getDefaultNormalizer} from '../matches'
 import {checkCliInstance, getMessage} from './utils'
 import {TestInstance} from "../types";
 

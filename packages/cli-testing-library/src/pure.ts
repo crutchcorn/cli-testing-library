@@ -10,7 +10,7 @@ import {getConfig} from './config'
 import {logCLI} from './pretty-cli'
 import type {SpawnOptionsWithoutStdio} from 'child_process'
 import {TestInstance} from "./types";
-import * as queries from './queries'
+import * as queries from './queries/index'
 import type {BoundFunction} from './get-queries-for-instance'
 import path from 'path'
 import { fileURLToPath } from 'url'

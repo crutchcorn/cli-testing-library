@@ -1,4 +1,4 @@
-import * as defaultQueries from './queries'
+import * as defaultQueries from './queries/index'
 import { TestInstance } from './types';
 
 export type BoundFunction<T> = T extends (

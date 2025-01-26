@@ -1,5 +1,5 @@
 import globals from '@jest/globals';
-import * as extensions from './matchers';
+import * as extensions from './matchers/index';
 import {type CLITestingLibraryMatchers} from './matchers/types'
 
 globals.expect.extend(extensions)
