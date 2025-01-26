@@ -205,7 +205,7 @@ end of the test.
 
 > Please note that this is done automatically if the testing framework you're
 > using supports the `afterEach` global and it is injected to your testing
-> environment (like mocha, Jest, and Jasmine). If not, you will need to do
+> environment (like mocha, Jest, Vitest, and Jasmine). If not, you will need to do
 > manual cleanups after each test.
 
 For example, if you're using the [ava](https://github.com/avajs/ava) testing

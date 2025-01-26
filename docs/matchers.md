@@ -1,18 +1,18 @@
 # Matchers
 
-The `cli-testing-library` provides a set of custom jest matchers that you can
-use to extend jest. These will make your tests more declarative, clear to read
+The `cli-testing-library` provides a set of custom Jest and Vitest matchers that you can
+use to extend Jest or Vitest. These will make your tests more declarative, clear to read
 and to maintain.
 
 ## Usage
 
-Import `cli-testing-library/extend-expect` once (for instance in your
+Import `cli-testing-library/jest`, `cli-testing-library/jest-globals`, or `cli-testing-library/vitest` once, based on your testing (for instance in your
 [tests setup file](https://jestjs.io/docs/en/configuration.html#setupfilesafterenv-array))
 and you're good to go:
 
 ```javascript
 // In your own jest-setup.js (or any other name)
-import 'cli-testing-library/extend-expect'
+import 'cli-testing-library/jest'
 
 // In jest.config.js add (if you haven't already)
 setupFilesAfterEnv: ['<rootDir>/jest-setup.js']

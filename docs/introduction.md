@@ -45,13 +45,12 @@ will work when a real user uses it.
 **What this library is not**:
 
 1. A test runner or framework
-2. Specific to a testing framework (though we recommend Jest as our preference,
-   the library works with any framework.)
+2. Specific to a testing framework
 
 # Further Reading
 
 - [API reference for `render` and friends](./api.md)
-- [Jest matchers](./matchers.md)
+- [Jest and Vitest matchers](./matchers.md)
 - [Mock user input](./user-event.md)
 - [Manually fire input events](./fire-event.md)
 - [Output matching queries](./queries.md)
