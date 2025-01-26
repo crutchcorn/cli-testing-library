@@ -1,0 +1,25 @@
+{
+	"name": "cli-testing-library-jest",
+	"version": "2.0.2",
+	"description": "",
+	"type": "module",
+	"module": "./../dist/esm/jest.js",
+	"main": "./../dist/cjs/jest.cjs",
+	"types": "./../dist/cjs/jest.d.cts",
+	"exports": {
+		"./package.json": "./package.json",
+		".": {
+			"import": {
+				"types": "./../dist/esm/jest.d.ts",
+				"default": "./../dist/esm/jest.js"
+			},
+			"require": {
+				"types": "./../dist/cjs/jest.d.cts",
+				"default": "./../dist/cjs/jest.cjs"
+			}
+		}
+	},
+	"author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
+	"license": "MIT",
+	"sideEffects": true
+}

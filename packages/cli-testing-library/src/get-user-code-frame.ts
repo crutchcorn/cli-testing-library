@@ -1,5 +1,5 @@
 // We try to load node dependencies
-import chalk from 'chalk'
+import pc from 'picocolors'
 import fs from 'fs'
 import {codeFrameColumns} from '@babel/code-frame'
 
@@ -35,7 +35,7 @@ function getCodeFrame(frame: string) {
       linesBelow: 0,
     },
   )
-  return `${chalk.dim(frameLocation)}\n${codeFrame}\n`
+  return `${pc.dim(frameLocation)}\n${codeFrame}\n`
 }
 
 function getUserCodeFrame() {

@@ -64,13 +64,17 @@
   "sideEffects": false,
   "files": [
     "dist",
-    "src"
+    "src",
+    "vitest",
+    "jest",
+    "jest-globals"
   ],
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
     "@babel/runtime": "^7.12.5",
     "jest-matcher-utils": "^29.7.0",
     "lz-string": "^1.4.4",
+    "picocolors": "^1.1.1",
     "pretty-format": "^29.7.0",
     "redent": "^4.0.0",
     "slice-ansi": "^7.1.0",
@@ -84,14 +88,12 @@
     "@types/babel__code-frame": "^7.0.6",
     "@types/inquirer": "^9.0.7",
     "@vitest/coverage-istanbul": "2.1.8",
-    "chalk": "^5.4.1",
     "has-ansi": "^6.0.0",
-    "inquirer": "^12.3.2",
-    "typescript": "^4.7.2"
+    "inquirer": "^12.3.2"
   },
   "peerDependencies": {
-    "@jest/globals": "^29.0.0",
     "@jest/expect": "^29.0.0",
+    "@jest/globals": "^29.0.0",
     "vitest": "^3.0.0"
   },
   "peerDependenciesMeta": {
