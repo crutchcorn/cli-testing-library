@@ -1,7 +1,7 @@
-import { resolve } from "path";
+import { resolve } from "node:path";
+import { expect, test } from "vitest";
 import { render } from "../src/pure";
 import { prettyCLI } from "../src/pretty-cli";
-import { test, expect } from "vitest";
 
 test("Should pretty print with ANSI codes properly", async () => {
   const instance = await render("node", [

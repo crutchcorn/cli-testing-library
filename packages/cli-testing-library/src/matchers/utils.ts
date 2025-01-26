@@ -1,5 +1,5 @@
 import redent from "redent";
-import { TestInstance } from "../types";
+import type { TestInstance } from "../types";
 
 class GenericTypeError extends Error {
   constructor(
@@ -32,7 +32,7 @@ class GenericTypeError extends Error {
         "",
       ),
       "",
-      // eslint-disable-next-line new-cap
+       
       `${context.utils.RECEIVED_COLOR(
         "received",
       )} value must ${expectedString}.`,

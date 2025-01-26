@@ -1,7 +1,7 @@
-import { resolve } from "path";
+import { resolve } from "node:path";
+import { expect, test } from "vitest";
 import { render } from "../src/pure";
 import { waitFor } from "../src/wait-for";
-import { test, expect } from "vitest";
 
 test("findByError should show stderr", async () => {
   const { findByError } = await render("node", [

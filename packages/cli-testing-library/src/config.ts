@@ -1,4 +1,4 @@
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 // import {prettyDOM} from './pretty-dom'
 
@@ -7,7 +7,7 @@ export interface Config {
    * WARNING: `unstable` prefix means this API may change in patch and minor releases.
    * @param cb
    */
-  unstable_advanceTimersWrapper(cb: (...args: unknown[]) => unknown): unknown;
+  unstable_advanceTimersWrapper: (cb: (...args: Array<unknown>) => unknown) => unknown;
   asyncUtilTimeout: number;
   renderAwaitTime: number;
   errorDebounceTimeout: number;
@@ -45,7 +45,7 @@ let config: InternalConfig = {
 
   // called when getBy* queries fail. (message, container) => Error
   getInstanceError(message, testInstance: TestInstance | undefined) {
-    let instanceWarning: string = "";
+    let instanceWarning = "";
     if (testInstance) {
       const stdallArrStr = testInstance.getStdallStr();
       instanceWarning = `\n${stdallArrStr}`;

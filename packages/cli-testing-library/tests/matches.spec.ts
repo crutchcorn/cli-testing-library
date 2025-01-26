@@ -1,4 +1,4 @@
-import { test, expect } from "vitest";
+import { expect, test } from "vitest";
 import { fuzzyMatches, matches } from "../src/matches";
 
 // unit tests for text match utils

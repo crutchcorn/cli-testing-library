@@ -1,7 +1,7 @@
 import { keyboardImplementation } from "./keyboardImplementation";
 import { defaultKeyMap } from "./keyMap";
-import { keyboardOptions, keyboardKey } from "./types";
-import { TestInstance } from "../../types";
+import type { TestInstance } from "../../types";
+import type { keyboardKey, keyboardOptions } from "./types";
 
 export type { keyboardOptions, keyboardKey };
 

@@ -1,7 +1,7 @@
-import { resolve } from "path";
+import { resolve } from "node:path";
+import { expect, test } from "vitest";
 import { render } from "../src/pure";
 import { fireEvent } from "../src/events";
-import { test, expect } from "vitest";
 
 test("Should render { and } in user keyboard", async () => {
   const { findByText, userEvent: userEventLocal } = await render("node", [

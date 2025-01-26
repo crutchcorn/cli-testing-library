@@ -1,6 +1,6 @@
 // We try to load node dependencies
+import fs from "node:fs";
 import pc from "picocolors";
-import fs from "fs";
 import { codeFrameColumns } from "@babel/code-frame";
 
 const readFileSync = fs.readFileSync;

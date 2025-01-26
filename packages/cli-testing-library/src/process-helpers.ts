@@ -1,6 +1,6 @@
 import treeKill from "tree-kill";
 import { getConfig } from "./config";
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 export const killProc = (instance: TestInstance, signal: string | undefined) =>
   new Promise<void>((resolve, reject) => {
@@ -8,7 +8,7 @@ export const killProc = (instance: TestInstance, signal: string | undefined) =>
       resolve();
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+     
     treeKill(instance.process.pid, signal, async (err) => {
       try {
         if (err) {

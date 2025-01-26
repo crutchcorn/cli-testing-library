@@ -1,13 +1,13 @@
-import { ChildProcessWithoutNullStreams } from "child_process";
+import type { ChildProcessWithoutNullStreams } from "node:child_process";
 
 export interface TestInstance {
-  clear(): void;
+  clear: () => void;
   process: ChildProcessWithoutNullStreams;
   stdoutArr: Array<{ contents: Buffer | string; timestamp: number }>;
   stderrArr: Array<{ contents: Buffer | string; timestamp: number }>;
-  getStdallStr(): string;
-  hasExit(): null | { exitCode: number };
-  debug(maxLength?: number): void;
+  getStdallStr: () => string;
+  hasExit: () => null | { exitCode: number };
+  debug: (maxLength?: number) => void;
 }
 
 declare global {

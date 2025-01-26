@@ -1,4 +1,4 @@
-import { keyboardKey, keyboardOptions } from "./types";
+import type { keyboardKey, keyboardOptions } from "./types";
 
 enum bracketDict {
   "[" = "]",

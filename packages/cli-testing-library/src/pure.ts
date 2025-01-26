@@ -1,5 +1,7 @@
-import childProcess from "child_process";
-import { performance } from "perf_hooks";
+import childProcess from "node:child_process";
+import { performance } from "node:perf_hooks";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import stripFinalNewline from "strip-final-newline";
 import { _runObservers } from "./mutation-observer";
 import { getQueriesForElement } from "./get-queries-for-instance";
@@ -8,12 +10,10 @@ import { bindObjectFnsToInstance, setCurrentInstance } from "./helpers";
 import { fireEvent } from "./events";
 import { getConfig } from "./config";
 import { logCLI } from "./pretty-cli";
-import type { SpawnOptionsWithoutStdio } from "child_process";
-import { TestInstance } from "./types";
-import * as queries from "./queries/index";
+import type { TestInstance } from "./types";
+import type * as queries from "./queries/index";
+import type { SpawnOptionsWithoutStdio } from "node:child_process";
 import type { BoundFunction } from "./get-queries-for-instance";
-import path from "path";
-import { fileURLToPath } from "url";
 
 const __curDir =
   typeof __dirname === "undefined"
@@ -39,12 +39,12 @@ const mountedInstances = new Set<TestInstance>();
 
 async function render(
   command: string,
-  args: string[] = [],
+  args: Array<string> = [],
   opts: Partial<RenderOptions> = {},
 ): Promise<RenderResult> {
   const { cwd = __curDir, spawnOpts = {} } = opts;
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+   
   const exec = childProcess.spawn(command, args, {
     ...spawnOpts,
     cwd,
@@ -172,7 +172,7 @@ function cleanup() {
 // but let's wait until someone asks for it.
 async function cleanupAtInstance(instance: TestInstance) {
   await fireEvent.sigkill(instance);
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+   
   mountedInstances.delete(instance);
 }
 

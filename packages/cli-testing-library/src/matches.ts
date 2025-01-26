@@ -1,5 +1,5 @@
 import stripAnsiFn from "strip-ansi";
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 export type MatcherFunction = (
   content: string,
@@ -43,7 +43,7 @@ export interface DefaultNormalizerOptions {
 function assertNotNullOrUndefined(matcher: Matcher) {
   if (matcher === null || matcher === undefined) {
     throw new Error(
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- implicitly converting `T` to `string`
+       
       `It looks like ${matcher} was passed instead of a matcher. Did you do something like getByText(${matcher})?`,
     );
   }

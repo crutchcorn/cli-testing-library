@@ -1,8 +1,8 @@
 import { fireEvent } from "../../events";
 import { wait } from "../utils";
 import { getNextKeyDef } from "./getNextKeyDef";
-import { keyboardKey, keyboardOptions } from "./types";
-import { TestInstance } from "../../types";
+import type { TestInstance } from "../../types";
+import type { keyboardKey, keyboardOptions } from "./types";
 
 export async function keyboardImplementation(
   instance: TestInstance,

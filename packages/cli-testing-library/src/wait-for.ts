@@ -3,7 +3,7 @@
 import { getCurrentInstance, jestFakeTimersAreEnabled } from "./helpers";
 import { MutationObserver } from "./mutation-observer";
 import { getConfig } from "./config";
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 // This is so the stack trace the developer sees is one that's
 // closer to their code (because async stack traces are hard to follow).
@@ -63,7 +63,7 @@ function waitFor<T>(
       // infinite loop. However, eslint isn't smart enough to know that we're
       // setting finished inside `onDone` which will be called when we're done
       // waiting or when we've timed out.
-      // eslint-disable-next-line no-unmodified-loop-condition
+       
       while (!finished) {
         if (!jestFakeTimersAreEnabled()) {
           const error = new Error(
@@ -96,7 +96,7 @@ function waitFor<T>(
         // to resolve before continuing. We don't need to take advantage
         // of parallelization so we're fine.
         // https://stackoverflow.com/a/59243586/971592
-        // eslint-disable-next-line no-await-in-loop
+         
         await advanceTimersWrapper(async () => {
           await new Promise((r) => {
             setTimeout(r, 0);

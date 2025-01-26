@@ -1,14 +1,15 @@
 import {
-  fuzzyMatches,
-  matches,
-  makeNormalizer,
   buildQueries,
-  SelectorMatcherOptions,
-  Matcher,
-  GetErrorFunction,
+  fuzzyMatches,
+  makeNormalizer,
+  matches
 } from "./all-utils";
-import { TestInstance } from "../types";
-import { waitForOptions } from "../wait-for";
+import type {
+  GetErrorFunction,
+  Matcher,
+  SelectorMatcherOptions} from "./all-utils";
+import type { TestInstance } from "../types";
+import type { waitForOptions } from "../wait-for";
 
 export type QueryByError<T extends TestInstance = TestInstance> = (
   instance: TestInstance,

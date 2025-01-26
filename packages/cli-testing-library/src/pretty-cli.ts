@@ -1,6 +1,6 @@
 import sliceAnsi from "slice-ansi";
 import { getUserCodeFrame } from "./get-user-code-frame";
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 function prettyCLI(testInstance: TestInstance, maxLength?: number) {
   if (typeof maxLength !== "number") {
@@ -20,7 +20,7 @@ function prettyCLI(testInstance: TestInstance, maxLength?: number) {
 
   const outStr = testInstance.getStdallStr();
 
-  // eslint-disable-next-line no-negated-condition
+   
   return maxLength !== undefined && outStr.length > maxLength
     ? sliceAnsi(outStr, 0, maxLength)
     : outStr;

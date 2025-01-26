@@ -1,4 +1,4 @@
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 function jestFakeTimersAreEnabled() {
   /* istanbul ignore else */
@@ -14,7 +14,7 @@ function jestFakeTimersAreEnabled() {
         }
       )._isMockFunction === true ||
       // modern timers
-      // eslint-disable-next-line prefer-object-has-own
+       
       Object.prototype.hasOwnProperty.call(setTimeout, "clock")
     );
   }
@@ -53,7 +53,7 @@ function setCurrentInstance(newInstance: TestInstance) {
   instanceRef.current = newInstance;
 }
 
-function debounce<T extends (...args: any[]) => void>(
+function debounce<T extends (...args: Array<any>) => void>(
   func: T,
   timeout: number,
 ): (...args: Parameters<T>) => void {
@@ -74,11 +74,11 @@ function debounce<T extends (...args: any[]) => void>(
  */
 function bindObjectFnsToInstance(
   instance: TestInstance,
-  object: Record<string, (...props: unknown[]) => unknown>,
+  object: Record<string, (...props: Array<unknown>) => unknown>,
 ) {
   return Object.entries(object).reduce(
     (prev, [key, fn]) => {
-      prev[key] = (...props: unknown[]) => fn(instance, ...props);
+      prev[key] = (...props: Array<unknown>) => fn(instance, ...props);
       return prev;
     },
     {} as typeof object,

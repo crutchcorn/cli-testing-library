@@ -1,6 +1,6 @@
 import { getDefaultNormalizer } from "../matches";
 import { checkCliInstance, getMessage } from "./utils";
-import { TestInstance } from "../types";
+import type { TestInstance } from "../types";
 
 export function toHaveErrorMessage(
   this: any,

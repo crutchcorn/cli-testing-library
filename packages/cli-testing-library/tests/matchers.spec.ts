@@ -1,6 +1,6 @@
-import { resolve } from "path";
+import { resolve } from "node:path";
+import { expect, test } from "vitest";
 import { render } from "../src/pure";
-import { test, expect } from "vitest";
 
 test("toBeInTheConsole should pass when something is in console", async () => {
   const { findByText } = await render("node", [

@@ -2,7 +2,7 @@ export type keyboardOptions = {
   /** Delay between keystrokes */
   delay: number;
   /** Keyboard layout to use */
-  keyboardMap: keyboardKey[];
+  keyboardMap: Array<keyboardKey>;
 };
 
 export interface keyboardKey {

@@ -1,5 +1,5 @@
 import { getDefaultNormalizer } from "./matches";
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 export interface QueryOptions {
   [key: string]: RegExp | boolean;
@@ -13,7 +13,7 @@ export interface Suggestion {
   queryArgs: QueryArgs;
   variant: string;
   warning?: string;
-  toString(): string;
+  toString: () => string;
 }
 
 export type Variant = "find" | "get" | "query";

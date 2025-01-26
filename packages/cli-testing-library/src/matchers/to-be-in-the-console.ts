@@ -1,6 +1,6 @@
 import { getDefaultNormalizer } from "../matches";
 import { checkCliInstance, getMessage } from "./utils";
-import { TestInstance } from "../types";
+import type { TestInstance } from "../types";
 
 export function toBeInTheConsole(this: any, instance: TestInstance) {
   if (instance !== null || !this.isNot) {

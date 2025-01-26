@@ -1,8 +1,8 @@
-import { beforeEach, afterEach, test, expect, vi } from "vitest";
 import fs from "node:fs";
+import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { getUserCodeFrame } from "../src/get-user-code-frame";
 
-vi.mock(import("fs"), async (importOriginal) => {
+vi.mock(import("node:fs"), async (importOriginal) => {
   const actual = await importOriginal();
   return {
     ...actual,

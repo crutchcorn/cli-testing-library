@@ -1,11 +1,11 @@
+import { expect, test, vi } from "vitest";
 import { waitFor } from "../src/index";
 import { configure, getConfig } from "../src/config";
 // import {render} from '../pure'
-import { test, expect, vi } from "vitest";
 
 function deferred() {
-  let resolve!: (...props: unknown[]) => void;
-  let reject!: (...props: unknown[]) => void;
+  let resolve!: (...props: Array<unknown>) => void;
+  let reject!: (...props: Array<unknown>) => void;
   const promise = new Promise<void>((res, rej) => {
     resolve = res as never;
     reject = rej as never;
@@ -44,7 +44,7 @@ test("can timeout after the given timeout time", async () => {
 test("if no error is thrown then throws a timeout error", async () => {
   const result = await waitFor(
     () => {
-      // eslint-disable-next-line no-throw-literal
+       
       throw undefined;
     },
     { timeout: 8, interval: 5, onTimeout: (e) => e },
@@ -55,7 +55,7 @@ test("if no error is thrown then throws a timeout error", async () => {
 test("if showOriginalStackTrace on a timeout error then the stack trace does not include this file", async () => {
   const result = await waitFor(
     () => {
-      // eslint-disable-next-line no-throw-literal
+       
       throw undefined;
     },
     { timeout: 8, interval: 5, showOriginalStackTrace: true },

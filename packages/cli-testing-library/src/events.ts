@@ -1,5 +1,5 @@
 import { eventMap } from "./event-map";
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 type EventMap = typeof eventMap;
 export type EventType = keyof EventMap;
@@ -28,7 +28,7 @@ const fireEvent: FireFunction & FireObject = ((
 Object.entries(eventMap).forEach(([_eventName, _eventFn]) => {
   const eventName = _eventName as keyof typeof eventMap;
   const eventFn = _eventFn as (
-    ...props: unknown[]
+    ...props: Array<unknown>
   ) => ReturnType<(typeof eventMap)[keyof typeof eventMap]>;
   fireEvent[eventName] = (instance, ...props) => {
     return eventFn(instance, ...props);

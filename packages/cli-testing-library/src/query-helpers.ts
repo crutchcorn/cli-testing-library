@@ -1,12 +1,14 @@
-import { getSuggestedQuery, Variant } from "./suggestions";
-import { waitFor, waitForOptions as WaitForOptions } from "./wait-for";
+import { getSuggestedQuery } from "./suggestions";
+import { waitFor } from "./wait-for";
 import { getConfig } from "./config";
-import { TestInstance } from "./types";
-import { Matcher, MatcherOptions } from "./matches";
+import type { waitForOptions as WaitForOptions } from "./wait-for";
+import type { Variant } from "./suggestions";
+import type { TestInstance } from "./types";
+import type { Matcher, MatcherOptions } from "./matches";
 
 export type WithSuggest = { suggest?: boolean };
 
-export type GetErrorFunction<Arguments extends any[] = [string]> = (
+export type GetErrorFunction<Arguments extends Array<any> = [string]> = (
   c: TestInstance | null,
   ...args: Arguments
 ) => string;
@@ -16,7 +18,7 @@ export interface SelectorMatcherOptions extends MatcherOptions {
   ignore?: boolean | string;
 }
 
-export type QueryMethod<Arguments extends any[], Return> = (
+export type QueryMethod<Arguments extends Array<any>, Return> = (
   container: TestInstance,
   ...args: Arguments
 ) => Return;
@@ -26,7 +28,7 @@ function getInstanceError(message: string | null, instance: TestInstance) {
 }
 
 function getSuggestionError(
-  suggestion: { toString(): string },
+  suggestion: { toString: () => string },
   container: TestInstance,
 ) {
   return getConfig().getInstanceError(
@@ -39,7 +41,7 @@ ${suggestion.toString()}
 
 // this accepts a query function and returns a function which throws an error
 // if an empty list of elements is returned
-function makeGetQuery<Arguments extends unknown[]>(
+function makeGetQuery<Arguments extends Array<unknown>>(
   queryBy: (instance: TestInstance, ...args: Arguments) => TestInstance | null,
   getMissingError: GetErrorFunction<Arguments>,
 ) {
@@ -84,7 +86,7 @@ function makeFindQuery<QueryFor>(
 }
 
 const wrapSingleQueryWithSuggestion =
-  <Arguments extends unknown[]>(
+  <Arguments extends Array<unknown>>(
     query: (container: TestInstance, ...args: Arguments) => TestInstance | null,
     queryByName: string,
     variant: Variant,
@@ -99,8 +101,8 @@ const wrapSingleQueryWithSuggestion =
     ) as [WithSuggest];
     if (instance && suggest) {
       const suggestion = getSuggestedQuery(instance, variant);
-      if (suggestion && !queryByName.endsWith(suggestion.queryName as string)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      if (suggestion && !queryByName.endsWith(suggestion.queryName)) {
+         
         throw getSuggestionError(suggestion.toString(), container);
       }
     }

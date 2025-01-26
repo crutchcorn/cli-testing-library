@@ -1,4 +1,4 @@
-import { keyboardKey } from "./types";
+import type { keyboardKey } from "./types";
 
 /**
  * Mapping for a default US-104-QWERTY keyboard
@@ -8,7 +8,7 @@ import { keyboardKey } from "./types";
  * @see https://stackoverflow.com/questions/35429671/detecting-key-press-within-bash-scripts
  * @see https://gist.github.com/crutchcorn/2811db78a7b924cf54f4507198427fd2
  */
-export const defaultKeyMap: keyboardKey[] = [
+export const defaultKeyMap: Array<keyboardKey> = [
   // alphanumeric keys
   { code: "Digit!", hex: "\x21" },
   { code: "Digit#", hex: "\x23" },

@@ -1,9 +1,9 @@
-import { resolve } from "path";
-import { render, cleanup } from "../src/pure";
+import { resolve } from "node:path";
+import { afterEach, expect, test } from "vitest";
+import { cleanup, render } from "../src/pure";
 import { fireEvent } from "../src/events";
 import { waitFor } from "../src/wait-for";
 import userEvent from "../src/user-event";
-import { test, expect, afterEach } from "vitest";
 
 afterEach(async () => {
   await cleanup();

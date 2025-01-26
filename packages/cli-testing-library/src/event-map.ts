@@ -1,5 +1,5 @@
 import { killProc } from "./process-helpers";
-import { TestInstance } from "./types";
+import type { TestInstance } from "./types";
 
 const isWin = process.platform === "win32";
 
