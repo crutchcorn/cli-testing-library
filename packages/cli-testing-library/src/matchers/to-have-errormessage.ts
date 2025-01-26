@@ -9,6 +9,7 @@ export function toHaveErrorMessage(
 ) {
   checkCliInstance(testInstance, toHaveErrorMessage, this);
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const expectsErrorMessage = checkWith !== undefined;
 
   const errormessage = getDefaultNormalizer()(

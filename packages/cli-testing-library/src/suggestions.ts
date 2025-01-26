@@ -42,7 +42,7 @@ function makeSuggestion(
     name?: string;
   },
 ): Suggestion | undefined {
-  const warning = "";
+  const warning = "" as string;
   const queryOptions = {} as QueryOptions;
   const queryArgs = [
     [].includes(queryName as never) ? content : getRegExpMatcher(content),

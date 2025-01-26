@@ -4,10 +4,10 @@ import type { TestInstance } from "./types";
 type EventMap = typeof eventMap;
 export type EventType = keyof EventMap;
 
-export type FireFunction = <K extends EventType>(
+export type FireFunction = <TEventType extends EventType>(
   instance: TestInstance,
-  event: K,
-  options?: Parameters<EventMap[K]>[1],
+  event: TEventType,
+  options?: Parameters<EventMap[TEventType]>[1],
 ) => boolean | Promise<void>;
 
 export type FireObject = {

@@ -44,7 +44,7 @@ test("can timeout after the given timeout time", async () => {
 test("if no error is thrown then throws a timeout error", async () => {
   const result = await waitFor(
     () => {
-       
+
       throw undefined;
     },
     { timeout: 8, interval: 5, onTimeout: (e) => e },
@@ -55,7 +55,7 @@ test("if no error is thrown then throws a timeout error", async () => {
 test("if showOriginalStackTrace on a timeout error then the stack trace does not include this file", async () => {
   const result = await waitFor(
     () => {
-       
+
       throw undefined;
     },
     { timeout: 8, interval: 5, showOriginalStackTrace: true },
@@ -111,7 +111,6 @@ test("throws nice error if provided callback is not a function", () => {
   );
 });
 
-// eslint-disable-next-line jest/no-commented-out-tests
 // test('timeout logs a pretty DOM', async () => {
 //   renderIntoDocument(`<div id="pretty">how pretty</div>`)
 //   const error = await waitFor(

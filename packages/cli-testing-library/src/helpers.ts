@@ -14,7 +14,7 @@ function jestFakeTimersAreEnabled() {
         }
       )._isMockFunction === true ||
       // modern timers
-       
+
       Object.prototype.hasOwnProperty.call(setTimeout, "clock")
     );
   }
@@ -62,7 +62,7 @@ function debounce<T extends (...args: Array<any>) => void>(
   return (...args: Parameters<T>) => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      // @ts-ignore
+      // @ts-ignore this is fine
       func.apply(this, args);
     }, timeout);
   };

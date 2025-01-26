@@ -3,10 +3,12 @@ import { checkCliInstance, getMessage } from "./utils";
 import type { TestInstance } from "../types";
 
 export function toBeInTheConsole(this: any, instance: TestInstance) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (instance !== null || !this.isNot) {
     checkCliInstance(instance, toBeInTheConsole, this);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const errormessage = instance
     ? getDefaultNormalizer()(
         instance.stdoutArr.map((obj) => obj.contents).join("\n"),

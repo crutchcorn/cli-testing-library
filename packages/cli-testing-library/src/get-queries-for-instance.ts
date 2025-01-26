@@ -8,7 +8,7 @@ export type BoundFunction<T> = T extends (
   ? (...args: P) => R
   : never;
 
-export type BoundFunctions<Q> = Q extends typeof defaultQueries
+export type BoundFunctions<TQueries> = TQueries extends typeof defaultQueries
   ? {
       getByText: <T extends TestInstance = TestInstance>(
         ...args: Parameters<BoundFunction<defaultQueries.GetByText<T>>>
@@ -20,10 +20,10 @@ export type BoundFunctions<Q> = Q extends typeof defaultQueries
         ...args: Parameters<BoundFunction<defaultQueries.FindByText<T>>>
       ) => ReturnType<defaultQueries.FindByText<T>>;
     } & {
-      [P in keyof Q]: BoundFunction<Q[P]>;
+      [P in keyof TQueries]: BoundFunction<TQueries[P]>;
     }
   : {
-      [P in keyof Q]: BoundFunction<Q[P]>;
+      [P in keyof TQueries]: BoundFunction<TQueries[P]>;
     };
 
 export type Query = (

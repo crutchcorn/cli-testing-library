@@ -8,9 +8,9 @@ import type { Matcher, MatcherOptions } from "./matches";
 
 export type WithSuggest = { suggest?: boolean };
 
-export type GetErrorFunction<Arguments extends Array<any> = [string]> = (
+export type GetErrorFunction<TArguments extends Array<any> = [string]> = (
   c: TestInstance | null,
-  ...args: Arguments
+  ...args: TArguments
 ) => string;
 
 export interface SelectorMatcherOptions extends MatcherOptions {
@@ -18,10 +18,10 @@ export interface SelectorMatcherOptions extends MatcherOptions {
   ignore?: boolean | string;
 }
 
-export type QueryMethod<Arguments extends Array<any>, Return> = (
+export type QueryMethod<TArguments extends Array<any>, TReturn> = (
   container: TestInstance,
-  ...args: Arguments
-) => Return;
+  ...args: TArguments
+) => TReturn;
 
 function getInstanceError(message: string | null, instance: TestInstance) {
   return getConfig().getInstanceError(message, instance);
@@ -41,13 +41,13 @@ ${suggestion.toString()}
 
 // this accepts a query function and returns a function which throws an error
 // if an empty list of elements is returned
-function makeGetQuery<Arguments extends Array<unknown>>(
-  queryBy: (instance: TestInstance, ...args: Arguments) => TestInstance | null,
-  getMissingError: GetErrorFunction<Arguments>,
+function makeGetQuery<TArguments extends Array<unknown>>(
+  queryBy: (instance: TestInstance, ...args: TArguments) => TestInstance | null,
+  getMissingError: GetErrorFunction<TArguments>,
 ) {
   return <T extends TestInstance = TestInstance>(
     instance: TestInstance,
-    ...args: Arguments
+    ...args: TArguments
   ): T => {
     const el = queryBy(instance, ...args);
     if (!el) {
@@ -63,12 +63,12 @@ function makeGetQuery<Arguments extends Array<unknown>>(
 
 // this accepts a getter query function and returns a function which calls
 // waitFor and passing a function which invokes the getter.
-function makeFindQuery<QueryFor>(
+function makeFindQuery<TQueryFor>(
   getter: (
     container: TestInstance,
     text: Matcher,
     options?: MatcherOptions,
-  ) => QueryFor,
+  ) => TQueryFor,
 ) {
   return <T extends TestInstance = TestInstance>(
     instance: TestInstance,
@@ -86,14 +86,14 @@ function makeFindQuery<QueryFor>(
 }
 
 const wrapSingleQueryWithSuggestion =
-  <Arguments extends Array<unknown>>(
-    query: (container: TestInstance, ...args: Arguments) => TestInstance | null,
+  <TArguments extends Array<unknown>>(
+    query: (container: TestInstance, ...args: TArguments) => TestInstance | null,
     queryByName: string,
     variant: Variant,
   ) =>
   <T extends TestInstance = TestInstance>(
     container: TestInstance,
-    ...args: Arguments
+    ...args: TArguments
   ): T => {
     const instance = query(container, ...args);
     const [{ suggest = getConfig().throwSuggestions } = {}] = args.slice(
@@ -102,7 +102,7 @@ const wrapSingleQueryWithSuggestion =
     if (instance && suggest) {
       const suggestion = getSuggestedQuery(instance, variant);
       if (suggestion && !queryByName.endsWith(suggestion.queryName)) {
-         
+
         throw getSuggestionError(suggestion.toString(), container);
       }
     }

@@ -20,7 +20,7 @@ function prettyCLI(testInstance: TestInstance, maxLength?: number) {
 
   const outStr = testInstance.getStdallStr();
 
-   
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return maxLength !== undefined && outStr.length > maxLength
     ? sliceAnsi(outStr, 0, maxLength)
     : outStr;

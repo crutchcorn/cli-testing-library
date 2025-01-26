@@ -17,7 +17,7 @@ import type { BoundFunction } from "./get-queries-for-instance";
 
 const __curDir =
   typeof __dirname === "undefined"
-    ? // @ts-ignore
+    ? // @ts-ignore ESM requires this, but it doesn't work in Node18
       path.dirname(fileURLToPath(import.meta.url))
     : __dirname;
 
@@ -44,13 +44,14 @@ async function render(
 ): Promise<RenderResult> {
   const { cwd = __curDir, spawnOpts = {} } = opts;
 
-   
+
   const exec = childProcess.spawn(command, args, {
     ...spawnOpts,
     cwd,
     shell: true,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   let _readyPromiseInternals: null | { resolve: Function; reject: Function } =
     null;
 
@@ -172,7 +173,7 @@ function cleanup() {
 // but let's wait until someone asks for it.
 async function cleanupAtInstance(instance: TestInstance) {
   await fireEvent.sigkill(instance);
-   
+
   mountedInstances.delete(instance);
 }
 

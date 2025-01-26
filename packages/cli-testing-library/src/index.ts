@@ -6,6 +6,7 @@ import { cleanup } from "./pure";
 // if you don't like this then set the CTL_SKIP_AUTO_CLEANUP env variable to 'true'.
 if (
   typeof process === "undefined" ||
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   !(process.env && process.env.CTL_SKIP_AUTO_CLEANUP)
 ) {
   // ignore teardown() in code coverage because Jest does not support it
@@ -17,7 +18,7 @@ if (
   } else if (typeof teardown === "function") {
     // Block is guarded by `typeof` check.
     // eslint does not support `typeof` guards.
-     
+
     teardown(async () => {
       await cleanup();
     });

@@ -5,12 +5,14 @@ class GenericTypeError extends Error {
   constructor(
     expectedString: string,
     received: any,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     matcherFn: Function,
     context: any,
   ) {
     super();
 
     /* istanbul ignore next */
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, matcherFn);
     }
@@ -32,7 +34,7 @@ class GenericTypeError extends Error {
         "",
       ),
       "",
-       
+
       `${context.utils.RECEIVED_COLOR(
         "received",
       )} value must ${expectedString}.`,
@@ -59,6 +61,7 @@ function checkCliInstance(
   cliInstance: TestInstance,
   ...args: AllButFirst<CliInstanceTypeErrorArgs>
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!(cliInstance && cliInstance.process && cliInstance.process.stdout)) {
     throw new CliInstanceTypeError(cliInstance, ...args);
   }

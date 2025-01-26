@@ -45,6 +45,7 @@ function waitFor<T>(
     throw new TypeError("Received `callback` arg must be a function");
   }
 
+  // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     let lastError: Error | null = null;
     let intervalId!: NodeJS.Timeout;
@@ -63,7 +64,8 @@ function waitFor<T>(
       // infinite loop. However, eslint isn't smart enough to know that we're
       // setting finished inside `onDone` which will be called when we're done
       // waiting or when we've timed out.
-       
+
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       while (!finished) {
         if (!jestFakeTimersAreEnabled()) {
           const error = new Error(
@@ -96,7 +98,7 @@ function waitFor<T>(
         // to resolve before continuing. We don't need to take advantage
         // of parallelization so we're fine.
         // https://stackoverflow.com/a/59243586/971592
-         
+
         await advanceTimersWrapper(async () => {
           await new Promise((r) => {
             setTimeout(r, 0);

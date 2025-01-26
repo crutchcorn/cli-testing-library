@@ -41,6 +41,7 @@ function getCodeFrame(frame: string) {
 function getUserCodeFrame() {
   // If we couldn't load dependencies, we can't generate the user trace
   /* istanbul ignore next */
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!readFileSync || !codeFrameColumns) {
     return "";
   }
