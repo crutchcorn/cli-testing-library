@@ -1,8 +1,8 @@
-/* eslint-disable no-invalid-this */
 import {getDefaultNormalizer} from '../matches.js'
 import {checkCliInstance, getMessage} from './utils'
+import {TestInstance} from "../types";
 
-export function toBeInTheConsole(instance) {
+export function toBeInTheConsole(this: any, instance: TestInstance) {
   if (instance !== null || !this.isNot) {
     checkCliInstance(instance, toBeInTheConsole, this)
   }

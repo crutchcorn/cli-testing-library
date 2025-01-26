@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { render } from '../pure'
+import { render } from '../src/pure'
 import { test, expect } from 'vitest'
 
 test('toBeInTheConsole should pass when something is in console', async () => {

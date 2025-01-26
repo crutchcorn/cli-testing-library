@@ -8,6 +8,7 @@ const config = defineConfig({
     dir: './tests',
     watch: false,
     globals: true,
+    setupFiles: ['./tests/setup.ts'],
     coverage: { enabled: true, provider: 'istanbul', include: ['src/**/*'] },
     typecheck: { enabled: true },
   },
@@ -16,7 +17,7 @@ const config = defineConfig({
 export default mergeConfig(
   config,
   tanstackViteConfig({
-    entry: './src/index.ts',
+    entry: ['./src/index.ts', './src/vitest.ts', './src/jest-globals.ts', './src/jest.ts'],
     srcDir: './src',
   }),
 )

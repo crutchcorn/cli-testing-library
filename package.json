@@ -39,21 +39,21 @@
   },
   "devDependencies": {
     "@tanstack/config": "^0.16.0",
-    "@types/node": "^22.10.1",
-    "eslint": "9.18.0",
-    "knip": "^5.39.2",
-    "nx": "^20.3.1",
+    "@types/node": "^22.10.10",
+    "eslint": "9.19.0",
+    "knip": "^5.43.3",
+    "nx": "^20.3.3",
     "premove": "^4.0.0",
     "prettier": "^3.4.2",
     "publint": "^0.3.2",
-    "sherif": "^1.0.2",
+    "sherif": "^1.2.0",
     "typescript": "5.6.3",
     "typescript51": "npm:typescript@5.1",
     "typescript52": "npm:typescript@5.2",
     "typescript53": "npm:typescript@5.3",
     "typescript54": "npm:typescript@5.4",
     "typescript55": "npm:typescript@5.5",
-    "vite": "^5.4.11",
-    "vitest": "^2.1.8"
+    "vite": "^6.0.11",
+    "vitest": "^3.0.4"
   }
 }

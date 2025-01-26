@@ -1,7 +1,8 @@
 import redent from 'redent'
+import {TestInstance} from "../types";
 
 class GenericTypeError extends Error {
-  constructor(expectedString, received, matcherFn, context) {
+  constructor(expectedString: string, received: any, matcherFn: Function, context: any) {
     super()
 
     /* istanbul ignore next */
@@ -35,41 +36,41 @@ class GenericTypeError extends Error {
   }
 }
 
+type GenericTypeErrorArgs = ConstructorParameters<typeof GenericTypeError>;
+
+type AllButFirst<T> = T extends [infer _First, ...infer Rest] ? Rest : never;
+
 class CliInstanceTypeError extends GenericTypeError {
-  constructor(...args) {
+  constructor(...args: AllButFirst<GenericTypeErrorArgs>) {
     super('be a TestInstance', ...args)
   }
 }
 
-/**
- * @param {TestInstance} cliInstance
- * @param args
- */
-function checkCliInstance(cliInstance, ...args) {
+type CliInstanceTypeErrorArgs = ConstructorParameters<typeof CliInstanceTypeError>;
+
+function checkCliInstance(cliInstance: TestInstance, ...args: AllButFirst<CliInstanceTypeErrorArgs>) {
   if (!(cliInstance && cliInstance.process && cliInstance.process.stdout)) {
     throw new CliInstanceTypeError(cliInstance, ...args)
   }
 }
 
-function display(context, value) {
+function display(context: any, value: any) {
   return typeof value === 'string' ? value : context.utils.stringify(value)
 }
 
 function getMessage(
-  context,
-  matcher,
-  expectedLabel,
-  expectedValue,
-  receivedLabel,
-  receivedValue,
+  context: any,
+  matcher: string,
+  expectedLabel: string,
+  expectedValue: string,
+  receivedLabel: string,
+  receivedValue: string,
 ) {
   return [
     `${matcher}\n`,
-    // eslint-disable-next-line new-cap
     `${expectedLabel}:\n${context.utils.EXPECTED_COLOR(
       redent(display(context, expectedValue), 2),
     )}`,
-    // eslint-disable-next-line new-cap
     `${receivedLabel}:\n${context.utils.RECEIVED_COLOR(
       redent(display(context, receivedValue), 2),
     )}`,

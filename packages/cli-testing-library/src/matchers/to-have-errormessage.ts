@@ -1,12 +1,8 @@
-/* eslint-disable no-invalid-this */
 import {getDefaultNormalizer} from '../matches.js'
 import {checkCliInstance, getMessage} from './utils'
+import {TestInstance} from "../types";
 
-/**
- * @param {TestInstance} testInstance
- * @param checkWith
- */
-export function toHaveErrorMessage(testInstance, checkWith) {
+export function toHaveErrorMessage(this: any, testInstance: TestInstance, checkWith: string | RegExp) {
   checkCliInstance(testInstance, toHaveErrorMessage, this)
 
   const expectsErrorMessage = checkWith !== undefined
