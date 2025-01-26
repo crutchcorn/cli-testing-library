@@ -15,7 +15,8 @@ import type {BoundFunction} from './get-queries-for-instance'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+// @ts-ignore
+const __curDir = typeof __dirname === "undefined" ? path.dirname(fileURLToPath((import.meta.url))) : __dirname;
 
 export interface RenderOptions {
   cwd: string
@@ -38,7 +39,7 @@ async function render(
   args: string[] = [],
   opts: Partial<RenderOptions> = {},
 ): Promise<RenderResult> {
-  const {cwd = __dirname, spawnOpts = {}} = opts
+  const {cwd = __curDir, spawnOpts = {}} = opts
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const exec = childProcess.spawn(command, args, {
