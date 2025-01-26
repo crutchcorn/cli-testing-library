@@ -102,10 +102,7 @@
   "dependencies": {
     "@babel/code-frame": "^7.10.4",
     "@babel/runtime": "^7.12.5",
-    "jest-matcher-utils": "^29.7.0",
-    "lz-string": "^1.4.4",
     "picocolors": "^1.1.1",
-    "pretty-format": "^29.7.0",
     "redent": "^4.0.0",
     "slice-ansi": "^7.1.0",
     "strip-ansi": "^7.1.0",
@@ -117,8 +114,7 @@
     "@jest/globals": "^29.7.0",
     "@types/babel__code-frame": "^7.0.6",
     "@types/inquirer": "^9.0.7",
-    "@vitest/coverage-istanbul": "2.1.8",
-    "has-ansi": "^6.0.0",
+    "@vitest/coverage-istanbul": "3.0.4",
     "inquirer": "^12.3.2"
   },
   "peerDependencies": {
