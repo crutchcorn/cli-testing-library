@@ -13,5 +13,5 @@ export interface CLITestingLibraryMatchers<TReturn> {
    * @example
    * expect(instance).toHaveErrorMessage(/command could not be found/i) // to partially match
    */
-  toHaveErrorMessage: () => TReturn;
+  toHaveErrorMessage: (checkWith?: string | RegExp) => TReturn;
 }

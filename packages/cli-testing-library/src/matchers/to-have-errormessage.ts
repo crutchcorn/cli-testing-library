@@ -5,11 +5,10 @@ import type { TestInstance } from "../types";
 export function toHaveErrorMessage(
   this: any,
   testInstance: TestInstance,
-  checkWith: string | RegExp,
+  checkWith?: string | RegExp,
 ) {
   checkCliInstance(testInstance, toHaveErrorMessage, this);
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const expectsErrorMessage = checkWith !== undefined;
 
   const errormessage = getDefaultNormalizer()(

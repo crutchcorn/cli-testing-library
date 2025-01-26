@@ -21,7 +21,7 @@ vi.mock(import("node:fs"), async (importOriginal) => {
     `,
       ),
     },
-  };
+  } as never;
 });
 
 const userStackFrame =
