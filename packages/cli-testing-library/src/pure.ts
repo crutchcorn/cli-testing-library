@@ -17,8 +17,8 @@ import { fileURLToPath } from "url";
 
 const __curDir =
   typeof __dirname === "undefined"
-    // @ts-ignore
-    ? path.dirname(fileURLToPath(import.meta.url))
+    ? // @ts-ignore
+      path.dirname(fileURLToPath(import.meta.url))
     : __dirname;
 
 export interface RenderOptions {
