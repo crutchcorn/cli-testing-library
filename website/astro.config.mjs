@@ -29,11 +29,15 @@ export default defineConfig({
             { label: "API", slug: "guides/api" },
             { label: "Configuration Options", slug: "guides/configure" },
             { label: "Debug", slug: "guides/debug" },
-            { label: "Differences Between CLI Testing Library & Testing Library", slug: "guides/differences" },
+            {
+              label:
+                "Differences Between CLI Testing Library & Testing Library",
+              slug: "guides/differences",
+            },
             { label: "Firing Events", slug: "guides/fire-event" },
             { label: "Matchers", slug: "guides/matchers" },
             { label: "About Queries", slug: "guides/queries" },
-            { label: "User Event", slug: "guides/user-event" }
+            { label: "User Event", slug: "guides/user-event" },
           ],
         },
       ],
