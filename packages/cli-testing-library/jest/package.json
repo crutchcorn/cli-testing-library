@@ -1,6 +1,6 @@
 {
   "name": "cli-testing-library-jest",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "",
   "type": "module",
   "module": "./../dist/esm/jest.js",
