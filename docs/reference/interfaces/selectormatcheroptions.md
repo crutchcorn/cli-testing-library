@@ -7,7 +7,7 @@ title: SelectorMatcherOptions
 
 # Interface: SelectorMatcherOptions
 
-Defined in: [query-helpers.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L16)
+Defined in: [query-helpers.ts:16](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L16)
 
 ## Extends
 
@@ -21,7 +21,7 @@ Defined in: [query-helpers.ts:16](https://github.com/crutchcorn/cli-testing-libr
 optional collapseWhitespace: boolean;
 ```
 
-Defined in: [matches.ts:24](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L24)
+Defined in: [matches.ts:24](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L24)
 
 Use normalizer with getDefaultNormalizer instead
 
@@ -37,7 +37,7 @@ Use normalizer with getDefaultNormalizer instead
 optional exact: boolean;
 ```
 
-Defined in: [matches.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L18)
+Defined in: [matches.ts:18](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L18)
 
 #### Inherited from
 
@@ -51,7 +51,7 @@ Defined in: [matches.ts:18](https://github.com/crutchcorn/cli-testing-library/bl
 optional ignore: string | boolean;
 ```
 
-Defined in: [query-helpers.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L18)
+Defined in: [query-helpers.ts:18](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L18)
 
 ***
 
@@ -61,7 +61,7 @@ Defined in: [query-helpers.ts:18](https://github.com/crutchcorn/cli-testing-libr
 optional normalizer: NormalizerFn;
 ```
 
-Defined in: [matches.ts:25](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L25)
+Defined in: [matches.ts:25](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L25)
 
 #### Inherited from
 
@@ -75,7 +75,7 @@ Defined in: [matches.ts:25](https://github.com/crutchcorn/cli-testing-library/bl
 optional selector: string;
 ```
 
-Defined in: [query-helpers.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L17)
+Defined in: [query-helpers.ts:17](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L17)
 
 ***
 
@@ -85,7 +85,7 @@ Defined in: [query-helpers.ts:17](https://github.com/crutchcorn/cli-testing-libr
 optional stripAnsi: boolean;
 ```
 
-Defined in: [matches.ts:22](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L22)
+Defined in: [matches.ts:22](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L22)
 
 Use normalizer with getDefaultNormalizer instead
 
@@ -101,7 +101,7 @@ Use normalizer with getDefaultNormalizer instead
 optional suggest: boolean;
 ```
 
-Defined in: [matches.ts:27](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L27)
+Defined in: [matches.ts:27](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L27)
 
 suppress suggestions for a specific query
 
@@ -117,7 +117,7 @@ suppress suggestions for a specific query
 optional trim: boolean;
 ```
 
-Defined in: [matches.ts:20](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L20)
+Defined in: [matches.ts:20](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L20)
 
 Use normalizer with getDefaultNormalizer instead
 

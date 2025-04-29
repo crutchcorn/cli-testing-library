@@ -11,7 +11,7 @@ title: queryByError
 function queryByError<T>(...args): ReturnType<QueryByError<T>>
 ```
 
-Defined in: [queries/error.ts:65](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L65)
+Defined in: [queries/error.ts:65](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L65)
 
 ## Type Parameters
 

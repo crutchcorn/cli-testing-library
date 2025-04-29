@@ -11,7 +11,7 @@ title: cleanup
 function cleanup(): Promise<void[]>
 ```
 
-Defined in: [pure.ts:167](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/pure.ts#L167)
+Defined in: [pure.ts:167](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/pure.ts#L167)
 
 ## Returns
 

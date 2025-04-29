@@ -11,7 +11,7 @@ title: QueryByText
 type QueryByText<T> = (instance, id, options?) => T | null;
 ```
 
-Defined in: [queries/text.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L15)
+Defined in: [queries/text.ts:15](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L15)
 
 ## Type Parameters
 

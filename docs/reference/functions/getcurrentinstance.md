@@ -11,7 +11,7 @@ title: getCurrentInstance
 function getCurrentInstance(): undefined | TestInstance
 ```
 
-Defined in: [helpers.ts:33](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/helpers.ts#L33)
+Defined in: [helpers.ts:33](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/helpers.ts#L33)
 
 ## Returns
 

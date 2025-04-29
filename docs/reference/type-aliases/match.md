@@ -11,7 +11,7 @@ title: Match
 type Match = (textToMatch, node, matcher, options?) => boolean;
 ```
 
-Defined in: [matches.ts:30](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L30)
+Defined in: [matches.ts:30](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L30)
 
 ## Parameters
 

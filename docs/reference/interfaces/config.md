@@ -7,7 +7,7 @@ title: Config
 
 # Interface: Config
 
-Defined in: [config.ts:5](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L5)
+Defined in: [config.ts:5](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L5)
 
 ## Properties
 
@@ -17,7 +17,7 @@ Defined in: [config.ts:5](https://github.com/crutchcorn/cli-testing-library/blob
 asyncUtilTimeout: number;
 ```
 
-Defined in: [config.ts:13](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L13)
+Defined in: [config.ts:13](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L13)
 
 ***
 
@@ -27,7 +27,7 @@ Defined in: [config.ts:13](https://github.com/crutchcorn/cli-testing-library/blo
 errorDebounceTimeout: number;
 ```
 
-Defined in: [config.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L15)
+Defined in: [config.ts:15](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L15)
 
 ***
 
@@ -37,7 +37,7 @@ Defined in: [config.ts:15](https://github.com/crutchcorn/cli-testing-library/blo
 getInstanceError: (message, container) => Error;
 ```
 
-Defined in: [config.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L18)
+Defined in: [config.ts:18](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L18)
 
 #### Parameters
 
@@ -61,7 +61,7 @@ Defined in: [config.ts:18](https://github.com/crutchcorn/cli-testing-library/blo
 renderAwaitTime: number;
 ```
 
-Defined in: [config.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L14)
+Defined in: [config.ts:14](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L14)
 
 ***
 
@@ -71,7 +71,7 @@ Defined in: [config.ts:14](https://github.com/crutchcorn/cli-testing-library/blo
 showOriginalStackTrace: boolean;
 ```
 
-Defined in: [config.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L16)
+Defined in: [config.ts:16](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L16)
 
 ***
 
@@ -81,7 +81,7 @@ Defined in: [config.ts:16](https://github.com/crutchcorn/cli-testing-library/blo
 throwSuggestions: boolean;
 ```
 
-Defined in: [config.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L17)
+Defined in: [config.ts:17](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L17)
 
 ***
 
@@ -91,7 +91,7 @@ Defined in: [config.ts:17](https://github.com/crutchcorn/cli-testing-library/blo
 unstable_advanceTimersWrapper: (cb) => unknown;
 ```
 
-Defined in: [config.ts:10](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L10)
+Defined in: [config.ts:10](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L10)
 
 WARNING: `unstable` prefix means this API may change in patch and minor releases.
 

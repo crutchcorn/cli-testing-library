@@ -11,7 +11,7 @@ title: _runObservers
 function _runObservers(): void
 ```
 
-Defined in: [mutation-observer.ts:27](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L27)
+Defined in: [mutation-observer.ts:27](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L27)
 
 ## Returns
 

@@ -96,7 +96,7 @@ The most important feature of render is that the queries from
 [CLI Testing Library](https://github.com/crutchcorn/cli-testing-library) are
 automatically returned with their first argument bound to the testInstance.
 
-See [Queries](./queries) to learn more about how to use these queries and the
+See [Queries](./queries.md) to learn more about how to use these queries and the
 philosophy behind them.
 
 ### ByText
@@ -122,7 +122,7 @@ Queries for test instance `stdout` results with the given text (and it also
 accepts a TextMatch).
 
 These options are all standard for text matching. To learn more, see our
-[Queries page](./queries).
+[Queries page](./queries.md).
 
 ## `userEvent[eventName]`
 
@@ -132,11 +132,11 @@ userEvent[eventName](...eventProps)
 
 > While `userEvent` isn't usually returned on `render` in, say,
 > `React Testing Library`, we're able to do so because of our differences in
-> implementation with upstream. See our [Differences](./differences) doc for
+> implementation with upstream. See our [Differences](./differences.md) doc for
 > more.
 
 This object is the same as described with
-[`userEvent` documentation](./user-event) with the key difference that
+[`userEvent` documentation](./user-event.md) with the key difference that
 `instance` is not expected to be passed when bound to `render`.
 
 ## `debug`
@@ -158,7 +158,7 @@ debug()
 ```
 
 This is a simple wrapper around `prettyCLI` which is also exposed and comes from
-[CLI Testing Library](./debug).
+[CLI Testing Library](./debug.md).
 
 ## `hasExit`
 
@@ -184,7 +184,7 @@ so you can call `process.pid` etc. to inspect the process.
 ## `stdoutArr`/`stderrArr`
 
 Each of these is an array of what's output by their respective `std`\* pipe.
-This is used internally to create the [`debug`methods](./debug) and more.
+This is used internally to create the [`debug`methods](./debug.md) and more.
 They're defined as:
 
 ```typescript

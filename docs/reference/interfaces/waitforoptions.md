@@ -7,7 +7,7 @@ title: waitForOptions
 
 # Interface: waitForOptions
 
-Defined in: [wait-for.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L14)
+Defined in: [wait-for.ts:14](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L14)
 
 ## Properties
 
@@ -17,7 +17,7 @@ Defined in: [wait-for.ts:14](https://github.com/crutchcorn/cli-testing-library/b
 optional instance: TestInstance;
 ```
 
-Defined in: [wait-for.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L15)
+Defined in: [wait-for.ts:15](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L15)
 
 ***
 
@@ -27,7 +27,7 @@ Defined in: [wait-for.ts:15](https://github.com/crutchcorn/cli-testing-library/b
 optional interval: number;
 ```
 
-Defined in: [wait-for.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L18)
+Defined in: [wait-for.ts:18](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L18)
 
 ***
 
@@ -37,7 +37,7 @@ Defined in: [wait-for.ts:18](https://github.com/crutchcorn/cli-testing-library/b
 optional onTimeout: (error) => Error;
 ```
 
-Defined in: [wait-for.ts:19](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L19)
+Defined in: [wait-for.ts:19](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L19)
 
 #### Parameters
 
@@ -57,7 +57,7 @@ Defined in: [wait-for.ts:19](https://github.com/crutchcorn/cli-testing-library/b
 optional showOriginalStackTrace: boolean;
 ```
 
-Defined in: [wait-for.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L16)
+Defined in: [wait-for.ts:16](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L16)
 
 ***
 
@@ -67,7 +67,7 @@ Defined in: [wait-for.ts:16](https://github.com/crutchcorn/cli-testing-library/b
 optional stackTraceError: Error;
 ```
 
-Defined in: [wait-for.ts:20](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L20)
+Defined in: [wait-for.ts:20](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L20)
 
 ***
 
@@ -77,4 +77,4 @@ Defined in: [wait-for.ts:20](https://github.com/crutchcorn/cli-testing-library/b
 optional timeout: number;
 ```
 
-Defined in: [wait-for.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L17)
+Defined in: [wait-for.ts:17](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L17)

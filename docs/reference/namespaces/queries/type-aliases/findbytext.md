@@ -11,7 +11,7 @@ title: FindByText
 type FindByText<T> = (instance, id, options?, waitForElementOptions?) => Promise<T>;
 ```
 
-Defined in: [queries/text.ts:27](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L27)
+Defined in: [queries/text.ts:27](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L27)
 
 ## Type Parameters
 

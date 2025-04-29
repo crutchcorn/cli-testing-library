@@ -11,7 +11,7 @@ title: MatcherFunction
 type MatcherFunction = (content, element) => boolean;
 ```
 
-Defined in: [matches.ts:4](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L4)
+Defined in: [matches.ts:4](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L4)
 
 ## Parameters
 

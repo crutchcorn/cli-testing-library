@@ -11,7 +11,7 @@ title: FindByError
 type FindByError<T> = (instance, id, options?, waitForElementOptions?) => Promise<T>;
 ```
 
-Defined in: [queries/error.ts:27](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L27)
+Defined in: [queries/error.ts:27](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L27)
 
 ## Type Parameters
 

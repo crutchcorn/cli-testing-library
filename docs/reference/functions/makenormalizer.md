@@ -11,7 +11,7 @@ title: makeNormalizer
 function makeNormalizer(props): NormalizerFn
 ```
 
-Defined in: [matches.ts:132](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L132)
+Defined in: [matches.ts:132](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L132)
 
 ## Parameters
 

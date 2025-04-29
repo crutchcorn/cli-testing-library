@@ -3,7 +3,7 @@ title: "User Event"
 ---
 
 [`user-event`][gh] is a helper that provides more advanced simulation of CLI
-interactions than the [`fireEvent`](./fire-event) method.
+interactions than the [`fireEvent`](./fire-event.md) method.
 
 ## Import
 
@@ -66,7 +66,7 @@ Keystrokes can be described:
   userEvent.keyboard('a[[') // translates to: a, [
   ```
 
-- Per [special key mapping](../src/user-event/keyboard/keyMap.ts) with the `[`
+- Per [special key mapping](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts) with the `[`
   symbol
 
   ```js
@@ -77,7 +77,7 @@ Keystrokes can be described:
   `f`.
 
 The mapping of special character strings are performed by a
-[default key map](../src/user-event/keyboard/keyMap.ts) portraying a "default"
+[default key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts) portraying a "default"
 US-keyboard. You can provide your own local keyboard mapping per option.
 
 ```js
@@ -106,6 +106,6 @@ mentioned previously. Here are some of the ones that are supported:
 | `[End]`        | End         |
 
 A full list of supported special characters that can be input can be found
-[in our key mapping file](../src/user-event/keyboard/keyMap.ts).
+[in our key mapping file](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).
 
 [gh]: https://github.com/testing-library/user-event

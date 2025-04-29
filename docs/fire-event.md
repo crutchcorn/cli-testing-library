@@ -5,7 +5,7 @@ title: "Firing Events"
 > **Note**
 >
 > Most projects have a few use cases for `fireEvent`, but the majority of the
-> time you should probably use [`userEvent`](./user-event).
+> time you should probably use [`userEvent`](./user-event.md).
 
 ## `fireEvent`
 
@@ -26,5 +26,5 @@ fireEvent[eventName](instance: TestInstance, eventProperties?: Object)
 ```
 
 Convenience methods for firing CLI events. Check out
-[src/event-map.js](../src/event-map.ts) for a full list as well as default
+[src/event-map.js](../packages/cli-testing-library/src/event-map.ts) for a full list as well as default
 `eventProperties`.

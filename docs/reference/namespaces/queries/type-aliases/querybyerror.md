@@ -11,7 +11,7 @@ title: QueryByError
 type QueryByError<T> = (instance, id, options?) => T | null;
 ```
 
-Defined in: [queries/error.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L15)
+Defined in: [queries/error.ts:15](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/error.ts#L15)
 
 ## Type Parameters
 

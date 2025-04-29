@@ -11,7 +11,7 @@ title: RenderResult
 type RenderResult = TestInstance & object & { [P in keyof typeof queries]: BoundFunction<typeof queries[P]> };
 ```
 
-Defined in: [pure.ts:32](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/pure.ts#L32)
+Defined in: [pure.ts:32](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/pure.ts#L32)
 
 ## Type declaration
 

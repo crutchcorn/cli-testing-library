@@ -11,7 +11,7 @@ title: getByText
 function getByText<T>(...args): ReturnType<GetByText<T>>
 ```
 
-Defined in: [queries/text.ts:59](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L59)
+Defined in: [queries/text.ts:59](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L59)
 
 ## Type Parameters
 

@@ -9,7 +9,7 @@ if no CLI instance is found or if it will return a Promise and retry. Depending
 on what app content you are selecting, different queries may be more or less
 appropriate.
 
-While our APIs [differ slightly](./differences) from upstream Testing
+While our APIs [differ slightly](./differences.md) from upstream Testing
 Library's,
 [their "About Queries" page summarizes the goals and intentions of this project's queries quite well](https://testing-library.com/docs/queries/about/).
 
@@ -176,7 +176,7 @@ getByText(
 ```
 
 This will search the instance to see if there's an `stdout` output matching the
-given [`TextMatch`](queries/about.mdx#textmatch).
+given [`TextMatch`](#textmatch).
 
 ```html
 Input your name:
@@ -211,7 +211,7 @@ getByText(
 ```
 
 This will search the instance to see if there's an `stderr` output matching the
-given [`TextMatch`](queries/about.mdx#textmatch).
+given [`TextMatch`](#textmatch).
 
 ```html
 Could not find file
