@@ -1,7 +1,7 @@
 import { visit } from "unist-util-visit";
 
 export const rehypeHandleMdExtension = () => {
-    const pattern = /^(\.\/.+)\.md(.*)/;
+    const pattern = /^(\..+)\.md(.*)/;
 
     const canBeProcessed = (node) => (
         node.tagName === "a" &&
