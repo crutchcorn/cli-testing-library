@@ -7,7 +7,7 @@ title: MutationObserver
 
 # Class: MutationObserver
 
-Defined in: [mutation-observer.ts:9](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L9)
+Defined in: [mutation-observer.ts:9](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L9)
 
 ## Constructors
 
@@ -17,7 +17,7 @@ Defined in: [mutation-observer.ts:9](https://github.com/Romulad/cli-testing-libr
 new MutationObserver(cb): MutationObserver
 ```
 
-Defined in: [mutation-observer.ts:13](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L13)
+Defined in: [mutation-observer.ts:13](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L13)
 
 #### Parameters
 
@@ -37,7 +37,7 @@ Defined in: [mutation-observer.ts:13](https://github.com/Romulad/cli-testing-lib
 _cb: () => void;
 ```
 
-Defined in: [mutation-observer.ts:10](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L10)
+Defined in: [mutation-observer.ts:10](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L10)
 
 #### Returns
 
@@ -51,7 +51,7 @@ Defined in: [mutation-observer.ts:10](https://github.com/Romulad/cli-testing-lib
 _id: number;
 ```
 
-Defined in: [mutation-observer.ts:11](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L11)
+Defined in: [mutation-observer.ts:11](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L11)
 
 ## Methods
 
@@ -61,7 +61,7 @@ Defined in: [mutation-observer.ts:11](https://github.com/Romulad/cli-testing-lib
 disconnect(): void
 ```
 
-Defined in: [mutation-observer.ts:22](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L22)
+Defined in: [mutation-observer.ts:22](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L22)
 
 #### Returns
 
@@ -75,7 +75,7 @@ Defined in: [mutation-observer.ts:22](https://github.com/Romulad/cli-testing-lib
 observe(): void
 ```
 
-Defined in: [mutation-observer.ts:18](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L18)
+Defined in: [mutation-observer.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/mutation-observer.ts#L18)
 
 #### Returns
 

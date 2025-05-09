@@ -14,7 +14,7 @@ function fireEvent<TEventType>(
 options?): boolean | Promise<void>
 ```
 
-Defined in: [events.ts:20](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/events.ts#L20)
+Defined in: [events.ts:20](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/events.ts#L20)
 
 ## Type Parameters
 

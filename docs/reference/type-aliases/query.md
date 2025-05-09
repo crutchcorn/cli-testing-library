@@ -17,7 +17,7 @@ type Query = (container, ...args) =>
   | null;
 ```
 
-Defined in: [get-queries-for-instance.ts:29](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/get-queries-for-instance.ts#L29)
+Defined in: [get-queries-for-instance.ts:29](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/get-queries-for-instance.ts#L29)
 
 ## Parameters
 

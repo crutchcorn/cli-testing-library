@@ -11,7 +11,7 @@ title: getInstanceError
 function getInstanceError(message, instance): Error
 ```
 
-Defined in: [query-helpers.ts:26](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L26)
+Defined in: [query-helpers.ts:26](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L26)
 
 ## Parameters
 

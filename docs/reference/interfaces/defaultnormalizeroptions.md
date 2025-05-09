@@ -7,7 +7,7 @@ title: DefaultNormalizerOptions
 
 # Interface: DefaultNormalizerOptions
 
-Defined in: [matches.ts:37](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L37)
+Defined in: [matches.ts:37](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L37)
 
 ## Extended by
 
@@ -21,7 +21,7 @@ Defined in: [matches.ts:37](https://github.com/Romulad/cli-testing-library/blob/
 optional collapseWhitespace: boolean;
 ```
 
-Defined in: [matches.ts:39](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L39)
+Defined in: [matches.ts:39](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L39)
 
 ***
 
@@ -31,7 +31,7 @@ Defined in: [matches.ts:39](https://github.com/Romulad/cli-testing-library/blob/
 optional stripAnsi: boolean;
 ```
 
-Defined in: [matches.ts:40](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L40)
+Defined in: [matches.ts:40](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L40)
 
 ***
 
@@ -41,4 +41,4 @@ Defined in: [matches.ts:40](https://github.com/Romulad/cli-testing-library/blob/
 optional trim: boolean;
 ```
 
-Defined in: [matches.ts:38](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L38)
+Defined in: [matches.ts:38](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L38)

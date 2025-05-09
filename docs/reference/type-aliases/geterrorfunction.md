@@ -11,7 +11,7 @@ title: GetErrorFunction
 type GetErrorFunction<TArguments> = (c, ...args) => string;
 ```
 
-Defined in: [query-helpers.ts:11](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L11)
+Defined in: [query-helpers.ts:11](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L11)
 
 ## Type Parameters
 

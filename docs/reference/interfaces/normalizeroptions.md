@@ -7,7 +7,7 @@ title: NormalizerOptions
 
 # Interface: NormalizerOptions
 
-Defined in: [matches.ts:13](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L13)
+Defined in: [matches.ts:13](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L13)
 
 ## Extends
 
@@ -21,7 +21,7 @@ Defined in: [matches.ts:13](https://github.com/Romulad/cli-testing-library/blob/
 optional collapseWhitespace: boolean;
 ```
 
-Defined in: [matches.ts:39](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L39)
+Defined in: [matches.ts:39](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L39)
 
 #### Inherited from
 
@@ -35,7 +35,7 @@ Defined in: [matches.ts:39](https://github.com/Romulad/cli-testing-library/blob/
 optional normalizer: NormalizerFn;
 ```
 
-Defined in: [matches.ts:14](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L14)
+Defined in: [matches.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L14)
 
 ***
 
@@ -45,7 +45,7 @@ Defined in: [matches.ts:14](https://github.com/Romulad/cli-testing-library/blob/
 optional stripAnsi: boolean;
 ```
 
-Defined in: [matches.ts:40](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L40)
+Defined in: [matches.ts:40](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L40)
 
 #### Inherited from
 
@@ -59,7 +59,7 @@ Defined in: [matches.ts:40](https://github.com/Romulad/cli-testing-library/blob/
 optional trim: boolean;
 ```
 
-Defined in: [matches.ts:38](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L38)
+Defined in: [matches.ts:38](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L38)
 
 #### Inherited from
 

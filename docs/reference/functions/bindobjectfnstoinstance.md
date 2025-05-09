@@ -11,7 +11,7 @@ title: bindObjectFnsToInstance
 function bindObjectFnsToInstance(instance, object): Record<string, (...props) => unknown>
 ```
 
-Defined in: [helpers.ts:75](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/helpers.ts#L75)
+Defined in: [helpers.ts:75](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/helpers.ts#L75)
 
 This is used to bind a series of functions where `instance` is the first argument
 to an instance, removing the implicit first argument.

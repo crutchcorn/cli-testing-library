@@ -7,7 +7,7 @@ title: keyboardKey
 
 # Interface: keyboardKey
 
-Defined in: [user-event/keyboard/types.ts:8](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L8)
+Defined in: [user-event/keyboard/types.ts:8](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L8)
 
 ## Properties
 
@@ -17,7 +17,7 @@ Defined in: [user-event/keyboard/types.ts:8](https://github.com/Romulad/cli-test
 optional code: string;
 ```
 
-Defined in: [user-event/keyboard/types.ts:10](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L10)
+Defined in: [user-event/keyboard/types.ts:10](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L10)
 
 Physical location on a keyboard
 
@@ -29,6 +29,6 @@ Physical location on a keyboard
 optional hex: string;
 ```
 
-Defined in: [user-event/keyboard/types.ts:12](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L12)
+Defined in: [user-event/keyboard/types.ts:12](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L12)
 
 Character or functional key hex code

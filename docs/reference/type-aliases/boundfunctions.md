@@ -11,7 +11,7 @@ title: BoundFunctions
 type BoundFunctions<TQueries> = TQueries extends typeof queries ? object & { [P in keyof TQueries]: BoundFunction<TQueries[P]> } : { [P in keyof TQueries]: BoundFunction<TQueries[P]> };
 ```
 
-Defined in: [get-queries-for-instance.ts:11](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/get-queries-for-instance.ts#L11)
+Defined in: [get-queries-for-instance.ts:11](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/get-queries-for-instance.ts#L11)
 
 ## Type Parameters
 

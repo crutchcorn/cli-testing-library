@@ -11,7 +11,7 @@ title: FireFunction
 type FireFunction = <TEventType>(instance, event, options?) => boolean | Promise<void>;
 ```
 
-Defined in: [events.ts:7](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/events.ts#L7)
+Defined in: [events.ts:7](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/events.ts#L7)
 
 ## Type Parameters
 

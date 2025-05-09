@@ -11,7 +11,7 @@ title: queryByText
 function queryByText<T>(...args): ReturnType<QueryByText<T>>
 ```
 
-Defined in: [queries/text.ts:64](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L64)
+Defined in: [queries/text.ts:64](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L64)
 
 ## Type Parameters
 

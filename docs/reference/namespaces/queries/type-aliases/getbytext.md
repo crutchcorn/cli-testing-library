@@ -11,7 +11,7 @@ title: GetByText
 type GetByText<T> = (instance, id, options?) => T;
 ```
 
-Defined in: [queries/text.ts:21](https://github.com/Romulad/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L21)
+Defined in: [queries/text.ts:21](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/queries/text.ts#L21)
 
 ## Type Parameters
 
