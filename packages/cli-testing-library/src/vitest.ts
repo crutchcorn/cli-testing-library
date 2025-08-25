@@ -11,4 +11,7 @@ declare module "vitest" {
 
   interface AsymmetricMatchersContaining
     extends CLITestingLibraryMatchers<any> {}
+
+  // Vitest 3.2.0+
+  interface Matchers<T = any> extends CLITestingLibraryMatchers<T> {}
 }
