@@ -7,7 +7,7 @@ import type { CLITestingLibraryMatchers } from "./matchers/types";
 expect.extend(extensions);
 
 declare module "vitest" {
-  interface Assertion<T = any> extends CLITestingLibraryMatchers<any> {}
+  interface Assertion<T = any> extends CLITestingLibraryMatchers<T> {}
 
   interface AsymmetricMatchersContaining
     extends CLITestingLibraryMatchers<any> {}
