@@ -3,8 +3,13 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 
+import { rehypeHandleMdExtension } from "./rehype-plugin";
+
 // https://astro.build/config
 export default defineConfig({
+  markdown: {
+    rehypePlugins: [rehypeHandleMdExtension]
+  },
   integrations: [
     react(),
     starlight({

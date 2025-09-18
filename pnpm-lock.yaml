@@ -135,6 +135,9 @@ importers:
       sharp:
         specifier: ^0.33.5
         version: 0.33.5
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
     devDependencies:
       '@types/react':
         specifier: ^19.0.2
