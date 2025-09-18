@@ -8,7 +8,7 @@ import { rehypeHandleMdExtension } from "./rehype-plugin";
 // https://astro.build/config
 export default defineConfig({
   markdown: {
-    rehypePlugins: [rehypeHandleMdExtension]
+    rehypePlugins: [rehypeHandleMdExtension],
   },
   integrations: [
     react(),
