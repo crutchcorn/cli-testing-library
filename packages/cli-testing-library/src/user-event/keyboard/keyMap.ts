@@ -19,6 +19,7 @@ export const defaultKeyMap: Array<keyboardKey> = [
   { code: "Digit)", hex: "\x29" },
   { code: "Digit*", hex: "\x2a" },
   { code: "Digit-", hex: "\x2d" },
+  { code: "Digit.", hex: "\x2e" },
   { code: "Digit@", hex: "\x40" },
   { code: "Digit^", hex: "\x5e" },
   { code: "Digit{", hex: "\x7b" },
