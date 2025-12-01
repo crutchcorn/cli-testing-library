@@ -42,7 +42,9 @@ test("it returns only user code frame when code frames from node_modules are fir
       at Object.<anonymous> (/sample-error/node_modules/@es2050/console/build/index.js:4:10)
       ${userStackFrame}
   `;
-  globalErrorMock.mockImplementationOnce(() => ({ stack }));
+  globalErrorMock.mockImplementationOnce(function () {
+    return { stack };
+  });
   const userTrace = getUserCodeFrame();
 
   expect(userTrace).toMatchInlineSnapshot(`
@@ -62,7 +64,9 @@ test("it returns only user code frame when node code frames are present afterwar
       at Object.<anonymous> (/sample-error/error-example.js:14:1)
       at internal/main/run_main_module.js:17:47
   `;
-  globalErrorMock.mockImplementationOnce(() => ({ stack }));
+  globalErrorMock.mockImplementationOnce(function () {
+    return { stack };
+  });
   const userTrace = getUserCodeFrame();
 
   expect(userTrace).toMatchInlineSnapshot(`
@@ -76,13 +80,17 @@ test("it returns only user code frame when node code frames are present afterwar
 });
 
 test("it returns empty string if file from code frame can't be read", () => {
-  (fs.readFileSync as ReturnType<typeof vi.fn>).mockImplementationOnce(() => {
-    throw Error();
-  });
+  (fs.readFileSync as ReturnType<typeof vi.fn>).mockImplementationOnce(
+    function () {
+      throw Error();
+    },
+  );
   const stack = `Error: Kaboom
       ${userStackFrame}
   `;
-  globalErrorMock.mockImplementationOnce(() => ({ stack }));
+  globalErrorMock.mockImplementationOnce(function () {
+    return { stack };
+  });
 
   expect(getUserCodeFrame()).toEqual("");
 });

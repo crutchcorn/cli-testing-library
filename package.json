@@ -55,6 +55,6 @@
     "typescript54": "npm:typescript@5.4",
     "typescript55": "npm:typescript@5.5",
     "vite": "^6.0.11",
-    "vitest": "^3.0.4"
+    "vitest": "^4.0.14"
   }
 }
