@@ -1,14 +1,16 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import { satteri } from "@astrojs/markdown-satteri";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 
-import { rehypeHandleMdExtension } from "./rehype-plugin";
+import { satteriHandleMdExtension } from "./satteri-plugin";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://cli-testing.com",
   markdown: {
-    rehypePlugins: [rehypeHandleMdExtension],
+    processor: satteri({ hastPlugins: [satteriHandleMdExtension] }),
   },
   integrations: [
     react(),
@@ -19,9 +21,13 @@ export default defineConfig({
         alt: "A koala emoji",
       },
       favicon: "./public/koala.png",
-      social: {
-        github: "https://github.com/crutchcorn/cli-testing-library",
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/crutchcorn/cli-testing-library",
+        },
+      ],
       components: {
         Head: "./src/components/head.astro",
       },

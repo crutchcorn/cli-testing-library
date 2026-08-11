@@ -22,27 +22,25 @@ Instead, the following API is what `CLI Testing Library` provides the following.
 function render(
   command: string,
   args: string[],
-  options?: {
-    /* You won't often use this, expand below for docs on options */
-  },
-): RenderResult
+  options?: {/* You won't often use this, expand below for docs on options */},
+): RenderResult;
 ```
 
 Run the CLI application in a newly spawned process.
 
 ```javascript
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-render('node', ['./path/to/script.js'])
+render("node", ["./path/to/script.js"]);
 ```
 
 ```javascript
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-test('renders a message', () => {
-  const {getByText} = render('node', ['./console-out.js'])
-  expect(getByText('Hello, world!')).toBeTruthy()
-})
+test("renders a message", () => {
+  const { getByText } = render("node", ["./console-out.js"]);
+  expect(getByText("Hello, world!")).toBeTruthy();
+});
 ```
 
 # `render` Options
@@ -62,11 +60,11 @@ to have to specify the absolute path every time. In this case, you can specify a
 directory as the render `cwd`.
 
 ```javascript
-const containingPath = path.resolve(__dirname, './movables')
+const containingPath = path.resolve(__dirname, "./movables");
 
-const {getByText} = render('node', ['mover.js'], {
+const { getByText } = render("node", ["mover.js"], {
   cwd: containingPath,
-})
+});
 ```
 
 ## `spawnOpts`
@@ -79,11 +77,11 @@ underlying
 [`child_process.spawn` NodeJS API](https://nodejs.org/api/child_process.html#child_processspawncommand-args-options).
 
 ```javascript
-const {getByText} = render('script.ps1', {
+const { getByText } = render("script.ps1", {
   spawnOpts: {
-    shell: 'powershell.exe',
+    shell: "powershell.exe",
   },
-})
+});
 ```
 
 # `render` Result
@@ -127,7 +125,7 @@ These options are all standard for text matching. To learn more, see our
 ## `userEvent[eventName]`
 
 ```javascript
-userEvent[eventName](...eventProps)
+userEvent[eventName](...eventProps);
 ```
 
 > While `userEvent` isn't usually returned on `render` in, say,
@@ -144,10 +142,10 @@ This object is the same as described with
 This method is a shortcut for `console.log(prettyCLI(instance)).`
 
 ```javascript
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-const {debug} = render('command')
-debug()
+const { debug } = render("command");
+debug();
 // Hello, world! How are you?
 //
 // you can also pass an instance: debug(getByText('message'))
@@ -166,9 +164,9 @@ This method allows you to check if the spawned process has exit, and if so, what
 exit code it closed with.
 
 ```javascript
-const instance = render('command')
+const instance = render("command");
 
-await waitFor(() => expect(instance.hasExit()).toMatchObject({exitCode: 1}))
+await waitFor(() => expect(instance.hasExit()).toMatchObject({ exitCode: 1 }));
 ```
 
 This method returns `null` if still running, but `{exitCode: number}` if it has
@@ -189,8 +187,8 @@ They're defined as:
 
 ```typescript
 interface TestInstance {
-  stdoutArr: Array<{contents: Buffer | string; timestamp: number}>
-  stderrArr: Array<{contents: Buffer | string; timestamp: number}>
+  stdoutArr: Array<{ contents: Buffer | string; timestamp: number }>;
+  stderrArr: Array<{ contents: Buffer | string; timestamp: number }>;
 }
 ```
 
@@ -214,15 +212,15 @@ For example, if you're using the [ava](https://github.com/avajs/ava) testing
 framework, then you would need to use the `test.afterEach` hook like so:
 
 ```javascript
-import {cleanup, render} from 'cli-testing-library'
-import test from 'ava'
+import { cleanup, render } from "cli-testing-library";
+import test from "ava";
 
-test.afterEach(cleanup)
+test.afterEach(cleanup);
 
-test('renders into document', () => {
-  render('long-running-command')
+test("renders into document", () => {
+  render("long-running-command");
   // ...
-})
+});
 
 // ... more tests ...
 ```

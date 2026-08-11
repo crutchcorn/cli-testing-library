@@ -94,18 +94,18 @@ Usually, in a Testing Library testbed, you'd expect a `getByText` to look
 something like this:
 
 ```javascript
-const {getByText} = render(/* Something */)
+const { getByText } = render(/* Something */);
 
-expect(getByText('Hello World')).toBeInTheDocument()
+expect(getByText("Hello World")).toBeInTheDocument();
 ```
 
 In today's version of `CLI Testing Library`, the same would look something like
 this:
 
 ```javascript
-const {getByText} = render(/* Something */)
+const { getByText } = render(/* Something */);
 
-expect(getByText('Hello World')).toBeInTheConsole()
+expect(getByText("Hello World")).toBeInTheConsole();
 ```
 
 # Similarities

@@ -16,7 +16,7 @@ fireEvent(instance: TestInstance, event: EventString, eventProperties?: Object)
 Fire CLI events.
 
 ```javascript
-fireEvent(getByText(instance, 'Username:'), 'write', {value: 'crutchcorn'})
+fireEvent(getByText(instance, "Username:"), "write", { value: "crutchcorn" });
 ```
 
 ## `fireEvent[eventName]`

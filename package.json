@@ -3,7 +3,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/crutchcorn/cli-testing-library"
+    "url": "git+https://github.com/crutchcorn/cli-testing-library.git"
   },
   "packageManager": "pnpm@11.21.0+sha512.521705bce689924eac72f5a3587122f362689ef6571e55ba80076fd637c11132ecffada26fad4ea79c485bfddbfd3d5a2a5b05805a77e893de71ec8a6cca3bb1",
   "type": "module",
@@ -41,22 +41,25 @@
   },
   "devDependencies": {
     "@changesets/cli": "2.31.1",
-    "@tanstack/config": "^0.16.1",
-    "@types/node": "^22.10.10",
-    "eslint": "9.19.0",
-    "knip": "^5.43.3",
-    "nx": "^20.3.3",
+    "@tanstack/eslint-config": "^0.4.0",
+    "@tanstack/typedoc-config": "^0.3.4",
+    "@types/node": "^24.13.3",
+    "eslint": "10.8.1",
+    "knip": "^6.32.0",
+    "nx": "^23.1.1",
     "premove": "^4.0.0",
-    "prettier": "^3.4.2",
-    "publint": "^0.3.2",
-    "sherif": "^1.2.0",
-    "typescript": "5.6.3",
+    "prettier": "^3.9.6",
+    "publint": "^0.3.23",
+    "sherif": "^1.13.0",
+    "tsdown": "0.22.14",
+    "typescript": "6.0.3",
     "typescript51": "npm:typescript@5.1",
     "typescript52": "npm:typescript@5.2",
     "typescript53": "npm:typescript@5.3",
     "typescript54": "npm:typescript@5.4",
     "typescript55": "npm:typescript@5.5",
-    "vite": "^6.0.11",
-    "vitest": "^3.0.4"
+    "typescript56": "npm:typescript@5.6",
+    "typescript70": "npm:typescript@7.0.2",
+    "vitest": "4.1.10"
   }
 }

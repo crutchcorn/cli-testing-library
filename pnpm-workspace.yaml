@@ -7,3 +7,4 @@ allowBuilds:
   esbuild: true
   nx: true
   sharp: true
+  unrs-resolver: true

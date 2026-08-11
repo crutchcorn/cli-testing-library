@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import stripAnsi from "strip-ansi";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import { getUserCodeFrame } from "../src/get-user-code-frame";
 
@@ -37,20 +38,28 @@ afterEach(() => {
   vi.mocked(global.Error).mockRestore();
 });
 
+function mockErrorStack(stack: string) {
+  class MockError extends Error {
+    stack = stack;
+  }
+
+  globalErrorMock.mockImplementationOnce(MockError);
+}
+
 test("it returns only user code frame when code frames from node_modules are first", () => {
   const stack = `Error: Kaboom
       at Object.<anonymous> (/sample-error/node_modules/@es2050/console/build/index.js:4:10)
       ${userStackFrame}
   `;
-  globalErrorMock.mockImplementationOnce(() => ({ stack }));
+  mockErrorStack(stack);
   const userTrace = getUserCodeFrame();
 
-  expect(userTrace).toMatchInlineSnapshot(`
-    "[2m/sample-error/error-example.js:7:14[22m
+  expect(stripAnsi(userTrace)).toMatchInlineSnapshot(`
+    "/sample-error/error-example.js:7:14
       5 |         document.createTextNode('Hello world')
       6 |       )
     > 7 |       screen.debug()
-        |              ^
+        |               ^
     "
   `);
 });
@@ -62,15 +71,15 @@ test("it returns only user code frame when node code frames are present afterwar
       at Object.<anonymous> (/sample-error/error-example.js:14:1)
       at internal/main/run_main_module.js:17:47
   `;
-  globalErrorMock.mockImplementationOnce(() => ({ stack }));
+  mockErrorStack(stack);
   const userTrace = getUserCodeFrame();
 
-  expect(userTrace).toMatchInlineSnapshot(`
-    "[2m/sample-error/error-example.js:7:14[22m
+  expect(stripAnsi(userTrace)).toMatchInlineSnapshot(`
+    "/sample-error/error-example.js:7:14
       5 |         document.createTextNode('Hello world')
       6 |       )
     > 7 |       screen.debug()
-        |              ^
+        |               ^
     "
   `);
 });
@@ -82,7 +91,7 @@ test("it returns empty string if file from code frame can't be read", () => {
   const stack = `Error: Kaboom
       ${userStackFrame}
   `;
-  globalErrorMock.mockImplementationOnce(() => ({ stack }));
+  mockErrorStack(stack);
 
   expect(getUserCodeFrame()).toEqual("");
 });

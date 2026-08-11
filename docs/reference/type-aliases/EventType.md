@@ -1,0 +1,12 @@
+---
+id: EventType
+title: EventType
+---
+
+# Type Alias: EventType
+
+```ts
+type EventType = keyof EventMap;
+```
+
+Defined in: [events.ts:5](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/events.ts#L5)
