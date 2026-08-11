@@ -1,8 +1,8 @@
-import globals from "@jest/globals";
+import { expect } from "@jest/globals";
 import * as extensions from "./matchers/index";
 import type { CLITestingLibraryMatchers } from "./matchers/types";
 
-globals.expect.extend(extensions);
+expect.extend(extensions);
 
 declare module "expect" {
   export interface Matchers<
