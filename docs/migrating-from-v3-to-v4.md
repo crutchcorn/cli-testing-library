@@ -8,7 +8,9 @@ changes.
 
 ## Summary
 
-Version 4 changes `userEvent.keyboard` from a manually enumerated character
+Version 4 of CLI Testing Library moves the library to ESM rather than CJS. This means that the minimum Node version required to use this tool is now 22.18.0, and the library must be imported with `import` rather than `require`.
+
+This version also changes `userEvent.keyboard` from a manually enumerated character
 map into a text-and-terminal-key encoder:
 
 - Printable text and Unicode are written directly to stdin.
@@ -18,6 +20,15 @@ map into a text-and-terminal-key encoder:
 
 These changes remove the need to add every printable character to the key map,
 but they also change a few observable behaviors described below.
+
+## Migration checklist
+
+- Migrate away from CJS instance of library
+- Replace Ctrl workarounds with `[Ctrl+<key>]` descriptors.
+- Update assertions that expected `Unknown` for printable or Unicode input.
+- Remove printable-character entries from custom keyboard maps.
+- Verify terminal-specific custom keys on every operating system in your test
+  matrix.
 
 ## Use atomic Ctrl chord descriptors
 
@@ -48,33 +59,8 @@ userEvent.keyboard("[Ctrl+Backslash]");
 Do not use `[CtrlC]`. Without the `+`, it is interpreted as a named key called
 `CtrlC`, not as a chord.
 
-### Chords must be atomic
-
-The sequential syntax `[Ctrl]c` is not supported. Ctrl has no standalone input
-sequence in a terminal byte stream, so a chord must use one atomic descriptor.
-
-```js
-// Unsupported: Ctrl has no standalone terminal input
-userEvent.keyboard("[Ctrl]c");
-
-// One atomic Ctrl+C action
-userEvent.keyboard("[Ctrl+C]");
-```
-
-### Chords are one keyboard action
-
-A chord emits one control character. For example, `[Ctrl+C]` writes only
-`0x03`; it does not write a literal `c` afterward. When `options.delay` is set,
-the delay applies between the chord and surrounding keys, not between `Ctrl`
-and `C`.
-
-If a test intentionally needs Ctrl+C followed by a literal `c`, send the chord
-and character as separate actions:
-
-```js
-userEvent.keyboard("[Ctrl+C]");
-userEvent.keyboard("c");
-```
+See [Chording](./user-event.md#chording) for the complete chord behavior and
+timing semantics.
 
 ## Printable text no longer needs map entries
 
@@ -128,13 +114,3 @@ Page Up, and Page Down descriptors retain their previous byte sequences.
 The default sequences target Node `readline` and xterm-compatible input. CLI
 programs that require a real TTY or a different terminal protocol may still
 need a custom map or direct `fireEvent.write` calls.
-
-## Migration checklist
-
-- Replace Ctrl workarounds with `[Ctrl+<key>]` descriptors.
-- Replace sequential forms such as `[Ctrl]c` with `[Ctrl+C]`.
-- Update assertions that expected `Unknown` for printable or Unicode input.
-- Remove printable-character entries from custom keyboard maps.
-- Review custom chord descriptors that use `Ctrl` or `Control` before `+`.
-- Verify terminal-specific custom keys on every operating system in your test
-  matrix.

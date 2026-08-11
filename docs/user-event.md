@@ -82,10 +82,6 @@ Keystrokes can be described:
   userEvent.keyboard("[ArrowLeft][KeyF][KeyO][KeyO]"); // translates to: Left Arrow, F, O, O
   ```
 
-  Chords use `+` inside a single descriptor. For example, `[Ctrl+C]` sends the
-  Ctrl+C control character and `[Ctrl+D]` sends Ctrl+D. Sequential forms such as
-  `[Ctrl]c` are not supported because Ctrl has no standalone terminal input.
-
 Named special keys are resolved through the
 [default terminal key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).
 You can provide your own mapping to replace it, or extend the default map with
@@ -103,6 +99,16 @@ userEvent.keyboard("[Confirm]", {
 ```
 
 <!-- space out these notes -->
+
+#### Chording
+
+Chords use `+` inside a single descriptor. For example, `[Ctrl+C]` sends the
+Ctrl+C control character and `[Ctrl+D]` sends Ctrl+D. Sequential forms such as
+`[Ctrl]c` are not supported because Ctrl has no standalone terminal input.
+
+A chord emits one control character. For example, `[Ctrl+C]` writes only
+`0x03`. When `options.delay` is set, the delay applies between the chord and
+surrounding keys, not between `Ctrl` and `C`.
 
 #### Special characters
 
