@@ -9,7 +9,7 @@ When you use any `get` calls in your test cases, the current state of the
 
 ```javascript
 // Hello world
-getByText(container, 'Goodbye world') // will fail by throwing error
+getByText(container, "Goodbye world"); // will fail by throwing error
 ```
 
 The above test case will fail, however it prints the state of your DOM under
@@ -45,7 +45,7 @@ a process. This can be helpful for instance when debugging tests.
 It is defined as:
 
 ```typescript
-function prettyDOM(instance: TestInstance, maxLength?: number): string
+function prettyDOM(instance: TestInstance, maxLength?: number): string;
 ```
 
 It receives the `TestInstance` to print out, an optional extra parameter to

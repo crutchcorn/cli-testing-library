@@ -1,6 +1,7 @@
 **/.next
 **/.nx/cache
 **/.svelte-kit
+**/.astro
 **/build
 **/coverage
 **/dist

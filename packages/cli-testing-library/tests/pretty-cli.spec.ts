@@ -3,10 +3,15 @@ import { expect, test } from "vitest";
 import { render } from "../src/pure";
 import { prettyCLI } from "../src/pretty-cli";
 
+const colorEnv: NodeJS.ProcessEnv = { ...process.env, FORCE_COLOR: "1" };
+delete colorEnv.NO_COLOR;
+
 test("Should pretty print with ANSI codes properly", async () => {
-  const instance = await render("node", [
-    resolve(__dirname, "./execute-scripts/log-output.js"),
-  ]);
+  const instance = await render(
+    "node",
+    [resolve(__dirname, "./execute-scripts/log-output.js")],
+    { spawnOpts: { env: colorEnv } },
+  );
 
   await instance.findByText("Hello");
 
@@ -17,9 +22,11 @@ test("Should pretty print with ANSI codes properly", async () => {
 });
 
 test("Should escape ANSI codes properly when sliced too thin", async () => {
-  const instance = await render("node", [
-    resolve(__dirname, "./execute-scripts/log-output.js"),
-  ]);
+  const instance = await render(
+    "node",
+    [resolve(__dirname, "./execute-scripts/log-output.js")],
+    { spawnOpts: { env: colorEnv } },
+  );
 
   await instance.findByText("Hello");
 

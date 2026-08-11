@@ -32,7 +32,7 @@ To disable a suggestion for a single query just add `{suggest:false}` as an
 option.
 
 ```js
-getByText('foo', {suggest: false}) // will not throw a suggestion
+getByText("foo", { suggest: false }); // will not throw a suggestion
 ```
 
 ### `getInstanceError`

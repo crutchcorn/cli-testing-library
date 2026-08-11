@@ -14,10 +14,10 @@ and you're good to go:
 
 ```javascript
 // In your own jest-setup.js (or any other name)
-import 'cli-testing-library/jest'
+import "cli-testing-library/jest";
 
 // In jest.config.js add (if you haven't already)
-setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
+setupFilesAfterEnv: ["<rootDir>/jest-setup.js"];
 ```
 
 ### With TypeScript
@@ -41,7 +41,7 @@ haven't already:
 ### `toBeInTheConsole`
 
 ```typescript
-toBeInTheConsole()
+toBeInTheConsole();
 ```
 
 This allows you to assert whether an instance is present or not. Useful when
@@ -55,7 +55,7 @@ Input your name:
 ```
 
 ```javascript
-expect(getByText(instance, 'Input your name:')).toBeInTheConsole()
+expect(getByText(instance, "Input your name:")).toBeInTheConsole();
 ```
 
 <hr />
@@ -86,5 +86,5 @@ File not found in output
 ```
 
 ```javascript
-expect(instance).toHaveErrorMessage('File not found in output')
+expect(instance).toHaveErrorMessage("File not found in output");
 ```

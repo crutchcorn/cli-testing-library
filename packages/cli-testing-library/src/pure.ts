@@ -45,9 +45,8 @@ async function render(
   const { cwd = __curDir, spawnOpts = {} } = opts;
 
   const exec = childProcess.spawn(command, args, {
-    ...spawnOpts,
     cwd,
-    shell: true,
+    ...spawnOpts,
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -91,7 +90,7 @@ async function render(
     _isReady: Promise<void>;
   };
 
-  mountedInstances.add(execOutputAPI as unknown as TestInstance);
+  mountedInstances.add(execOutputAPI);
 
   exec.stdout.on("data", (result: string | Buffer) => {
     // `on('spawn') doesn't work the same way in Node12.
@@ -101,7 +100,7 @@ async function render(
       _resolved = true;
     }
 
-    const resStr = stripFinalNewline(result as string);
+    const resStr = stripFinalNewline(result);
     execOutputAPI.stdoutArr.push({
       contents: resStr,
       timestamp: performance.now(),
@@ -115,7 +114,7 @@ async function render(
       _resolved = true;
     }
 
-    const resStr = stripFinalNewline(result as string);
+    const resStr = stripFinalNewline(result);
     execOutputAPI.stderrArr.push({
       contents: resStr,
       timestamp: performance.now(),

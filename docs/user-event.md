@@ -10,15 +10,15 @@ interactions than the [`fireEvent`](./fire-event.md) method.
 `userEvent` can be used either as a global import or as returned from `render`:
 
 ```javascript
-import {userEvent} from 'cli-testing-library'
+import { userEvent } from "cli-testing-library";
 ```
 
 Or:
 
 ```js
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-const {userEvent} = render('command')
+const { userEvent } = render("command");
 ```
 
 ## API
@@ -34,14 +34,14 @@ described in
 Writes `text` inside a CLI's `stdin` buffer
 
 ```jsx
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-test('type', () => {
-  const {getByText, userEvent} = render('command')
+test("type", () => {
+  const { getByText, userEvent } = render("command");
 
-  userEvent.keyboard('Hello, World![Enter]')
-  expect(getByText('Hello, world!')).toBeTruthy()
-})
+  userEvent.keyboard("Hello, World![Enter]");
+  expect(getByText("Hello, world!")).toBeTruthy();
+});
 ```
 
 `options.delay` is the number of milliseconds that pass between two characters
@@ -56,21 +56,21 @@ Keystrokes can be described:
 - Per printable character
 
   ```js
-  userEvent.keyboard('foo') // translates to: f, o, o
+  userEvent.keyboard("foo"); // translates to: f, o, o
   ```
 
   The bracket `[` is used as a special character and can be referenced by
   doubling it.
 
   ```js
-  userEvent.keyboard('a[[') // translates to: a, [
+  userEvent.keyboard("a[["); // translates to: a, [
   ```
 
 - Per [special key mapping](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts) with the `[`
   symbol
 
   ```js
-  userEvent.keyboard('[ArrowLeft][KeyF][KeyO][KeyO]') // translates to: Left Arrow, f, o, o
+  userEvent.keyboard("[ArrowLeft][KeyF][KeyO][KeyO]"); // translates to: Left Arrow, f, o, o
   ```
 
   This does not keep any key pressed. So `Shift` will be lifted before pressing
@@ -81,7 +81,7 @@ The mapping of special character strings are performed by a
 US-keyboard. You can provide your own local keyboard mapping per option.
 
 ```js
-userEvent.keyboard('?', {keyboardMap: myOwnLocaleKeyboardMap})
+userEvent.keyboard("?", { keyboardMap: myOwnLocaleKeyboardMap });
 ```
 
 <!-- space out these notes -->

@@ -2,4 +2,7 @@
 
 import rootConfig from "../../eslint.config.js";
 
-export default [...rootConfig];
+/** @type {Array<import("eslint").Linter.Config>} */
+const config = [...rootConfig];
+
+export default config;

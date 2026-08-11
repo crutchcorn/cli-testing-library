@@ -51,9 +51,7 @@ test("toHaveErrorMessage should pass during stderr when no string passed", async
     resolve(__dirname, "./execute-scripts/throw.js"),
   ]);
 
-  await expect(
-    (async () => expect(instance).toHaveErrorMessage())(),
-  ).resolves.not.toThrow();
+  expect(() => expect(instance).toHaveErrorMessage()).not.toThrow();
 });
 
 test("toHaveErrorMessage should pass during stderr when string passed", async () => {
@@ -61,10 +59,9 @@ test("toHaveErrorMessage should pass during stderr when string passed", async ()
     resolve(__dirname, "./execute-scripts/throw.js"),
   ]);
 
-  await expect(
-    (async () =>
-      expect(instance).toHaveErrorMessage(/Search for this error in stderr/))(),
-  ).resolves.not.toThrow();
+  expect(() =>
+    expect(instance).toHaveErrorMessage(/Search for this error in stderr/),
+  ).not.toThrow();
 });
 
 test("toHaveErrorMessage should fail when something is not in stderr", async () => {

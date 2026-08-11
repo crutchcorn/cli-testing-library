@@ -14,7 +14,7 @@
   "author": "Corbin Crutchley <crutchcorn@gmail.com> (https://crutchcorn.dev)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/crutchcorn/cli-testing-library",
+    "url": "git+https://github.com/crutchcorn/cli-testing-library.git",
     "directory": "packages/cli-testing-library"
   },
   "bugs": {
@@ -27,106 +27,81 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=16"
+    "node": "^22.18.0 || >=24.11.0"
   },
   "scripts": {
     "clean": "premove ./dist ./coverage",
     "test:eslint": "eslint ./src ./tests",
-    "test:types": "pnpm run \"/^test:types:ts[0-9]{2}$/\"",
+    "test:types": "pnpm run \"/^test:types:(ts[0-9]{2}|latest)$/\"",
     "test:types:ts51": "node ../../node_modules/typescript51/lib/tsc.js",
     "test:types:ts52": "node ../../node_modules/typescript52/lib/tsc.js",
     "test:types:ts53": "node ../../node_modules/typescript53/lib/tsc.js",
     "test:types:ts54": "node ../../node_modules/typescript54/lib/tsc.js",
     "test:types:ts55": "node ../../node_modules/typescript55/lib/tsc.js",
-    "test:types:ts56": "tsc",
+    "test:types:ts56": "node ../../node_modules/typescript56/lib/tsc.js",
+    "test:types:ts70": "node ../../node_modules/typescript70/lib/tsc.js",
+    "test:types:latest": "tsc",
     "test:lib": "vitest",
     "test:lib:dev": "pnpm run test:lib --watch",
     "test:build": "publint --strict",
-    "build": "vite build"
+    "build": "tsdown"
   },
   "type": "module",
-  "types": "dist/esm/index.d.ts",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.js",
+  "types": "dist/index.d.mts",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
-      }
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "./jest": {
-      "import": {
-        "types": "./dist/esm/jest.d.ts",
-        "default": "./dist/esm/jest.js"
-      },
-      "require": {
-        "types": "./dist/cjs/jest.d.cts",
-        "default": "./dist/cjs/jest.cjs"
-      }
+      "types": "./dist/jest.d.mts",
+      "default": "./dist/jest.mjs"
     },
     "./jest-globals": {
-      "import": {
-        "types": "./dist/esm/jest-globals.d.ts",
-        "default": "./dist/esm/jest-globals.js"
-      },
-      "require": {
-        "types": "./dist/cjs/jest-globals.d.cts",
-        "default": "./dist/cjs/jest-globals.cjs"
-      }
+      "types": "./dist/jest-globals.d.mts",
+      "default": "./dist/jest-globals.mjs"
     },
     "./vitest": {
-      "import": {
-        "types": "./dist/esm/vitest.d.ts",
-        "default": "./dist/esm/vitest.js"
-      },
-      "require": {
-        "types": "./dist/cjs/vitest.d.cts",
-        "default": "./dist/cjs/vitest.cjs"
-      }
+      "types": "./dist/vitest.d.mts",
+      "default": "./dist/vitest.mjs"
     },
     "./package.json": "./package.json"
   },
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/jest.mjs",
+    "./dist/jest-globals.mjs",
+    "./dist/vitest.mjs"
+  ],
   "files": [
     "dist",
-    "src",
-    "vitest",
-    "jest",
-    "jest-globals"
+    "src"
   ],
   "dependencies": {
-    "@babel/code-frame": "^7.10.4",
-    "@babel/runtime": "^7.12.5",
+    "@babel/code-frame": "^8.0.0",
     "picocolors": "^1.1.1",
     "redent": "^4.0.0",
-    "slice-ansi": "^7.1.0",
-    "strip-ansi": "^7.1.0",
+    "slice-ansi": "^9.0.0",
+    "strip-ansi": "^7.2.0",
     "strip-final-newline": "^4.0.0",
     "tree-kill": "^1.2.2"
   },
   "devDependencies": {
-    "@jest/expect": "^29.7.0",
-    "@jest/globals": "^29.7.0",
-    "@types/babel__code-frame": "^7.0.6",
-    "@types/inquirer": "^9.0.7",
-    "@vitest/coverage-istanbul": "3.0.4",
-    "inquirer": "^12.3.2"
+    "@jest/globals": "^30.4.1",
+    "@types/babel__code-frame": "^7.27.0",
+    "@types/inquirer": "^9.0.10",
+    "@vitest/coverage-istanbul": "4.1.10",
+    "expect": "^30.4.1",
+    "inquirer": "^14.0.2",
+    "vitest": "4.1.10"
   },
   "peerDependencies": {
-    "@jest/expect": "^29.0.0",
-    "@jest/globals": "^29.0.0",
-    "vitest": "^3.0.0"
+    "@jest/globals": "^29.0.0 || ^30.0.0",
+    "vitest": "^3.2.0 || ^4.0.0"
   },
   "peerDependenciesMeta": {
     "@jest/globals": {
-      "optional": true
-    },
-    "@jest/expect": {
       "optional": true
     },
     "vitest": {

@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import { unified } from "@astrojs/markdown-remark";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 
@@ -7,8 +8,9 @@ import { rehypeHandleMdExtension } from "./rehype-plugin";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://cli-testing.com",
   markdown: {
-    rehypePlugins: [rehypeHandleMdExtension],
+    processor: unified({ rehypePlugins: [rehypeHandleMdExtension] }),
   },
   integrations: [
     react(),
@@ -19,9 +21,13 @@ export default defineConfig({
         alt: "A koala emoji",
       },
       favicon: "./public/koala.png",
-      social: {
-        github: "https://github.com/crutchcorn/cli-testing-library",
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/crutchcorn/cli-testing-library",
+        },
+      ],
       components: {
         Head: "./src/components/head.astro",
       },

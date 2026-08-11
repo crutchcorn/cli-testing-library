@@ -1,10 +1,10 @@
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { generateReferenceDocs } from "@tanstack/config/typedoc";
+import { generateReferenceDocs } from "@tanstack/typedoc-config";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-/** @type {import('@tanstack/config/typedoc').Package[]} */
+/** @type {import('@tanstack/typedoc-config').Package[]} */
 const packages = [
   {
     name: "cli-testing-library",

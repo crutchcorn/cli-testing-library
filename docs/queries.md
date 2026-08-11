@@ -16,13 +16,13 @@ Library's,
 # Example
 
 ```javascript
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-test('should show login form', () => {
-  const {getByText} = render('ftp-automation.sh')
-  const input = getByText('Username')
+test("should show login form", () => {
+  const { getByText } = render("ftp-automation.sh");
+  const input = getByText("Username");
   // Events and assertions...
-})
+});
 ```
 
 # Types of Queries
@@ -68,33 +68,33 @@ Hello World
 
 ```javascript
 // Matching a string:
-getByText('Hello World') // full string match
-getByText('llo Worl', {exact: false}) // substring match
-getByText('hello world', {exact: false}) // ignore case
+getByText("Hello World"); // full string match
+getByText("llo Worl", { exact: false }); // substring match
+getByText("hello world", { exact: false }); // ignore case
 
 // Matching a regex:
-getByText(/World/) // substring match
-getByText(/world/i) // substring match, ignore case
-getByText(/^hello world$/i) // full string match, ignore case
-getByText(/Hello W?oRlD/i) // substring match, ignore case, searches for "hello world" or "hello orld"
+getByText(/World/); // substring match
+getByText(/world/i); // substring match, ignore case
+getByText(/^hello world$/i); // full string match, ignore case
+getByText(/Hello W?oRlD/i); // substring match, ignore case, searches for "hello world" or "hello orld"
 
 // Matching with a custom function:
-getByText((content, instance) => content.startsWith('Hello'))
+getByText((content, instance) => content.startsWith("Hello"));
 ```
 
 **_Will not_ find the instance:**
 
 ```javascript
 // full string does not match
-getByText('Goodbye World')
+getByText("Goodbye World");
 
 // case-sensitive regex with different case
-getByText(/hello world/)
+getByText(/hello world/);
 
 // function looking contents that don't exist:
 getByText((content, instance) => {
-  return instance.stdoutStr.includes('Goodbye World')
-})
+  return instance.stdoutStr.includes("Goodbye World");
+});
 ```
 
 ## Precision
@@ -143,19 +143,19 @@ behaviour:
 To perform a match against text without trimming:
 
 ```javascript
-getByText('text', {
-  normalizer: getDefaultNormalizer({trim: false}),
-})
+getByText("text", {
+  normalizer: getDefaultNormalizer({ trim: false }),
+});
 ```
 
 To override normalization to remove some Unicode characters whilst keeping some
 (but not all) of the built-in normalization behavior:
 
 ```javascript
-getByText('text', {
-  normalizer: str =>
-    getDefaultNormalizer({trim: false})(str).replace(/[\u200E-\u200F]*/g, ''),
-})
+getByText("text", {
+  normalizer: (str) =>
+    getDefaultNormalizer({ trim: false })(str).replace(/[\u200E-\u200F]*/g, ""),
+});
 ```
 
 # ByText
@@ -183,10 +183,10 @@ Input your name:
 ```
 
 ```jsx
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-const {getByText} = render('command')
-const instance = getByText(/input your name/i)
+const { getByText } = render("command");
+const instance = getByText(/input your name/i);
 ```
 
 ## Options
@@ -218,10 +218,10 @@ Could not find file
 ```
 
 ```jsx
-import {render} from 'cli-testing-library'
+import { render } from "cli-testing-library";
 
-const {getByError} = render('command')
-const instance = getByError(/not find file/)
+const { getByError } = render("command");
+const instance = getByError(/not find file/);
 ```
 
 ## Options

@@ -4,8 +4,10 @@ import type { CLITestingLibraryMatchers } from "./matchers/types";
 
 globals.expect.extend(extensions);
 
-declare module "@jest/expect" {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  export interface Matchers<R extends void | Promise<void>>
-    extends CLITestingLibraryMatchers<R> {}
+declare module "expect" {
+  export interface Matchers<
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    R extends void | Promise<void>,
+    T = unknown,
+  > extends CLITestingLibraryMatchers<R> {}
 }
