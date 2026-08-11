@@ -11,7 +11,7 @@ import type { keyboardKey } from "./types";
 export const defaultKeyMap: Array<keyboardKey> = [
   // alphanumeric keys
   { code: "Digit!", hex: "\x21" },
-  { code: "Digit\"", hex: "\x22" },
+  { code: 'Digit"', hex: "\x22" },
   { code: "Digit#", hex: "\x23" },
   { code: "Digit$", hex: "\x24" },
   { code: "Digit%", hex: "\x25" },
@@ -105,7 +105,7 @@ export const defaultKeyMap: Array<keyboardKey> = [
   { code: "KeyLowerX", hex: "\x78" },
   { code: "KeyLowerY", hex: "\x79" },
   { code: "KeyLowerZ", hex: "\x7a" },
-  
+
   { code: "Digit¡", hex: "\xa1" },
   { code: "Digit¢", hex: "\xa2" },
   { code: "Digit£", hex: "\xa3" },
