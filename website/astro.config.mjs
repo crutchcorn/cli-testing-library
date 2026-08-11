@@ -1,16 +1,16 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import { unified } from "@astrojs/markdown-remark";
+import { satteri } from "@astrojs/markdown-satteri";
 import starlight from "@astrojs/starlight";
 import react from "@astrojs/react";
 
-import { rehypeHandleMdExtension } from "./rehype-plugin";
+import { satteriHandleMdExtension } from "./satteri-plugin";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://cli-testing.com",
   markdown: {
-    processor: unified({ rehypePlugins: [rehypeHandleMdExtension] }),
+    processor: satteri({ hastPlugins: [satteriHandleMdExtension] }),
   },
   integrations: [
     react(),

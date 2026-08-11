@@ -119,9 +119,9 @@ importers:
 
   website:
     dependencies:
-      "@astrojs/markdown-remark":
-        specifier: ^7.2.2
-        version: 7.2.2(supports-color@8.1.1)
+      "@astrojs/markdown-satteri":
+        specifier: ^0.3.5
+        version: 0.3.5
       "@astrojs/react":
         specifier: ^6.0.2
         version: 6.0.2(@types/node@24.13.3)(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(esbuild@0.28.2)(jiti@2.7.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(supports-color@8.1.1)(yaml@2.9.0)
@@ -137,12 +137,12 @@ importers:
       react-dom:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
+      satteri:
+        specifier: ^0.9.5
+        version: 0.9.5
       sharp:
         specifier: ^0.35.3
         version: 0.35.3(@types/node@24.13.3)
-      unist-util-visit:
-        specifier: ^5.1.0
-        version: 5.1.0
     devDependencies:
       "@types/react":
         specifier: ^19.2.18
@@ -7182,13 +7182,6 @@ packages:
       }
     engines: { node: ">=8.6" }
 
-  picomatch@4.0.2:
-    resolution:
-      {
-        integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==,
-      }
-    engines: { node: ">=12" }
-
   picomatch@4.0.5:
     resolution:
       {
@@ -10294,9 +10287,9 @@ snapshots:
 
   "@mdx-js/mdx@3.1.1(supports-color@8.1.1)":
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       "@types/estree-jsx": 1.0.5
-      "@types/hast": 3.0.4
+      "@types/hast": 3.0.5
       "@types/mdx": 2.0.13
       acorn: 8.14.0
       collapse-white-space: 2.1.0
@@ -10723,7 +10716,7 @@ snapshots:
 
   "@types/acorn@4.0.6":
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
 
   "@types/babel__code-frame@7.27.0": {}
 
@@ -10763,7 +10756,7 @@ snapshots:
 
   "@types/estree-jsx@1.0.5":
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
 
   "@types/estree@1.0.6": {}
 
@@ -12015,7 +12008,7 @@ snapshots:
 
   estree-util-attach-comments@3.0.0:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
 
   estree-util-build-jsx@3.0.1:
     dependencies:
@@ -12028,7 +12021,7 @@ snapshots:
 
   estree-util-scope@1.0.0:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       devlop: 1.1.0
 
   estree-util-to-js@2.0.0:
@@ -12044,7 +12037,7 @@ snapshots:
 
   estree-walker@3.0.3:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
 
   esutils@2.0.3: {}
 
@@ -12307,7 +12300,7 @@ snapshots:
 
   hast-util-format@1.1.0:
     dependencies:
-      "@types/hast": 3.0.4
+      "@types/hast": 3.0.5
       hast-util-embedded: 3.0.0
       hast-util-minify-whitespace: 1.0.1
       hast-util-phrasing: 3.0.1
@@ -12337,7 +12330,7 @@ snapshots:
 
   hast-util-has-property@3.0.0:
     dependencies:
-      "@types/hast": 3.0.4
+      "@types/hast": 3.0.5
 
   hast-util-is-body-ok-link@3.0.1:
     dependencies:
@@ -12357,7 +12350,7 @@ snapshots:
 
   hast-util-parse-selector@4.0.0:
     dependencies:
-      "@types/hast": 3.0.4
+      "@types/hast": 3.0.5
 
   hast-util-phrasing@3.0.1:
     dependencies:
@@ -12421,7 +12414,7 @@ snapshots:
 
   hast-util-to-estree@3.1.1(supports-color@8.1.1):
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       "@types/estree-jsx": 1.0.5
       "@types/hast": 3.0.5
       comma-separated-tokens: 2.0.3
@@ -12456,7 +12449,7 @@ snapshots:
 
   hast-util-to-jsx-runtime@2.3.2(supports-color@8.1.1):
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       "@types/hast": 3.0.5
       "@types/unist": 3.0.3
       comma-separated-tokens: 2.0.3
@@ -12497,7 +12490,7 @@ snapshots:
 
   hast-util-whitespace@3.0.0:
     dependencies:
-      "@types/hast": 3.0.4
+      "@types/hast": 3.0.5
 
   hastscript@9.0.1:
     dependencies:
@@ -13201,7 +13194,7 @@ snapshots:
 
   micromark-extension-mdx-expression@3.0.0:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       devlop: 1.1.0
       micromark-factory-mdx-expression: 2.0.2
       micromark-factory-space: 2.0.1
@@ -13213,7 +13206,7 @@ snapshots:
   micromark-extension-mdx-jsx@3.0.1:
     dependencies:
       "@types/acorn": 4.0.6
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       devlop: 1.1.0
       estree-util-is-identifier-name: 3.0.0
       micromark-factory-mdx-expression: 2.0.2
@@ -13230,7 +13223,7 @@ snapshots:
 
   micromark-extension-mdxjs-esm@3.0.0:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.2
       micromark-util-character: 2.1.1
@@ -13266,7 +13259,7 @@ snapshots:
 
   micromark-factory-mdx-expression@2.0.2:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       devlop: 1.1.0
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
@@ -13331,7 +13324,7 @@ snapshots:
   micromark-util-events-to-acorn@2.0.2:
     dependencies:
       "@types/acorn": 4.0.6
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       "@types/unist": 3.0.3
       devlop: 1.1.0
       estree-util-visit: 2.0.0
@@ -13792,8 +13785,6 @@ snapshots:
 
   picomatch@2.3.1: {}
 
-  picomatch@4.0.2: {}
-
   picomatch@4.0.5: {}
 
   pify@4.0.1: {}
@@ -13894,7 +13885,7 @@ snapshots:
 
   recma-build-jsx@1.0.0:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       estree-util-build-jsx: 3.0.1
       vfile: 6.0.3
 
@@ -13910,14 +13901,14 @@ snapshots:
 
   recma-parse@1.0.0:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       esast-util-from-js: 2.0.1
       unified: 11.0.5
       vfile: 6.0.3
 
   recma-stringify@1.0.0:
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       estree-util-to-js: 2.0.0
       unified: 11.0.5
       vfile: 6.0.3
@@ -13950,7 +13941,7 @@ snapshots:
 
   rehype-parse@9.0.1:
     dependencies:
-      "@types/hast": 3.0.4
+      "@types/hast": 3.0.5
       hast-util-from-html: 2.0.3
       unified: 11.0.5
 
@@ -13962,7 +13953,7 @@ snapshots:
 
   rehype-recma@1.0.0(supports-color@8.1.1):
     dependencies:
-      "@types/estree": 1.0.6
+      "@types/estree": 1.0.9
       "@types/hast": 3.0.5
       hast-util-to-estree: 3.1.1(supports-color@8.1.1)
     transitivePeerDependencies:
@@ -14143,7 +14134,7 @@ snapshots:
   satteri@0.9.5:
     dependencies:
       "@types/estree-jsx": 1.0.5
-      "@types/hast": 3.0.4
+      "@types/hast": 3.0.5
       "@types/mdast": 4.0.4
       "@types/unist": 3.0.3
     optionalDependencies:
@@ -14424,7 +14415,7 @@ snapshots:
 
   ts-declaration-location@1.0.7(typescript@6.0.3):
     dependencies:
-      picomatch: 4.0.2
+      picomatch: 4.0.5
       typescript: 6.0.3
 
   tsconfig-paths@4.2.0:
