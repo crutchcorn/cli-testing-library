@@ -1,3 +1,9 @@
 packages:
   - "packages/**"
   - "website"
+preferWorkspacePackages: true
+linkWorkspacePackages: true
+allowBuilds:
+  esbuild: true
+  nx: true
+  sharp: true
