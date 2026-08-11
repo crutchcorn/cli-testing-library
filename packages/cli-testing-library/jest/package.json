@@ -1,5 +1,6 @@
 {
   "name": "cli-testing-library-jest",
+  "private": true,
   "version": "3.0.0",
   "description": "",
   "type": "module",
