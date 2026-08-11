@@ -87,6 +87,12 @@ Named special keys are resolved through the
 You can provide your own mapping to replace it, or extend the default map with
 application-specific descriptors.
 
+The default map targets Node `readline` and xterm-compatible input over a piped
+stdin. Its raw bytes and decoded Node keypress events are tested on Linux,
+macOS, and Windows. This does not emulate a real PTY; programs that require a
+TTY or another terminal protocol may need a custom map or direct `fireEvent`
+calls.
+
 ```js
 import { defaultKeyMap } from "cli-testing-library";
 

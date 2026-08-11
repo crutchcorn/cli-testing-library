@@ -27,6 +27,13 @@ jobs:
         uses: tanstack/config/.github/setup@0b5996988cf0938ae77119e0164f9738a453d7c8 # main
       - name: Run Checks
         run: pnpm run test:pr --parallel=3
+
+  keyboard-portability:
+    name: Keyboard portability
+    permissions:
+      contents: read
+    uses: ./.github/workflows/keyboard-portability.yml
+
   preview:
     name: Preview
     runs-on: ubuntu-latest
