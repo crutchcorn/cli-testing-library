@@ -38,6 +38,7 @@ title: cli-testing-library
 - [GetByError](type-aliases/GetByError.md)
 - [GetByText](type-aliases/GetByText.md)
 - [GetErrorFunction](type-aliases/GetErrorFunction.md)
+- [keyboardOptions](type-aliases/keyboardOptions.md)
 - [Match](type-aliases/Match.md)
 - [Matcher](type-aliases/Matcher.md)
 - [MatcherFunction](type-aliases/MatcherFunction.md)
@@ -51,6 +52,7 @@ title: cli-testing-library
 
 ## Variables
 
+- [defaultKeyMap](variables/defaultKeyMap.md)
 - [fireEvent](variables/fireEvent.md)
 
 ## Functions
