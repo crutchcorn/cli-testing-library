@@ -57,6 +57,7 @@ Keystrokes can be described:
 
   ```js
   userEvent.keyboard("foo"); // translates to: f, o, o
+  userEvent.keyboard("/test-dir\\"); // forward and backslashes are typed literally
   ```
 
   The bracket `[` is used as a special character and can be referenced by
@@ -97,6 +98,7 @@ mentioned previously. Here are some of the ones that are supported:
 | `[Space]`      | `' '`       |
 | `[Escape]`     | Escape      |
 | `[Backspace]`  | Backspace   |
+| `[Ctrl]`       | Ctrl+C      |
 | `[Delete]`     | Delete      |
 | `[ArrowLeft]`  | Left Arrow  |
 | `[ArrowRight]` | Right Arrow |

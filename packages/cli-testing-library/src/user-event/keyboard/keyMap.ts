@@ -20,6 +20,7 @@ export const defaultKeyMap: Array<keyboardKey> = [
   { code: "Digit*", hex: "\x2a" },
   { code: "Digit-", hex: "\x2d" },
   { code: "Digit.", hex: "\x2e" },
+  { code: "Slash", hex: "\x2f" },
   { code: "Digit@", hex: "\x40" },
   { code: "Digit^", hex: "\x5e" },
   { code: "Digit{", hex: "\x7b" },
@@ -62,6 +63,7 @@ export const defaultKeyMap: Array<keyboardKey> = [
   { code: "KeyX", hex: "\x58" },
   { code: "KeyY", hex: "\x59" },
   { code: "KeyZ", hex: "\x5a" },
+  { code: "Backslash", hex: "\x5c" },
   { code: "Digit_", hex: "\x5f" },
   { code: "KeyLowerA", hex: "\x61" },
   { code: "KeyLowerB", hex: "\x62" },
@@ -94,6 +96,7 @@ export const defaultKeyMap: Array<keyboardKey> = [
   { code: "Space", hex: "\x20" },
   { code: "Backspace", hex: "\x08" },
   { code: "Enter", hex: "\x0D" },
+  { code: "Ctrl", hex: "\x03" },
 
   // function
   { code: "Escape", hex: "\x1b" },
