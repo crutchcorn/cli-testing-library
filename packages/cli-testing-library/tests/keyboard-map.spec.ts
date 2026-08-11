@@ -59,17 +59,22 @@ describe("named keys", () => {
 
 describe("Ctrl chords", () => {
   test.each([
-    ["[Ctrl]c", "\x03"],
-    ["[Control]D", "\x04"],
-    ["[Ctrl][[", "\x1b"],
-    ["[Ctrl]\\", "\x1c"],
-    ["[Ctrl]]", "\x1d"],
-    ["[Ctrl]^", "\x1e"],
-    ["[Ctrl]_", "\x1f"],
-    ["[Ctrl]?", "\x7f"],
-    ["[Ctrl][Space]", "\x00"],
+    ["[Ctrl+C]", "\x03"],
+    ["[Control+D]", "\x04"],
+    ["[Ctrl+BracketLeft]", "\x1b"],
+    ["[Ctrl+Backslash]", "\x1c"],
+    ["[Ctrl+BracketRight]", "\x1d"],
+    ["[Ctrl+^]", "\x1e"],
+    ["[Ctrl+_]", "\x1f"],
+    ["[Ctrl+?]", "\x7f"],
+    ["[Ctrl+Space]", "\x00"],
+    ["[Ctrl+KeyC]", "\x03"],
   ])("encodes %s", (input, expected) => {
     expect(encodeKeyboardInput(input)).toBe(expected);
+  });
+
+  test("keeps sequential Ctrl syntax as a compatibility alias", () => {
+    expect(encodeKeyboardInput("[Ctrl]c")).toBe("\x03");
   });
 });
 

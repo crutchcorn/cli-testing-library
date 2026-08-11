@@ -40,7 +40,7 @@ test("Should cancel a process with Ctrl", async () => {
 
   const instance = await findByText("What is your name?");
 
-  userEventLocal.keyboard("[Ctrl]c");
+  userEventLocal.keyboard("[Ctrl+C]");
 
   await waitFor(() => expect(instance.hasExit()).toBeTruthy());
 });

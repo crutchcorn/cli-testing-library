@@ -78,9 +78,9 @@ Keystrokes can be described:
   userEvent.keyboard("[ArrowLeft][KeyF][KeyO][KeyO]"); // translates to: Left Arrow, F, O, O
   ```
 
-  Most named keys do not stay pressed. `Ctrl` is the exception: it modifies the
-  next printable or named character in the same string, so `[Ctrl]c` sends the
-  Ctrl+C control character and `[Ctrl]d` sends Ctrl+D.
+  Chords use `+` inside a single descriptor. For example, `[Ctrl+C]` sends the
+  Ctrl+C control character and `[Ctrl+D]` sends Ctrl+D. The sequential forms
+  `[Ctrl]c` and `[Ctrl]d` remain supported as compatibility aliases.
 
 Named special keys are resolved through the
 [default terminal key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).
@@ -111,8 +111,8 @@ mentioned previously. Here are some of the ones that are supported:
 | `[Space]`      | `' '`       |
 | `[Escape]`     | Escape      |
 | `[Backspace]`  | Backspace   |
-| `[Ctrl]c`      | Ctrl+C      |
-| `[Ctrl]d`      | Ctrl+D      |
+| `[Ctrl+C]`     | Ctrl+C      |
+| `[Ctrl+D]`     | Ctrl+D      |
 | `[Tab]`        | Tab         |
 | `[ShiftTab]`   | Shift+Tab   |
 | `[Delete]`     | Delete      |

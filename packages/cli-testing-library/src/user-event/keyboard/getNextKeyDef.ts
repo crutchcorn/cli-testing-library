@@ -20,7 +20,9 @@ export function getNextKeyDef(
   consumedLength: number;
 } {
   const descriptor = readNextDescriptor(text);
-  const controlChord = readControlChord(text, descriptor, options);
+  const controlChord =
+    readInlineControlChord(descriptor, options) ??
+    readSequentialControlChord(text, descriptor, options);
 
   if (controlChord) return controlChord;
 
@@ -58,7 +60,46 @@ function resolveKeyDef(
   };
 }
 
-function readControlChord(
+function readInlineControlChord(
+  descriptor: KeyDescriptor,
+  options: keyboardOptions,
+): { keyDef: keyboardKey; consumedLength: number } | undefined {
+  if (descriptor.type !== "[") return undefined;
+
+  const chordParts = descriptor.descriptor.split("+");
+  if (chordParts.length !== 2) return undefined;
+
+  const [modifier, keyDescriptor] = chordParts;
+  if (
+    !modifier ||
+    !keyDescriptor ||
+    !["control", "ctrl"].includes(modifier.toLowerCase())
+  ) {
+    return undefined;
+  }
+
+  const mappedKey = options.keyboardMap.find(
+    (key) => key.code?.toLowerCase() === keyDescriptor.toLowerCase(),
+  );
+  const key =
+    mappedKey ??
+    (Array.from(keyDescriptor).length === 1
+      ? { code: keyDescriptor, hex: keyDescriptor }
+      : undefined);
+  const controlCharacter = toControlCharacter(key?.hex);
+
+  if (controlCharacter === undefined) return undefined;
+
+  return {
+    keyDef: {
+      code: `${modifier}+${keyDescriptor}`,
+      hex: controlCharacter,
+    },
+    consumedLength: descriptor.consumedLength,
+  };
+}
+
+function readSequentialControlChord(
   text: string,
   descriptor: KeyDescriptor,
   options: keyboardOptions,
@@ -150,7 +191,7 @@ function readTag(
   pos: number,
   startBracket: keyof typeof bracketDict,
 ) {
-  const descriptor = text.slice(pos).match(/^\w+/)?.[0];
+  const descriptor = text.slice(pos).match(/^[^\]]+/)?.[0];
 
   assertDescriptor(descriptor, text, pos);
 
