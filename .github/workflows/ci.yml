@@ -2,52 +2,63 @@ name: ci
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: override release tag
-        required: false
   push:
     branches: [main, alpha, beta]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref_name != 'main' }}
 
 permissions: {}
 
 jobs:
-  test-and-publish:
-    name: Test & Publish
+  test:
+    name: Test
     if: github.repository == 'crutchcorn/cli-testing-library'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup Tools
+        uses: tanstack/config/.github/setup@0b5996988cf0938ae77119e0164f9738a453d7c8 # main
+      - name: Run Tests
+        run: pnpm run test:ci --parallel=3
+
+  release:
+    name: Release
+    if: github.repository == 'crutchcorn/cli-testing-library' && github.ref_name == 'main'
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Setup Tools
-        uses: tanstack/config/.github/setup@0b5996988cf0938ae77119e0164f9738a453d7c8 # main
-      - name: Run Tests
-        run: pnpm run test:ci --parallel=3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ff378ebe6b225b0680b81c1ad4498ae0d1d3a5e3 # v6.0.10
       - name: Setup npm Trusted Publishing
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
-      - name: Configure Git
-        run: |
-          git config --global user.name 'Corbin Crutchley'
-          git config --global user.email 'git@crutchcorn.dev'
-          gh auth setup-git
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish
-        run: pnpm run cipublish
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG: ${{ inputs.tag }}
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Create release pull request or publish
+        uses: changesets/action@3841a0683d3cfa6dae0f9bb335290003010fe3f0 # v1.9.0
+        with:
+          branch: main
+          commit: "chore: version packages"
+          commitMode: github-api
+          publish: pnpm run release
+          title: "chore: version packages"
+          version: pnpm run version-packages
