@@ -54,8 +54,7 @@ function getQueriesForElement<T extends Queries = typeof defaultQueries>(
 ): BoundFunctions<T> {
   return Object.keys(queries).reduce((helpers, key) => {
     const fn = queries[key];
-    (helpers as Record<string, unknown>)[key] = fn!.bind(null, instance);
-    return helpers;
+    return Object.assign(helpers, { [key]: fn!.bind(null, instance) });
   }, initialValue as BoundFunctions<T>);
 }
 
