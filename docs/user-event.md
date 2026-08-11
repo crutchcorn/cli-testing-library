@@ -83,8 +83,8 @@ Keystrokes can be described:
   ```
 
   Chords use `+` inside a single descriptor. For example, `[Ctrl+C]` sends the
-  Ctrl+C control character and `[Ctrl+D]` sends Ctrl+D. The sequential forms
-  `[Ctrl]c` and `[Ctrl]d` remain supported as compatibility aliases.
+  Ctrl+C control character and `[Ctrl+D]` sends Ctrl+D. Sequential forms such as
+  `[Ctrl]c` are not supported because Ctrl has no standalone terminal input.
 
 Named special keys are resolved through the
 [default terminal key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).

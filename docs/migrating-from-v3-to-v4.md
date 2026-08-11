@@ -48,17 +48,16 @@ userEvent.keyboard("[Ctrl+Backslash]");
 Do not use `[CtrlC]`. Without the `+`, it is interpreted as a named key called
 `CtrlC`, not as a chord.
 
-### Compatibility syntax
+### Chords must be atomic
 
-The sequential syntax `[Ctrl]c` is accepted as a compatibility alias and emits
-the same single control byte as `[Ctrl+C]`. New and migrated tests should use
-the atomic form because its intent and timing are unambiguous.
+The sequential syntax `[Ctrl]c` is not supported. Ctrl has no standalone input
+sequence in a terminal byte stream, so a chord must use one atomic descriptor.
 
 ```js
-// Supported for compatibility
+// Unsupported: Ctrl has no standalone terminal input
 userEvent.keyboard("[Ctrl]c");
 
-// Preferred in v4
+// One atomic Ctrl+C action
 userEvent.keyboard("[Ctrl+C]");
 ```
 
@@ -69,8 +68,8 @@ A chord emits one control character. For example, `[Ctrl+C]` writes only
 the delay applies between the chord and surrounding keys, not between `Ctrl`
 and `C`.
 
-If a test intentionally needs Ctrl+C followed by a literal `c`, send them as
-separate keyboard calls:
+If a test intentionally needs Ctrl+C followed by a literal `c`, send the chord
+and character as separate actions:
 
 ```js
 userEvent.keyboard("[Ctrl+C]");
@@ -117,9 +116,8 @@ userEvent.keyboard("[Confirm]", {
 The first matching descriptor wins, so put overrides before
 `...defaultKeyMap`.
 
-`Ctrl` and `Control` are reserved modifier names when followed by a compatible
-key. Rename custom descriptors that previously used either name for an
-unrelated action.
+`Ctrl` and `Control` are modifier names on the left side of `+` inside a chord
+descriptor. They are not standalone named keys.
 
 ## Named key additions
 
@@ -134,9 +132,9 @@ need a custom map or direct `fireEvent.write` calls.
 ## Migration checklist
 
 - Replace Ctrl workarounds with `[Ctrl+<key>]` descriptors.
-- Prefer `[Ctrl+C]` over the compatibility form `[Ctrl]c`.
+- Replace sequential forms such as `[Ctrl]c` with `[Ctrl+C]`.
 - Update assertions that expected `Unknown` for printable or Unicode input.
 - Remove printable-character entries from custom keyboard maps.
-- Rename custom `Ctrl` or `Control` descriptors used for non-modifier actions.
+- Review custom chord descriptors that use `Ctrl` or `Control` before `+`.
 - Verify terminal-specific custom keys on every operating system in your test
   matrix.

@@ -53,8 +53,6 @@ export const defaultKeyMap: Array<keyboardKey> = [
   { code: "Tab", hex: "\x09" },
   { code: "Backspace", hex: "\x08" },
   { code: "Enter", hex: "\x0d" },
-  { code: "Ctrl", hex: "\x03" },
-  { code: "Control", hex: "\x03" },
   { code: "Escape", hex: "\x1b" },
   { code: "ShiftTab", hex: "\x1b[Z" },
 

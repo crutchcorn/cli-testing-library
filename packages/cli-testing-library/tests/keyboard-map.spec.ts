@@ -58,6 +58,14 @@ describe("named keys", () => {
 });
 
 describe("Ctrl chords", () => {
+  test("does not define standalone Ctrl descriptors", () => {
+    expect(
+      defaultKeyMap.some((key) =>
+        ["ctrl", "control"].includes(key.code?.toLowerCase() ?? ""),
+      ),
+    ).toBe(false);
+  });
+
   test.each([
     ["[Ctrl+C]", "\x03"],
     ["[Control+D]", "\x04"],
@@ -73,8 +81,8 @@ describe("Ctrl chords", () => {
     expect(encodeKeyboardInput(input)).toBe(expected);
   });
 
-  test("keeps sequential Ctrl syntax as a compatibility alias", () => {
-    expect(encodeKeyboardInput("[Ctrl]c")).toBe("\x03");
+  test("does not interpret sequential descriptors as a chord", () => {
+    expect(encodeKeyboardInput("[Ctrl]c")).toBe("Unknownc");
   });
 });
 

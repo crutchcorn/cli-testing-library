@@ -20,9 +20,7 @@ export function getNextKeyDef(
   consumedLength: number;
 } {
   const descriptor = readNextDescriptor(text);
-  const controlChord =
-    readInlineControlChord(descriptor, options) ??
-    readSequentialControlChord(text, descriptor, options);
+  const controlChord = readInlineControlChord(descriptor, options);
 
   if (controlChord) return controlChord;
 
@@ -96,36 +94,6 @@ function readInlineControlChord(
       hex: controlCharacter,
     },
     consumedLength: descriptor.consumedLength,
-  };
-}
-
-function readSequentialControlChord(
-  text: string,
-  descriptor: KeyDescriptor,
-  options: keyboardOptions,
-): { keyDef: keyboardKey; consumedLength: number } | undefined {
-  if (
-    descriptor.type !== "[" ||
-    !["control", "ctrl"].includes(descriptor.descriptor.toLowerCase()) ||
-    text.length === descriptor.consumedLength
-  ) {
-    return undefined;
-  }
-
-  const nextDescriptor = readNextDescriptor(
-    text.slice(descriptor.consumedLength),
-  );
-  const nextKey = resolveKeyDef(nextDescriptor, options);
-  const controlCharacter = toControlCharacter(nextKey.hex);
-
-  if (controlCharacter === undefined) return undefined;
-
-  return {
-    keyDef: {
-      code: `${descriptor.descriptor}+${nextDescriptor.descriptor}`,
-      hex: controlCharacter,
-    },
-    consumedLength: descriptor.consumedLength + nextDescriptor.consumedLength,
   };
 }
 
