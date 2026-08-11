@@ -1,4 +1,5 @@
 import { cleanup } from "./pure";
+import { testRunnerGlobals } from "./test-runner-globals";
 
 // if we're running in a test runner that supports afterEach
 // or teardown then we'll automatically run cleanup afterEach test
@@ -11,15 +12,15 @@ if (
 ) {
   // ignore teardown() in code coverage because Jest does not support it
   /* istanbul ignore else */
-  if (typeof afterEach === "function") {
-    afterEach(async () => {
+  if (typeof testRunnerGlobals.afterEach === "function") {
+    testRunnerGlobals.afterEach(async () => {
       await cleanup();
     });
-  } else if (typeof teardown === "function") {
+  } else if (typeof testRunnerGlobals.teardown === "function") {
     // Block is guarded by `typeof` check.
     // eslint does not support `typeof` guards.
 
-    teardown(async () => {
+    testRunnerGlobals.teardown(async () => {
       await cleanup();
     });
   }
