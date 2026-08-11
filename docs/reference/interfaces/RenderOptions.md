@@ -17,7 +17,7 @@ cwd: string;
 
 Defined in: [pure.ts:25](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/pure.ts#L25)
 
----
+***
 
 ### debug
 
@@ -27,7 +27,7 @@ debug: boolean;
 
 Defined in: [pure.ts:26](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/pure.ts#L26)
 
----
+***
 
 ### spawnOpts
 

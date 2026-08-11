@@ -6,7 +6,10 @@ title: render
 # Function: render()
 
 ```ts
-function render(command, args?, opts?): Promise<RenderResult>;
+function render(
+   command, 
+   args?, 
+opts?): Promise<RenderResult>;
 ```
 
 Defined in: [pure.ts:40](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/pure.ts#L40)

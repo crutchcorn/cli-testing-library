@@ -17,7 +17,7 @@ asyncUtilTimeout: number;
 
 Defined in: [config.ts:13](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L13)
 
----
+***
 
 ### errorDebounceTimeout
 
@@ -27,7 +27,7 @@ errorDebounceTimeout: number;
 
 Defined in: [config.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L15)
 
----
+***
 
 ### getInstanceError
 
@@ -51,7 +51,7 @@ Defined in: [config.ts:18](https://github.com/crutchcorn/cli-testing-library/blo
 
 `Error`
 
----
+***
 
 ### renderAwaitTime
 
@@ -61,7 +61,7 @@ renderAwaitTime: number;
 
 Defined in: [config.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L14)
 
----
+***
 
 ### showOriginalStackTrace
 
@@ -71,7 +71,7 @@ showOriginalStackTrace: boolean;
 
 Defined in: [config.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L16)
 
----
+***
 
 ### throwSuggestions
 
@@ -81,7 +81,7 @@ throwSuggestions: boolean;
 
 Defined in: [config.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/config.ts#L17)
 
----
+***
 
 ### unstable\_advanceTimersWrapper
 

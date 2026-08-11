@@ -21,7 +21,7 @@ optional collapseWhitespace?: boolean;
 
 Defined in: [matches.ts:39](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L39)
 
----
+***
 
 ### stripAnsi?
 
@@ -31,7 +31,7 @@ optional stripAnsi?: boolean;
 
 Defined in: [matches.ts:40](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L40)
 
----
+***
 
 ### trim?
 

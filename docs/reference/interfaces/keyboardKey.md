@@ -19,7 +19,7 @@ Defined in: [user-event/keyboard/types.ts:10](https://github.com/crutchcorn/cli-
 
 Physical location on a keyboard
 
----
+***
 
 ### hex?
 

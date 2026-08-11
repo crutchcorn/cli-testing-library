@@ -15,7 +15,7 @@ Defined in: [helpers.ts:56](https://github.com/crutchcorn/cli-testing-library/bl
 
 ### T
 
-`T` _extends_ (...`args`) => `void`
+`T` *extends* (...`args`) => `void`
 
 ## Parameters
 

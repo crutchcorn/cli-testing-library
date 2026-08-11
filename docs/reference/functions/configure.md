@@ -15,8 +15,8 @@ Defined in: [config.ts:77](https://github.com/crutchcorn/cli-testing-library/blo
 
 ### newConfig
 
-\| [`ConfigFn`](../interfaces/ConfigFn.md)
-\| `Partial`\<[`Config`](../interfaces/Config.md)\>
+  \| [`ConfigFn`](../interfaces/ConfigFn.md)
+  \| `Partial`\<[`Config`](../interfaces/Config.md)\>
 
 ## Returns
 

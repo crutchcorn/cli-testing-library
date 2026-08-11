@@ -25,7 +25,7 @@ Defined in: [matches.ts:39](https://github.com/crutchcorn/cli-testing-library/bl
 
 [`DefaultNormalizerOptions`](DefaultNormalizerOptions.md).[`collapseWhitespace`](DefaultNormalizerOptions.md#collapsewhitespace)
 
----
+***
 
 ### normalizer?
 
@@ -35,7 +35,7 @@ optional normalizer?: NormalizerFn;
 
 Defined in: [matches.ts:14](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L14)
 
----
+***
 
 ### stripAnsi?
 
@@ -49,7 +49,7 @@ Defined in: [matches.ts:40](https://github.com/crutchcorn/cli-testing-library/bl
 
 [`DefaultNormalizerOptions`](DefaultNormalizerOptions.md).[`stripAnsi`](DefaultNormalizerOptions.md#stripansi)
 
----
+***
 
 ### trim?
 

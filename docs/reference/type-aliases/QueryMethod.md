@@ -15,7 +15,7 @@ Defined in: [query-helpers.ts:21](https://github.com/crutchcorn/cli-testing-libr
 
 ### TArguments
 
-`TArguments` _extends_ `any`[]
+`TArguments` *extends* `any`[]
 
 ### TReturn
 

@@ -17,7 +17,7 @@ optional instance?: TestInstance;
 
 Defined in: [wait-for.ts:15](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L15)
 
----
+***
 
 ### interval?
 
@@ -27,7 +27,7 @@ optional interval?: number;
 
 Defined in: [wait-for.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L18)
 
----
+***
 
 ### onTimeout?
 
@@ -47,7 +47,7 @@ Defined in: [wait-for.ts:19](https://github.com/crutchcorn/cli-testing-library/b
 
 `Error`
 
----
+***
 
 ### showOriginalStackTrace?
 
@@ -57,7 +57,7 @@ optional showOriginalStackTrace?: boolean;
 
 Defined in: [wait-for.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L16)
 
----
+***
 
 ### stackTraceError?
 
@@ -67,7 +67,7 @@ optional stackTraceError?: Error;
 
 Defined in: [wait-for.ts:20](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/wait-for.ts#L20)
 
----
+***
 
 ### timeout?
 

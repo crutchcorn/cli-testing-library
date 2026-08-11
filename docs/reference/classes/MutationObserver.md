@@ -41,7 +41,7 @@ Defined in: [mutation-observer.ts:10](https://github.com/crutchcorn/cli-testing-
 
 `void`
 
----
+***
 
 ### \_id
 
@@ -65,7 +65,7 @@ Defined in: [mutation-observer.ts:22](https://github.com/crutchcorn/cli-testing-
 
 `void`
 
----
+***
 
 ### observe()
 

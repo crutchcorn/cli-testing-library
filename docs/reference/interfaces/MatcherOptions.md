@@ -1,15 +1,15 @@
 ---
-id: SelectorMatcherOptions
-title: SelectorMatcherOptions
+id: MatcherOptions
+title: MatcherOptions
 ---
 
-# Interface: SelectorMatcherOptions
+# Interface: MatcherOptions
 
-Defined in: [query-helpers.ts:16](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L16)
+Defined in: [matches.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L17)
 
-## Extends
+## Extended by
 
-- [`MatcherOptions`](MatcherOptions.md)
+- [`SelectorMatcherOptions`](SelectorMatcherOptions.md)
 
 ## Properties
 
@@ -23,11 +23,7 @@ Defined in: [matches.ts:24](https://github.com/crutchcorn/cli-testing-library/bl
 
 Use normalizer with getDefaultNormalizer instead
 
-#### Inherited from
-
-[`MatcherOptions`](MatcherOptions.md).[`collapseWhitespace`](MatcherOptions.md#collapsewhitespace)
-
----
+***
 
 ### exact?
 
@@ -37,21 +33,7 @@ optional exact?: boolean;
 
 Defined in: [matches.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L18)
 
-#### Inherited from
-
-[`MatcherOptions`](MatcherOptions.md).[`exact`](MatcherOptions.md#exact)
-
----
-
-### ignore?
-
-```ts
-optional ignore?: string | boolean;
-```
-
-Defined in: [query-helpers.ts:18](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L18)
-
----
+***
 
 ### normalizer?
 
@@ -61,21 +43,7 @@ optional normalizer?: NormalizerFn;
 
 Defined in: [matches.ts:25](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L25)
 
-#### Inherited from
-
-[`MatcherOptions`](MatcherOptions.md).[`normalizer`](MatcherOptions.md#normalizer)
-
----
-
-### selector?
-
-```ts
-optional selector?: string;
-```
-
-Defined in: [query-helpers.ts:17](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/query-helpers.ts#L17)
-
----
+***
 
 ### stripAnsi?
 
@@ -87,11 +55,7 @@ Defined in: [matches.ts:22](https://github.com/crutchcorn/cli-testing-library/bl
 
 Use normalizer with getDefaultNormalizer instead
 
-#### Inherited from
-
-[`MatcherOptions`](MatcherOptions.md).[`stripAnsi`](MatcherOptions.md#stripansi)
-
----
+***
 
 ### suggest?
 
@@ -103,11 +67,7 @@ Defined in: [matches.ts:27](https://github.com/crutchcorn/cli-testing-library/bl
 
 suppress suggestions for a specific query
 
-#### Inherited from
-
-[`MatcherOptions`](MatcherOptions.md).[`suggest`](MatcherOptions.md#suggest)
-
----
+***
 
 ### trim?
 
@@ -118,7 +78,3 @@ optional trim?: boolean;
 Defined in: [matches.ts:20](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/matches.ts#L20)
 
 Use normalizer with getDefaultNormalizer instead
-
-#### Inherited from
-
-[`MatcherOptions`](MatcherOptions.md).[`trim`](MatcherOptions.md#trim)

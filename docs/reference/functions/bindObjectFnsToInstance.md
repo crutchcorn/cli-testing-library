@@ -6,10 +6,7 @@ title: bindObjectFnsToInstance
 # Function: bindObjectFnsToInstance()
 
 ```ts
-function bindObjectFnsToInstance(
-  instance,
-  object,
-): Record<string, (...props) => unknown>;
+function bindObjectFnsToInstance(instance, object): Record<string, (...props) => unknown>;
 ```
 
 Defined in: [helpers.ts:75](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/helpers.ts#L75)

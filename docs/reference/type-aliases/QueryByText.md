@@ -15,7 +15,7 @@ Defined in: [queries/text.ts:15](https://github.com/crutchcorn/cli-testing-libra
 
 ### T
 
-`T` _extends_ `TestInstance` = `TestInstance`
+`T` *extends* `TestInstance` = `TestInstance`
 
 ## Parameters
 

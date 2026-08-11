@@ -6,10 +6,7 @@ title: Query
 # Type Alias: Query
 
 ```ts
-type Query = (
-  container,
-  ...args
-) =>
+type Query = (container, ...args) => 
   | Error
   | TestInstance
   | TestInstance[]
@@ -32,9 +29,9 @@ Defined in: [get-queries-for-instance.ts:29](https://github.com/crutchcorn/cli-t
 
 ## Returns
 
-\| `Error`
-\| `TestInstance`
-\| `TestInstance`[]
-\| `Promise`\<`TestInstance`[]\>
-\| `Promise`\<`TestInstance`\>
-\| `null`
+  \| `Error`
+  \| `TestInstance`
+  \| `TestInstance`[]
+  \| `Promise`\<`TestInstance`[]\>
+  \| `Promise`\<`TestInstance`\>
+  \| `null`
