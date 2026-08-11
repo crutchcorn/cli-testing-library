@@ -9,7 +9,7 @@ title: setCurrentInstance
 function setCurrentInstance(newInstance): void;
 ```
 
-Defined in: [helpers.ts:52](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/helpers.ts#L52)
+Defined in: [helpers.ts:53](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/helpers.ts#L53)
 
 ## Parameters
 
