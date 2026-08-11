@@ -3,6 +3,7 @@
 import { getCurrentInstance, jestFakeTimersAreEnabled } from "./helpers";
 import { MutationObserver } from "./mutation-observer";
 import { getConfig } from "./config";
+import { testRunnerGlobals } from "./test-runner-globals";
 import type { TestInstance } from "./types";
 
 // This is so the stack trace the developer sees is one that's
@@ -81,10 +82,10 @@ function waitFor<T>(
         // the user's timer's don't get a chance to resolve. So we'll advance
         // by an interval instead. (We have a test for this case).
         advanceTimersWrapper(() => {
-          if (typeof jest !== "undefined") {
-            jest.advanceTimersByTime(interval);
-          } else if (typeof vi !== "undefined") {
-            vi.advanceTimersByTime(interval);
+          if (testRunnerGlobals.jest !== undefined) {
+            testRunnerGlobals.jest.advanceTimersByTime(interval);
+          } else if (testRunnerGlobals.vi !== undefined) {
+            testRunnerGlobals.vi.advanceTimersByTime(interval);
           }
         });
 
@@ -102,8 +103,11 @@ function waitFor<T>(
         await advanceTimersWrapper(async () => {
           await new Promise((r) => {
             setTimeout(r, 0);
-            if (typeof jest !== "undefined") jest.advanceTimersByTime(0);
-            else if (typeof vi !== "undefined") vi.advanceTimersByTime(0);
+            if (testRunnerGlobals.jest !== undefined) {
+              testRunnerGlobals.jest.advanceTimersByTime(0);
+            } else if (testRunnerGlobals.vi !== undefined) {
+              testRunnerGlobals.vi.advanceTimersByTime(0);
+            }
           });
         });
       }

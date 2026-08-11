@@ -1,10 +1,11 @@
+import { testRunnerGlobals } from "./test-runner-globals";
 import type { TestInstance } from "./types";
 
 function jestFakeTimersAreEnabled() {
   /* istanbul ignore else */
   if (
-    (typeof vi !== "undefined" && vi.isFakeTimers && vi.isFakeTimers()) ||
-    (typeof jest !== "undefined" && jest !== null)
+    (testRunnerGlobals.vi?.isFakeTimers?.() ?? false) ||
+    testRunnerGlobals.jest !== undefined
   ) {
     return (
       // legacy timers
@@ -24,8 +25,8 @@ function jestFakeTimersAreEnabled() {
 
 const instanceRef = { current: undefined as TestInstance | undefined };
 
-if (typeof afterEach === "function") {
-  afterEach(() => {
+if (typeof testRunnerGlobals.afterEach === "function") {
+  testRunnerGlobals.afterEach(() => {
     instanceRef.current = undefined;
   });
 }
