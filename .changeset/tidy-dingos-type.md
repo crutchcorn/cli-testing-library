@@ -2,4 +2,6 @@
 "cli-testing-library": patch
 ---
 
-Support forward slashes, backslashes, and Ctrl+C in `userEvent.keyboard`.
+Write printable and Unicode text without manual key-map entries, support Ctrl
+chords, and add common terminal navigation and function keys to
+`userEvent.keyboard`.

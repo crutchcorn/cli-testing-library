@@ -7,9 +7,10 @@ enum bracketDict {
 /**
  * Get the next key from keyMap
  *
- * Keys can be referenced by `{key}` or `{special}` as well as physical locations per `[code]`.
+ * Named keys can be referenced by physical locations per `[code]`.
  * Everything else will be interpreted as a typed character - e.g. `a`.
- * Brackets `{` and `[` can be escaped by doubling - e.g. `foo[[bar` translates to `foo[bar`.
+ * The opening bracket `[` can be escaped by doubling it - e.g. `foo[[bar`
+ * translates to `foo[bar`.
  */
 export function getNextKeyDef(
   text: string,
@@ -18,22 +19,90 @@ export function getNextKeyDef(
   keyDef: keyboardKey;
   consumedLength: number;
 } {
-  const { type, descriptor, consumedLength } = readNextDescriptor(text);
+  const descriptor = readNextDescriptor(text);
+  const controlChord = readControlChord(text, descriptor, options);
 
-  const keyDef: keyboardKey = options.keyboardMap.find((def) => {
+  if (controlChord) return controlChord;
+
+  return {
+    keyDef: resolveKeyDef(descriptor, options),
+    consumedLength: descriptor.consumedLength,
+  };
+}
+
+type KeyDescriptor = ReturnType<typeof readNextDescriptor>;
+
+function resolveKeyDef(
+  { type, descriptor }: KeyDescriptor,
+  options: keyboardOptions,
+): keyboardKey {
+  const mappedKey = options.keyboardMap.find((def) => {
     if (type === "[") {
       return def.code?.toLowerCase() === descriptor.toLowerCase();
     }
     return def.hex === descriptor;
-  }) ?? {
+  });
+
+  if (mappedKey) return mappedKey;
+
+  if (type === "") {
+    return {
+      code: descriptor,
+      hex: descriptor,
+    };
+  }
+
+  return {
     code: descriptor,
     hex: "Unknown",
   };
+}
+
+function readControlChord(
+  text: string,
+  descriptor: KeyDescriptor,
+  options: keyboardOptions,
+): { keyDef: keyboardKey; consumedLength: number } | undefined {
+  if (
+    descriptor.type !== "[" ||
+    !["control", "ctrl"].includes(descriptor.descriptor.toLowerCase()) ||
+    text.length === descriptor.consumedLength
+  ) {
+    return undefined;
+  }
+
+  const nextDescriptor = readNextDescriptor(
+    text.slice(descriptor.consumedLength),
+  );
+  const nextKey = resolveKeyDef(nextDescriptor, options);
+  const controlCharacter = toControlCharacter(nextKey.hex);
+
+  if (controlCharacter === undefined) return undefined;
 
   return {
-    keyDef,
-    consumedLength,
+    keyDef: {
+      code: `${descriptor.descriptor}+${nextDescriptor.descriptor}`,
+      hex: controlCharacter,
+    },
+    consumedLength: descriptor.consumedLength + nextDescriptor.consumedLength,
   };
+}
+
+function toControlCharacter(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+
+  const characters = Array.from(value);
+  if (characters.length !== 1) return undefined;
+
+  const codePoint = characters[0]!.toUpperCase().codePointAt(0)!;
+
+  if (codePoint === 0x20) return "\x00";
+  if (codePoint >= 0x40 && codePoint <= 0x5f) {
+    return String.fromCharCode(codePoint & 0x1f);
+  }
+  if (codePoint === 0x3f) return "\x7f";
+
+  return undefined;
 }
 
 function readNextDescriptor(text: string) {
@@ -43,8 +112,7 @@ function readNextDescriptor(text: string) {
 
   pos += startBracket.length;
 
-  // `foo[[bar` is an escaped char at position 3,
-  // but `foo[[[>5}bar` should be treated as `{` pressed down for 5 keydowns.
+  // `foo[[bar` is an escaped opening bracket at position 3.
   const startBracketRepeated = startBracket
     ? (text.match(new RegExp(`^\\${startBracket}+`)) as RegExpMatchArray)[0]
         .length
@@ -60,7 +128,9 @@ function readNextDescriptor(text: string) {
 }
 
 function readPrintableChar(text: string, pos: number) {
-  const descriptor = text[pos];
+  const codePoint = text.codePointAt(pos);
+  const descriptor =
+    codePoint === undefined ? undefined : String.fromCodePoint(codePoint);
 
   assertDescriptor(descriptor, text, pos);
 

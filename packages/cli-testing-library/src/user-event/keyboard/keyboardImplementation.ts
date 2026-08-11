@@ -9,22 +9,18 @@ export async function keyboardImplementation(
   text: string,
   options: keyboardOptions,
 ): Promise<void> {
-  const { keyDef, consumedLength } = getNextKeyDef(text, options);
+  let remainingText = text;
 
-  keypress(keyDef, instance);
+  while (remainingText) {
+    const { keyDef, consumedLength } = getNextKeyDef(remainingText, options);
 
-  if (text.length > consumedLength) {
-    if (options.delay > 0) {
+    keypress(keyDef, instance);
+    remainingText = remainingText.slice(consumedLength);
+
+    if (remainingText && options.delay > 0) {
       await wait(options.delay);
     }
-
-    return keyboardImplementation(
-      instance,
-      text.slice(consumedLength),
-      options,
-    );
   }
-  return void undefined;
 }
 
 function keypress(keyDef: keyboardKey, instance: TestInstance) {

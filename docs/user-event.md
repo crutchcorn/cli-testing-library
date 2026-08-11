@@ -58,7 +58,11 @@ Keystrokes can be described:
   ```js
   userEvent.keyboard("foo"); // translates to: f, o, o
   userEvent.keyboard("/test-dir\\"); // forward and backslashes are typed literally
+  userEvent.keyboard("Grüße 👋"); // Unicode text is typed literally too
   ```
+
+  Printable text is written directly to the process. It does not need to be
+  added to the keyboard map.
 
   The bracket `[` is used as a special character and can be referenced by
   doubling it.
@@ -71,18 +75,27 @@ Keystrokes can be described:
   symbol
 
   ```js
-  userEvent.keyboard("[ArrowLeft][KeyF][KeyO][KeyO]"); // translates to: Left Arrow, f, o, o
+  userEvent.keyboard("[ArrowLeft][KeyF][KeyO][KeyO]"); // translates to: Left Arrow, F, O, O
   ```
 
-  This does not keep any key pressed. So `Shift` will be lifted before pressing
-  `f`.
+  Most named keys do not stay pressed. `Ctrl` is the exception: it modifies the
+  next printable or named character in the same string, so `[Ctrl]c` sends the
+  Ctrl+C control character and `[Ctrl]d` sends Ctrl+D.
 
-The mapping of special character strings are performed by a
-[default key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts) portraying a "default"
-US-keyboard. You can provide your own local keyboard mapping per option.
+Named special keys are resolved through the
+[default terminal key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).
+You can provide your own mapping to replace it, or extend the default map with
+application-specific descriptors.
 
 ```js
-userEvent.keyboard("?", { keyboardMap: myOwnLocaleKeyboardMap });
+import { defaultKeyMap } from "cli-testing-library";
+
+userEvent.keyboard("[Confirm]", {
+  keyboardMap: [
+    { code: "Confirm", hex: "\r" },
+    ...defaultKeyMap,
+  ],
+});
 ```
 
 <!-- space out these notes -->
@@ -98,14 +111,21 @@ mentioned previously. Here are some of the ones that are supported:
 | `[Space]`      | `' '`       |
 | `[Escape]`     | Escape      |
 | `[Backspace]`  | Backspace   |
-| `[Ctrl]`       | Ctrl+C      |
+| `[Ctrl]c`      | Ctrl+C      |
+| `[Ctrl]d`      | Ctrl+D      |
+| `[Tab]`        | Tab         |
+| `[ShiftTab]`   | Shift+Tab   |
 | `[Delete]`     | Delete      |
+| `[Insert]`     | Insert      |
 | `[ArrowLeft]`  | Left Arrow  |
 | `[ArrowRight]` | Right Arrow |
 | `[ArrowUp]`    | Up Arrow    |
 | `[ArrowDown]`  | Down Arrow  |
 | `[Home]`       | Home        |
 | `[End]`        | End         |
+| `[PageUp]`     | Page Up     |
+| `[PageDown]`   | Page Down   |
+| `[F1]`–`[F12]` | Function keys |
 
 A full list of supported special characters that can be input can be found
 [in our key mapping file](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).

@@ -6,8 +6,8 @@ export type keyboardOptions = {
 };
 
 export interface keyboardKey {
-  /** Physical location on a keyboard */
+  /** Named key descriptor, such as `Enter` or `ArrowLeft` */
   code?: string;
-  /** Character or functional key hex code */
+  /** String written to stdin (historically named `hex`) */
   hex?: string;
 }
