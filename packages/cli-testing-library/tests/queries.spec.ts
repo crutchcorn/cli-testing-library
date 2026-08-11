@@ -36,7 +36,7 @@ test("queryByText should find text", async () => {
     "--version",
   ]);
 
-  expect(queryByText("--version")).toBeTruthy();
+  await waitFor(() => expect(queryByText("--version")).toBeTruthy());
 });
 
 test("queryByText should not throw errors", async () => {
