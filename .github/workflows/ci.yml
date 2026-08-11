@@ -13,29 +13,41 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: write
-  id-token: write
+permissions: {}
 
 jobs:
   test-and-publish:
     name: Test & Publish
     if: github.repository == 'crutchcorn/cli-testing-library'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
       - name: Setup Tools
-        uses: tanstack/config/.github/setup@main
+        uses: tanstack/config/.github/setup@0b5996988cf0938ae77119e0164f9738a453d7c8 # main
       - name: Run Tests
         run: pnpm run test:ci --parallel=3
-      - name: Publish
+      - name: Setup npm Trusted Publishing
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Configure Git
         run: |
           git config --global user.name 'Corbin Crutchley'
           git config --global user.email 'git@crutchcorn.dev'
-          npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-          pnpm run cipublish
+          gh auth setup-git
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish
+        run: pnpm run cipublish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ inputs.tag }}
