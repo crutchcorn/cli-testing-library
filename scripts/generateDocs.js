@@ -4,7 +4,7 @@ import { generateReferenceDocs } from "@tanstack/typedoc-config";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-/** @type {import('@tanstack/typedoc-config').Package[]} */
+/** @type {Parameters<typeof generateReferenceDocs>[0]["packages"]} */
 const packages = [
   {
     name: "cli-testing-library",
