@@ -100,7 +100,7 @@ to <code dir="auto">await</code>!</p>
 <ul>
 <li>
 <p>Per printable character</p>
-<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="js"><code><div class="ec-line"><div class="code"><span style="--0:#7FDBCA;--1:#096E72">userEvent</span><span style="--0:#C792EA;--1:#8844AE">.</span><span style="--0:#82AAFF;--1:#3B61B0">keyboard</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">foo</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">); </span><span style="--0:#919F9F;--1:#5D6376">// translates to: f, o, o</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="userEvent.keyboard(&quot;foo&quot;); // translates to: f, o, o"><div></div></button></div></figure></div>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="js"><code><div class="ec-line"><div class="code"><span style="--0:#7FDBCA;--1:#096E72">userEvent</span><span style="--0:#C792EA;--1:#8844AE">.</span><span style="--0:#82AAFF;--1:#3B61B0">keyboard</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">foo</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">); </span><span style="--0:#919F9F;--1:#5D6376">// translates to: f, o, o</span></div></div><div class="ec-line"><div class="code"><span style="--0:#7FDBCA;--1:#096E72">userEvent</span><span style="--0:#C792EA;--1:#8844AE">.</span><span style="--0:#82AAFF;--1:#3B61B0">keyboard</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">/test-dir</span><span style="--0:#F78C6C;--1:#AA0982">\\</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">); </span><span style="--0:#919F9F;--1:#5D6376">// forward and backslashes are typed literally</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="userEvent.keyboard(&quot;foo&quot;); // translates to: f, o, ouserEvent.keyboard(&quot;/test-dir\\&quot;); // forward and backslashes are typed literally"><div></div></button></div></figure></div>
 <p>The bracket <code dir="auto">[</code> is used as a special character and can be referenced by
 doubling it.</p>
 <div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="js"><code><div class="ec-line"><div class="code"><span style="--0:#7FDBCA;--1:#096E72">userEvent</span><span style="--0:#C792EA;--1:#8844AE">.</span><span style="--0:#82AAFF;--1:#3B61B0">keyboard</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#984E4D">a[[</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">); </span><span style="--0:#919F9F;--1:#5D6376">// translates to: a, [</span></div></div></code></pre><div class="copy"><div aria-live="polite"></div><button title="Copy to clipboard" data-copied="Copied!" data-code="userEvent.keyboard(&quot;a[[&quot;); // translates to: a, ["><div></div></button></div></figure></div>
@@ -144,6 +144,10 @@ mentioned previously. Here are some of the ones that are supported:</p>
 <tr>
 <td><code dir="auto">[Backspace]</code></td>
 <td>Backspace</td>
+</tr>
+<tr>
+<td><code dir="auto">[Ctrl]</code></td>
+<td>Ctrl+C</td>
 </tr>
 <tr>
 <td><code dir="auto">[Delete]</code></td>
