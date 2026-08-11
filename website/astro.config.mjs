@@ -37,6 +37,10 @@ export default defineConfig({
           label: "Guides",
           items: [
             { label: "Introduction", slug: "guides/introduction" },
+            {
+              label: "Migrating from v3 to v4",
+              slug: "guides/migrating-from-v3-to-v4",
+            },
             { label: "API", slug: "guides/api" },
             { label: "Configuration Options", slug: "guides/configure" },
             { label: "Debug", slug: "guides/debug" },

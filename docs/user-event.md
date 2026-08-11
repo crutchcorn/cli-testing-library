@@ -5,6 +5,10 @@ title: "User Event"
 [`user-event`][gh] is a helper that provides more advanced simulation of CLI
 interactions than the [`fireEvent`](./fire-event.md) method.
 
+> Upgrading from v3? See the
+> [v3 to v4 migration guide](./migrating-from-v3-to-v4.md) for keyboard-input
+> changes.
+
 ## Import
 
 `userEvent` can be used either as a global import or as returned from `render`:
@@ -58,7 +62,11 @@ Keystrokes can be described:
   ```js
   userEvent.keyboard("foo"); // translates to: f, o, o
   userEvent.keyboard("/test-dir\\"); // forward and backslashes are typed literally
+  userEvent.keyboard("Grüße 👋"); // Unicode text is typed literally too
   ```
+
+  Printable text is written directly to the process. It does not need to be
+  added to the keyboard map.
 
   The bracket `[` is used as a special character and can be referenced by
   doubling it.
@@ -71,21 +79,42 @@ Keystrokes can be described:
   symbol
 
   ```js
-  userEvent.keyboard("[ArrowLeft][KeyF][KeyO][KeyO]"); // translates to: Left Arrow, f, o, o
+  userEvent.keyboard("[ArrowLeft][KeyF][KeyO][KeyO]"); // translates to: Left Arrow, F, O, O
   ```
 
-  This does not keep any key pressed. So `Shift` will be lifted before pressing
-  `f`.
+Named special keys are resolved through the
+[default terminal key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).
+You can provide your own mapping to replace it, or extend the default map with
+application-specific descriptors.
 
-The mapping of special character strings are performed by a
-[default key map](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts) portraying a "default"
-US-keyboard. You can provide your own local keyboard mapping per option.
+The default map targets Node `readline` and xterm-compatible input over a piped
+stdin. Its raw bytes and decoded Node keypress events are tested on Linux,
+macOS, and Windows. This does not emulate a real PTY; programs that require a
+TTY or another terminal protocol may need a custom map or direct `fireEvent`
+calls.
 
 ```js
-userEvent.keyboard("?", { keyboardMap: myOwnLocaleKeyboardMap });
+import { defaultKeyMap } from "cli-testing-library";
+
+userEvent.keyboard("[Confirm]", {
+  keyboardMap: [
+    { code: "Confirm", hex: "\r" },
+    ...defaultKeyMap,
+  ],
+});
 ```
 
 <!-- space out these notes -->
+
+#### Chording
+
+Chords use `+` inside a single descriptor. For example, `[Ctrl+C]` sends the
+Ctrl+C control character and `[Ctrl+D]` sends Ctrl+D. Sequential forms such as
+`[Ctrl]c` are not supported because Ctrl has no standalone terminal input.
+
+A chord emits one control character. For example, `[Ctrl+C]` writes only
+`0x03`. When `options.delay` is set, the delay applies between the chord and
+surrounding keys, not between `Ctrl` and `C`.
 
 #### Special characters
 
@@ -98,14 +127,21 @@ mentioned previously. Here are some of the ones that are supported:
 | `[Space]`      | `' '`       |
 | `[Escape]`     | Escape      |
 | `[Backspace]`  | Backspace   |
-| `[Ctrl]`       | Ctrl+C      |
+| `[Ctrl+C]`     | Ctrl+C      |
+| `[Ctrl+D]`     | Ctrl+D      |
+| `[Tab]`        | Tab         |
+| `[ShiftTab]`   | Shift+Tab   |
 | `[Delete]`     | Delete      |
+| `[Insert]`     | Insert      |
 | `[ArrowLeft]`  | Left Arrow  |
 | `[ArrowRight]` | Right Arrow |
 | `[ArrowUp]`    | Up Arrow    |
 | `[ArrowDown]`  | Down Arrow  |
 | `[Home]`       | Home        |
 | `[End]`        | End         |
+| `[PageUp]`     | Page Up     |
+| `[PageDown]`   | Page Down   |
+| `[F1]`–`[F12]` | Function keys |
 
 A full list of supported special characters that can be input can be found
 [in our key mapping file](../packages/cli-testing-library/src/user-event/keyboard/keyMap.ts).

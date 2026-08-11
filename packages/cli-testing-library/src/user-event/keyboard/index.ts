@@ -4,6 +4,7 @@ import type { TestInstance } from "../../types";
 import type { keyboardKey, keyboardOptions } from "./types";
 
 export type { keyboardOptions, keyboardKey };
+export { defaultKeyMap } from "./keyMap";
 
 export function keyboard(
   instance: TestInstance,

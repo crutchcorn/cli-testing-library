@@ -6,4 +6,5 @@ const userEvent = {
 
 export default userEvent;
 
-export type { keyboardKey } from "./keyboard/index";
+export { defaultKeyMap } from "./keyboard/index";
+export type { keyboardKey, keyboardOptions } from "./keyboard/index";

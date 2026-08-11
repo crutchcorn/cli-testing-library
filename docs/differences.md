@@ -76,10 +76,10 @@ However, there are a few differences here as well:
 1. `userEvent` can be bound to the `render` output. This is due to limitations
    of not having a `screen` API. It's unclear how this would work in practice,
    due to a lack of the `window` API.
-2. `userEvent.keyboard` does not support modifier keys. It's only key-presses,
-   no holding. This is because of API differences that would require us to
-   figure out a manual binding system for every single key using ANSI AFAIK.
-3. Relatedly, we've remove the `{` syntax support, since there is no standard
+2. `userEvent.keyboard` supports atomic Ctrl chords such as `[Ctrl+C]`, but it
+   does not model arbitrary modifier-key state or held keys. Shift, Alt, and
+   Meta chords are not currently supported.
+3. Relatedly, we've removed the `{` syntax support, since there is no standard
    keybinding for the CLI,
    [like there is for the DOM](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code).
    Instead, we only support `[` and `]` syntax.

@@ -17,7 +17,7 @@ optional code?: string;
 
 Defined in: [user-event/keyboard/types.ts:10](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L10)
 
-Physical location on a keyboard
+Named key descriptor, such as `Enter` or `ArrowLeft`
 
 ***
 
@@ -29,4 +29,4 @@ optional hex?: string;
 
 Defined in: [user-event/keyboard/types.ts:12](https://github.com/crutchcorn/cli-testing-library/blob/main/packages/cli-testing-library/src/user-event/keyboard/types.ts#L12)
 
-Character or functional key hex code
+String written to stdin (historically named `hex`)
