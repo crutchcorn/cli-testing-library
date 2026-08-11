@@ -5,6 +5,10 @@ title: "User Event"
 [`user-event`][gh] is a helper that provides more advanced simulation of CLI
 interactions than the [`fireEvent`](./fire-event.md) method.
 
+> Upgrading from v3? See the
+> [v3 to v4 migration guide](./migrating-from-v3-to-v4.md) for keyboard-input
+> changes.
+
 ## Import
 
 `userEvent` can be used either as a global import or as returned from `render`:

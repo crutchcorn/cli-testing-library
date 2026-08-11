@@ -51,6 +51,7 @@ will work when a real user uses it.
 
 # Further Reading
 
+- [Migrating from v3 to v4](./migrating-from-v3-to-v4.md)
 - [API reference for `render` and friends](./api.md)
 - [Jest and Vitest matchers](./matchers.md)
 - [Mock user input](./user-event.md)
